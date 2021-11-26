@@ -30,15 +30,15 @@ export default function AdminTemplate({Component,...props}){
         <Route {...props}
             render = {(propsComponent)=>{
                 console.log("propsComponent from admin.layout",propsComponent);
-                if(localStorage.getItem("accessToken")){
+                // if(localStorage.getItem("accessToken")){
                     return(
                         <AdminLayout>
                             <Component {...propsComponent} />
                         </AdminLayout>           
                     )
-                }
+                // }
 
-                return <Redirect to="/" />
+                // return <Redirect to="/" />
             }}
         />
     //     <Route {...props}
