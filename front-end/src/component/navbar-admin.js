@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
+import NavbarClick from './navbar-click'
 
 class Navbar extends Component {
     constructor(props){
@@ -39,7 +40,8 @@ class Navbar extends Component {
             <div className="navbar">
                 <div className="navbar-content">
                     <div className="navbar-left">
-                        <h3>{this.state.title}</h3>
+                        <h3><NavbarClick />&emsp;{this.state.title}</h3>
+                        
                     </div>
                     <div className="navbar-right">
                         <div className="navbar-right-item">

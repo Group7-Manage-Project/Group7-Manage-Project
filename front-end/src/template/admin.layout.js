@@ -11,11 +11,11 @@ function AdminLayout(props){
     console.log("path", path)
     console.log("props.children.props",props.children)
     return(
-        <div className="row admin-layout-container" style={{margin: "0px"}}>
-            <div className="col-md-2 admin-layout-left" >
+        <div className="admin-layout-container">
+            <div className="admin-layout-left" >
                 <Sidebar />
             </div>
-            <div className="col-md-10 admin-layout-right container" style={{overflow: "hidden"}}>
+            <div className="admin-layout-right">
                 <Navbar path= {path}/>
                 <div className="admin-layout-right-container">
                     {props.children}
