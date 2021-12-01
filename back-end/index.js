@@ -27,6 +27,7 @@ app.use(cors());
 /* Router */
 require('./app/router/staff.router')(app);
 require('./app/router/task.router')(app);
+require('./app/router/category_task.router')(app);
 
 /* /Router */
 
