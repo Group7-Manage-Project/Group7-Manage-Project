@@ -108,16 +108,22 @@ Task.detail = function(task_id, result) {
         FROM TASK A, STAFF B
         WHERE A.FINISH_ID = B.EMPLOYEE_ID AND A.TASK_ID = ?
     ),
+    CATEGORY_TASK_T AS
+    (
+        SELECT A.CATEGORY_TASK_ID, B.CATEGORY_NAME
+        FROM TASK A, CATEGORY_TASK B
+        WHERE A.CATEGORY_TASK_ID = B.CATEGORY_TASK_ID AND A.TASK_ID = ?
+    ),
     TASK_T AS
     (
         SELECT *
         FROM TASK
         WHERE TASK_ID = ?
     )
-    SELECT A.*, B.*,C.*,D.*,E.*,F.*,G.*, H.* 
-    FROM TASK_T A,REGISTER_T B,ASSIGNEE_T C,CONFIRMATION_T D,IMPLEMENTATION_T E,TEST_T F,APPROVAL_T G,FINISH_T H
+    SELECT A.*, B.*,C.*,D.*,E.*,F.*,G.*, H.*, I.*
+    FROM TASK_T A,REGISTER_T B,ASSIGNEE_T C,CONFIRMATION_T D,IMPLEMENTATION_T E,TEST_T F,APPROVAL_T G,FINISH_T H, CATEGORY_TASK_T I
     `;
-    db.query(query,[task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id],function(err, task){
+    db.query(query,[task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id],function(err, task){
         if(err || task.length == 0){
             result("Không có task cần tìm");
         }
@@ -146,7 +152,7 @@ Task.create = function(data,file,result){
     if(file && file !== undefined){
         db.query(query,[data.job,data.status,data.category,data.title,data.progress,data.effort,data.important,data.description,file.filename,data.assignee_id,data.register_user_id,data.confirmation_id,data.implementation_id,data.test_id,data.approval_id,data.finish_id,data.end_date,data.step,data.category_task_id],function(err){
             if(err){
-                result("Thêm task thất bại :( ") //file.filename truyền cho nó tên file, file name vào database, để truy xuất cho nó dễ
+                result("Thêm task thất bại :( ")
             }
             else{
                 result("Thêm task thành công :)")
@@ -224,7 +230,7 @@ Task.count_task_category = function(result) {
     // SELECT A.*, B.*, C.*
     // FROM COUNT_KFC A, COUNT_CYBER B, COUNT_TOTAL_TASK C
     // `;
-    const query = "   SELECT CATEGORY, COUNT(JOB) AS COUNT_TASK FROM TASK GROUP BY CATEGORY";
+    const query = "SELECT CATEGORY, COUNT(JOB) AS COUNT_TASK FROM TASK GROUP BY CATEGORY";
     db.query(query, function(err, task){
         if(err){
             result("Lấy danh sách Task không thành công :(");

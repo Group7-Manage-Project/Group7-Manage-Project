@@ -21,7 +21,7 @@ module.exports = function(router){
     router.get('/api/task/list', taskController.get_list_task)
     router.get('/api/task/detail/:task_id', taskController.details_task)
     router.post('/api/task/insert', upload.single('file'), taskController.insert_task) 
-    router.put('/api/task/update', taskController.update_task)
+    router.put('/api/task/update', upload.single('file'), taskController.update_task)
     // router.delete('/api/task/delete/:task_id',taskController.delete_task)
     router.get('/api/task/count/category', taskController.count_task_category)
     router.get('/api/task/count/employee-phase', taskController.count_employees_phase)
