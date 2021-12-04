@@ -32,7 +32,7 @@ const options = [
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>
                 <span><img src={logo} alt="logo" width="60" height="60" /></span>&emsp;
-                <span style ={{fontSize:"30px", color:"#008037", fontWeight:"700"}}>Team 7</span>
+                <span style ={{fontSize:"30px", color:"#008037", fontWeight:"700"}}>Team 6</span>
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
