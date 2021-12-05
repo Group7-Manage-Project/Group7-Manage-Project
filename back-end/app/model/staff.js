@@ -145,7 +145,7 @@ Staff.login = function(data,result){
     const query = "SELECT USER_NAME,ROLL,FULL_NAME FROM STAFF WHERE USER_NAME = ? AND PASSWORD = ?";
     db.query(query,[data.user_name, data.password], function(err,staff){
         if(staff.length > 0){
-            let token = jwt.sign({staff},'hoangnt18@uef.edu.vn',{algorithm:'HS256',expiresIn:'3h'})
+            let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'3h'})
             console.log("staff",staff);
             result({access_token:token,staff:staff});
         }
