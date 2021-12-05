@@ -1,17 +1,17 @@
-import React, { Component,useRef } from 'react';
-import {Link} from "react-router-dom";
+import React, { Component } from 'react';
 import NavbarClick from './navbar-click'
-import person from './images/logo.png'
+import person from './images/Logo.png'
 
 class Navbar extends Component {
     constructor(props){
         super(props)
         this.state={
             title: "Title",
-            stylePerson:"none"
+            stylePerson:"none",
         }
         this.stylePersonRef = React.createRef();
-        this.hanleStylePersonOnClick = this.hanleStylePersonOnClick.bind(this);
+        // this.hanleStylePersonOnClick = this.hanleStylePersonOnClick.bind(this);
+        
     }
 
     logOut = () =>{
@@ -35,44 +35,21 @@ class Navbar extends Component {
             this.setState({title: "Title"})
         }
         console.log("tilte", this.state.title)
-
-        // document.addEventListener('click', this.handleOutsideClick)
-        
     }
 
-    // componentDidMount(){
-    //     document.addEventListener('click', this.hanleStylePersonOnClick)
-    // }
-
-    // handleOutsideClick = (event) => {
-    //     if (this.state.stylePerson === 'block' && this.stylePersonRef && !this.stylePersonRef.current.contains(event.target)) {
-    //         this.setState({
-    //             stylePerson: "block"
-    //         })
-    //     }
-    //   }
-
-    hanleStylePersonOnClick = event =>{
+    hanleStylePersonOnClick = () =>{
         if(this.state.stylePerson === "none"){
             this.setState({
                 stylePerson: "block"
             })
-            document.addEventListener('click', this.handleOutsideClick)
-        }
-        else if (this.state.stylePerson === 'block' && this.stylePersonRef && !this.stylePersonRef.current.contains(event.target)) {
-            this.setState({
-                stylePerson: "none"
-            })
+            console.log("stylePerson hanleStylePersonOnClick if",this.state.stylePerson)
         }
         else{
             this.setState({
                 stylePerson: "none"
             })
+            console.log("stylePerson hanleStylePersonOnClick else",this.state.stylePerson)
         }
-
-        console.log("ref", this.stylePersonRef.current)
-        console.log("document", document.activeElement)
-        console.log("event",  this.stylePersonRef.current.contains(event.target))
         
     }
      

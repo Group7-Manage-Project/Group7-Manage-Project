@@ -1,10 +1,25 @@
+var jwt = require('jsonwebtoken');
+
 const Staff = require('../model/staff');
 
-
 exports.get_list_employee = function(req,res){
-    Staff.list(function(response){
-        res.send({result:response})
-    })
+    if(req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token,'team7project@uef.edu.vn', function(err,data){
+            if(err){
+                return res.status(403).send({message:'Unauthorized'})
+            }
+            else {
+                Staff.list(function(response){
+                    res.send({result:response})
+                })
+            }
+        })
+    }
+    else{
+        return res.status(403).send({message:'Unauthorized'});
+    }
+
 }
 
 exports.get_list_employee_name_image = function(req,res){
@@ -55,6 +70,7 @@ exports.delete_employee_flg = function(req,res){
 
 exports.login_employee = function(req,res){
     let data = req.body;
+    console.log("user", data)
     Staff.login(data,function(response){
         res.send(response);
     })

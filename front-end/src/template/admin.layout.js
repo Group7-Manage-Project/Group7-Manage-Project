@@ -1,4 +1,4 @@
-import React  from 'react'
+import React from 'react'
 import { Route   , Redirect} from "react-router-dom";
 import Sidebar from "../component/sidebar-admin"
 import Navbar from "../component/navbar-admin"
@@ -10,7 +10,6 @@ function AdminLayout(props){
     const path = props.children.props.location.pathname
     console.log("path", path)
     console.log("props.children.props",props.children)
-
     return(
         <div className="admin-layout-container">
             <div className="admin-layout-left" >
