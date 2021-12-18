@@ -1,0 +1,50 @@
+.task-content{
+    height:92vh;
+}
+
+.task-content .task-left{
+    overflow-y: auto;
+    height: 89%;
+    border: 1px solid #DADEE0;
+}
+
+.task-content .task-left::-webkit-scrollbar{
+    width: 16px;
+    display:none;
+}
+
+/* .admin-layout-right  .row{
+    margin-top:0px !important;
+} */
+
+/* .task-admin-modal{
+    margin-top: 0px !important;
+} */
+
+.bottom-bar-task{
+    width:100%;
+    /* margin-top:20px; */
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-top: 10px;
+}
+
+.bottom-bar-task .btn-task-page{
+    background: #3f6aae;
+    color: #fff;
+    border: 1px solid #3f6aae;
+    margin-right: 10px ;
+    border-radius: 6px;
+    font-size: 13px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.bottom-bar-task .btn-task-page i{
+    font-size:13px;
+}
+
+.bottom-bar-task .category-action p{
+    margin: 0px !important;
+    padding: 0px !important;
+}

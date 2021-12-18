@@ -33,6 +33,7 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
     /* background-color:red; */
     justify-content:flex-start;
     height:100vh;
+    overflow-y: hidden;
 }
 .admin-layout-container .admin-layout-left{
     width: 60px;
@@ -192,6 +193,7 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
 
 .navbar .navbar-right-item-person-content{
     position: relative;
+    
 }
 
 .navbar .navbar-right-item-person-content .navbar-right-item-person{
@@ -201,6 +203,7 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
     width: 300px;
     border:1px solid #eef1f1;
     box-shadow:8px 2px 7px 1px #eef1f1;
+    z-index: 99999;
 }
 
 .navbar .navbar-right-item-person-content .navbar-right-item-person .navbar-right-item-person-title{
@@ -403,9 +406,10 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
 }
 
 .admin-layout-right-container{
-    width: 97%;
+    width: 98%;
     margin: 0 auto;
     margin-top: 20px;
+    /* overflow-x: hidden; */
 }
 
 
