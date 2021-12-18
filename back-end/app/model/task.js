@@ -114,16 +114,22 @@ Task.detail = function(task_id, result) {
         FROM TASK A, CATEGORY_TASK B
         WHERE A.CATEGORY_TASK_ID = B.CATEGORY_TASK_ID AND A.TASK_ID = ?
     ),
+    COMMENT_TASK_T AS
+    (
+        SELECT A.TASK_ID, C.FULL_NAME AS USER_COMMENT, B.PHASE_NAME, B.COMMENT, B.CREATE_COMMENT_DATE
+        FROM TASK A, COMMENT_TASK B, STAFF C
+        WHERE A.TASK_ID = B.TASK_ID AND B.USER_COMMENT_ID = C.EMPLOYEE_ID AND A.TASK_ID = ?
+    ),
     TASK_T AS
     (
         SELECT *
         FROM TASK
         WHERE TASK_ID = ?
     )
-    SELECT A.*, B.*,C.*,D.*,E.*,F.*,G.*, H.*, I.*
-    FROM TASK_T A,REGISTER_T B,ASSIGNEE_T C,CONFIRMATION_T D,IMPLEMENTATION_T E,TEST_T F,APPROVAL_T G,FINISH_T H, CATEGORY_TASK_T I
+    SELECT A.*, B.*,C.*,D.*,E.*,F.*,G.*, H.*, I.*, J.*
+    FROM TASK_T A,REGISTER_T B,ASSIGNEE_T C,CONFIRMATION_T D,IMPLEMENTATION_T E,TEST_T F,APPROVAL_T G,FINISH_T H, CATEGORY_TASK_T I, COMMENT_TASK_T J
     `;
-    db.query(query,[task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id],function(err, task){
+    db.query(query,[task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id],function(err, task){
         if(err || task.length == 0){
             result("Không có task cần tìm");
         }
@@ -132,6 +138,7 @@ Task.detail = function(task_id, result) {
             task.map(item =>{
                 item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
                 item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                item.CREATE_COMMENT_DATE = moment(item.CREATE_COMMENT_DATE).format("DD/MM/YYYY")
                 item.FILE = `http://localhost:9999/get-file/${item.FILE}` // API trả về file
                 item.IMAGE_REGISTER = `http://localhost:9999/get-image/${item.IMAGE_REGISTER}`
                 item.IMAGE_CONFIRMATION = `http://localhost:9999/get-image/${item.IMAGE_CONFIRMATION}`
@@ -139,7 +146,8 @@ Task.detail = function(task_id, result) {
                 item.IMAGE_IMPLEMENTATION = `http://localhost:9999/get-image/${item.IMAGE_IMPLEMENTATION}`
                 item.IMAGE_TEST = `http://localhost:9999/get-image/${item.IMAGE_TEST}`
                 item.IMAGE_APPROVAL = `http://localhost:9999/get-image/${item.IMAGE_APPROVAL}`
-                item.IMAGE_FINISH = `http://localhost:9999/get-image/${item.IMAGE_FINISH}`            })
+                item.IMAGE_FINISH = `http://localhost:9999/get-image/${item.IMAGE_FINISH}`            
+            })
             // result(task)
             result(task[0]);
         }

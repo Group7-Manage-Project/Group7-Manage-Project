@@ -40,8 +40,8 @@ Category.detail = function(category_task_id, result) {
 }
 
 Category.create = function(data,result){
-    const query = "INSERT INTO CATEGORY_TASK (CATEGORY_NAME,CREATE_DATE,CREATE_USER,UPDATE_DATE,UPDATE_USER,DELETE_FLG) VALUES(?,?,?,?,?,?)";
-    db.query(query,[data.category_name,data.create_date,data.create_user,data.update_date,data.update_user,data.delete_flg],function(err){
+    const query = "INSERT INTO CATEGORY_TASK (CATEGORY_NAME,CREATE_DATE,CREATE_USER,DELETE_FLG) VALUES(?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?,?)";
+    db.query(query,[data.category_name,data.create_user,data.delete_flg],function(err){
         if (err){
             result("Thêm category task thất bại");
         }
@@ -52,8 +52,8 @@ Category.create = function(data,result){
 }
 
 Category.update = function(data,result){
-    const query = "UPDATE CATEGORY_TASK SET CATEGORY_NAME = ?, CREATE_DATE = ?, CREATE_USER = ?, UPDATE_DATE = ?, UPDATE_USER = ?, DELETE_FLG = ? WHERE CATEGORY_TASK_ID = ?";
-    db.query(query,[data.category_name, data.create_date,data.create_user,data.update_date,data.update_user,data.delete_flg, data.category_task_id], function(err){
+    const query = "UPDATE CATEGORY_TASK SET CATEGORY_NAME = ?, UPDATE_DATE = DATE_FORMAT(SYSDATE(), '%Y-%m-%d'), UPDATE_USER = ?, DELETE_FLG = ? WHERE CATEGORY_TASK_ID = ?";
+    db.query(query,[data.category_name,data.update_user,data.delete_flg, data.category_task_id], function(err){
         if (err) {
             result("Cập nhật không thành công");
         }

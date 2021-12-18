@@ -2,11 +2,6 @@ const db = require('../common/connect');
 const jwt = require('jsonwebtoken');
 const moment =  require('moment');
 
-
-
-
-
-
 const Staff = function(staff) {
     this.employee_id = staff.employee_id;
     this.full_name = staff.full_name;
