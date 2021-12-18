@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
+import {Link} from "react-router-dom";
 import NavbarClick from './navbar-click'
 import person from './images/Logo.png'
 
@@ -7,11 +8,8 @@ class Navbar extends Component {
         super(props)
         this.state={
             title: "Title",
-            stylePerson:"none",
+            stylePerson:"none"
         }
-        this.stylePersonRef = React.createRef();
-        // this.hanleStylePersonOnClick = this.hanleStylePersonOnClick.bind(this);
-        
     }
 
     logOut = () =>{
@@ -42,15 +40,12 @@ class Navbar extends Component {
             this.setState({
                 stylePerson: "block"
             })
-            console.log("stylePerson hanleStylePersonOnClick if",this.state.stylePerson)
         }
         else{
             this.setState({
                 stylePerson: "none"
             })
-            console.log("stylePerson hanleStylePersonOnClick else",this.state.stylePerson)
-        }
-        
+        }        
     }
      
 
@@ -70,7 +65,7 @@ class Navbar extends Component {
                         </div>
                         <div className="navbar-right-item navbar-right-item-person-content">
                             <img src={person} alt="" width={30} height={30} style={{borderRadius:"50%" , cursor:"pointer"}} onClick={this.hanleStylePersonOnClick}/>
-                            <div className="navbar-right-item-person" style={{display:this.state.stylePerson}} ref={this.stylePersonRef}>
+                            <div className="navbar-right-item-person" style={{display:this.state.stylePerson}}>
                                 <div className="navbar-right-item-person-title">
                                     <div className="d-flex flex-row bd-highlight" style={{paddingTop:"10px"}}>
                                         <div className="bd-highlight">

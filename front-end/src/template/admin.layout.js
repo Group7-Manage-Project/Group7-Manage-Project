@@ -10,13 +10,15 @@ function AdminLayout(props){
     const path = props.children.props.location.pathname
     console.log("path", path)
     console.log("props.children.props",props.children)
+
+
     return(
         <div className="admin-layout-container">
             <div className="admin-layout-left" >
                 <Sidebar />
             </div>
             <div className="admin-layout-right">
-                <Navbar path= {path}/>
+                <Navbar path= {path} />
                 <div className="admin-layout-right-container">
                     {props.children}
                 </div>

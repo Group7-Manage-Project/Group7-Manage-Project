@@ -1,0 +1,97 @@
+.dashboard-content .dashboard-container{
+    width: 99%;
+    border:2px  solid #DADEE0;
+    height: 90vh;
+}
+
+.dashboard-content .dashboard-title{
+    background-image: linear-gradient(to right, #3678ae , #52acde);
+    color: #fff;
+    padding:5px;
+}
+
+.dashboard-content .dashboard-title h5{
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.dashboard-content .dashboard-title p{
+    margin-bottom: 0px !important;
+    padding-bottom: 0px;
+    margin-right: 10px;
+}
+
+.dashboard-content .dashboard-ticket{
+    border:2px  solid #e3e7e9;
+    width:98%;
+    margin: 0px auto;
+    margin-top: 10px;
+    padding-left: 10px;
+    color: #888888;
+    font-size:15px;
+}
+
+.dashboard-content .dashboard-ticket i{
+    color: #295a81;
+}
+
+.dashboard-content .dashboard-ticket .w-100 h6{
+    color: #211DE4;
+    /* border: 2px solid  #211DE4; */
+    font-weight: 600;
+}
+
+.dashboard-content .dashboard-ticket .dashboard-ticket-body .w-100{
+    width: 72% !important;
+}
+
+
+
+.dashboard-content .dashboard-left{
+    padding-left: 0px;
+    padding-right: 0px;
+    overflow-y: hidden;
+}
+
+.dashboard-content .dashboard-container .dashboard-list-ticket{
+    overflow-y: auto;
+    height:100%;
+    padding-bottom: 50px;
+}
+
+.dashboard-content .dashboard-container .dashboard-list-ticket::-webkit-scrollbar{
+    width: 16px;
+    display:none;
+}
+
+.dashboard-content .dashboard-center{
+    padding-left: 0px;
+    padding-right: 0px;
+    overflow-y: hidden;
+}
+
+.dashboard-content .dashboard-right{
+    padding-left: 0px;
+    padding-right: 0px;
+    overflow-y: hidden;
+}
+
+@media only screen and (max-width: 1795px) {
+    .dashboard-content .dashboard-ticket .dashboard-ticket-body .w-100{
+        width: 70% !important;
+    }
+  }
+
+@media only screen and (max-width: 1755px) {
+    .dashboard-content .dashboard-ticket .dashboard-ticket-body .w-100{
+        width: 65% !important;
+    }
+  }
+
+@media only screen and (max-width: 1755px) {
+    .dashboard-content .dashboard-ticket .dashboard-ticket-body .w-100{
+        width: 60% !important;
+    }   
+}

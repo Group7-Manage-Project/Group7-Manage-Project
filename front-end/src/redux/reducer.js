@@ -8,6 +8,7 @@ import deleteEmployeeFlgReducer from '../container/admin/employees/module-delete
 import insertTaskReducer from '../container/admin/task/module-insert-task/reducer'
 import listEmployeesSelectReducer from '../container/admin/task/module-list-employees-select/reducer'
 import listTaskReducer from '../container/admin/task/module-list-tasks/reducer'
+import listTaskTreeReducer from '../container/admin/task/module-list-task-tree/module/reducer'
 
 import detailTaskReducer from '../container/admin/task/detail-task/module-detail-task/reducer'
 import userSignUpReducer from '../container/home/home-page/module-sign-in/reducer'
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     insertTaskReducer,
     listEmployeesSelectReducer,
     listTaskReducer,
+    listTaskTreeReducer,
 
 
     detailTaskReducer,
