@@ -1,7 +1,5 @@
 var jwt = require('jsonwebtoken');
 const Category = require('../model/category_task');
-var response = require('../../res');
-const db = require('../common/connect')
 
 exports.get_list_category_task = function(req,res){
     if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
@@ -121,16 +119,4 @@ exports.delete_category_task_flg = function(req,res){
     else{
         return res.status(403).send({message:'Unauthorized'});
     }
-}
-
-exports.get_tree_cate_task = function(req,res){
-    const query = "SELECT CATEGORY_TASK.CATEGORY_TASK_ID, CATEGORY_TASK.CATEGORY_NAME, TASK.TITLE FROM CATEGORY_TASK JOIN TASK WHERE CATEGORY_TASK.CATEGORY_TASK_ID = TASK.CATEGORY_TASK_ID ORDER BY CATEGORY_TASK.CATEGORY_TASK_ID"
-    db.query(query,function(err,rows){
-        if (err){
-            console.log("Error");
-        }
-        else{
-            response.nested(rows,res);
-        }
-    })
 }

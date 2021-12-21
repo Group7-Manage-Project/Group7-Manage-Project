@@ -6,6 +6,5 @@ module.exports = function(router){
     router.post('/api/category_task/insert', category_taskController.insert_category_task);
     router.put('/api/category_task/update', category_taskController.update_category_task);
     router.delete('/api/category_task/delete/:category_task_id', category_taskController.delete_category_task);
-    router.put('/api/category_task/delete-flaf', category_taskController.delete_category_task_flg);
-    router.get('/api/category_task/catetask', category_taskController.get_tree_cate_task);
+    router.put('/api/category_task/delete-flat', category_taskController.delete_category_task_flg);
 }

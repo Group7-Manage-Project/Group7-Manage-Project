@@ -1,18 +1,18 @@
 exports.nested = function (values,res){
-    const hasil = values.reduce((arrCate,item)=>{
-        if (arrCate[item.CATEGORY_NAME]){
-            const group = arrCate[item.CATEGORY_NAME]
-            if (Array.isArray(group.TITLE)){
-                group.TITLE.push(item.TITLE);
+    const hasil = values.reduce((arrDepart,item)=>{
+        if (arrDepart[item.DEPARTMENT_NAME]){
+            const group = arrDepart[item.DEPARTMENT_NAME]
+            if (Array.isArray(group.CATEGORY_NAME)){
+                group.CATEGORY_NAME.push(item.CATEGORY_NAME);
             }
             else{
-                group.TITLE = [group.TITLE, item.TITLE];
+                group.CATEGORY_NAME = [group.CATEGORY_NAME, item.CATEGORY_NAME];
             }
         }
         else{
-            arrCate[item.CATEGORY_NAME] = item;
+            arrDepart[item.DEPARTMENT_NAME] = item;
         }
-        return arrCate;
+        return arrDepart;
     },{});
 
     var data = {
