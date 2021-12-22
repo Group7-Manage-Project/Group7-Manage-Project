@@ -18,7 +18,7 @@ const upload = multer({ storage: storageFile});
 module.exports = function(router){
     var taskController = require('../controller/task.controller')
 
-    router.get('/api/task/list', taskController.get_list_task)
+    router.post('/api/task/list/page=:page', taskController.get_list_task)
     router.get('/api/task/detail/:task_id', taskController.details_task)
     router.post('/api/task/insert', upload.single('file'), taskController.insert_task) 
     router.put('/api/task/update', upload.single('file'), taskController.update_task)
