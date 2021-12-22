@@ -150,7 +150,14 @@ exports.login_employee = function(req,res){
     let data = req.body;
     console.log("user", data)
     Staff.login(data,function(response){
-        res.send(response);
+        
+        if(response !== "Đăng nhập thất bại"){
+            res.send(response);
+        }
+        else{
+            res.status(403).send({message:'Đăng nhập thất bại'});
+        }
     })
+    
 }
 

@@ -5,13 +5,17 @@ import{
 } from './constant'
 
 import  Axios  from "axios"
+import  Cookies  from 'js-cookie';
 
 export const actFetchListTaskAPI = () =>{
     return dispatch =>{
         dispatch(actFetchListTaskRequest())
         Axios({
             method:"GET",
-            url:"http://localhost:9999/api/task/list"
+            url:"http://localhost:9999/api/task/list",
+            headers:{
+                Authorization:`Bearer ${Cookies.get('user')}`
+            }
         })
         .then(result =>{
             dispatch(actFetchListTaskSuccess(result.data))

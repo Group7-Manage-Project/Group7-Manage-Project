@@ -138,6 +138,7 @@ Staff.delete_flg = function(data,result){
 
 Staff.login = function(data,result){
     const query = "SELECT USER_NAME,ROLL,FULL_NAME FROM STAFF WHERE USER_NAME = ? AND PASSWORD = ?";
+    console.log("data user", data)
     db.query(query,[data.user_name, data.password], function(err,staff){
         if(staff.length > 0){
             let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'3h'})

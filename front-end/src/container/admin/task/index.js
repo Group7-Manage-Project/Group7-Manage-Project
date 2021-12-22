@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import {Link} from 'react-router-dom';
 
-import register from "./img/hoang2.JPG"
+import register from "./img/logo.jpg"
 
 import ListTaskTree from './module-list-task-tree'
 
@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 
 import './css/index.css'
 import BottmBarTask from './bottom-bar-task'
+import  Cookies  from 'js-cookie';
 
 
 
@@ -208,6 +209,7 @@ class Task extends Component {
     }
 
     renderHTMLTask = () =>{
+        console.log('Cookies.get', Cookies.get('user'))
         const {listTask} = this.props
         console.log("renderHTMLAdmin",listTask)
         
@@ -358,15 +360,16 @@ class Task extends Component {
                     <div className="task-admin-modal">
                         <div >
                         {/* Modal */}
-                            <form onSubmit={this.handleOnSubmit} method="post" className="modal fade modal-dialog modal-dialog-centered modal-dialog-scrollable" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div className="modal-dialog task-modal" style={{marginTop:"0px !important"}}>
-                                    <div className="modal-content task-modal-content" style={{marginTop:"0px !important"}}>
-                                        <div className="modal-header">
-                                            <h5 className="modal-title" id="staticBackdropLabel">New Task</h5>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-                                        </div>
-                                        <div className="modal-body container">
-                                        <div className="d-flex flex-row bd-highlight mb-3">
+
+                        <div className="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabIndex={-1}>
+                            <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                                    </div>
+                                    <div className="modal-body">
+                                    <div className="d-flex flex-row bd-highlight mb-3">
                                         <label className="bd-highlight task-right-item-seperate-3 final-class">
                                             JOB TYPE:<br/>                                       
                                             <select name="job" id="job" value={this.state.task.job} onChange={this.handleOnChange}  style={{ padding:"2px",  width:"200px", height:"30px", fontSize:"16px"  }}>                                          
@@ -567,16 +570,14 @@ class Task extends Component {
                                                                         
                                             </div>
                                         </div>
-                                        {/* /body */}   
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" className="btn btn-primary">Submit</button>
-                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                            {/* Modal */}
+                            </div>
+                        </div>
+                        <a className="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">New Task</a>
+
+
+                        {/* Modal */}
                         </div>
 
                     </div>

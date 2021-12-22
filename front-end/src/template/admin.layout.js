@@ -3,6 +3,7 @@ import { Route   , Redirect} from "react-router-dom";
 import Sidebar from "../component/sidebar-admin"
 import Navbar from "../component/navbar-admin"
 import "./index.css"
+import  Cookies  from 'js-cookie';
 
 
 
@@ -29,33 +30,33 @@ function AdminLayout(props){
 
 export default function AdminTemplate({Component,...props}){
     return(
-        <Route {...props}
-            render = {(propsComponent)=>{
-                console.log("propsComponent from admin.layout",propsComponent);
-                // if(localStorage.getItem("accessToken")){
-                    return(
-                        <AdminLayout>
-                            <Component {...propsComponent} />
-                        </AdminLayout>           
-                    )
-                // }
+        // <Route {...props}
+        //     render = {(propsComponent)=>{
+        //         console.log("propsComponent from admin.layout",propsComponent);
+        //         // if(localStorage.getItem("accessToken")){
+        //             return(
+        //                 <AdminLayout>
+        //                     <Component {...propsComponent} />
+        //                 </AdminLayout>           
+        //             )
+        //         // }
 
-                // return <Redirect to="/" />
-            }}
-        />
-    //     <Route {...props}
-    //     render={(propsComponent) => {
-    //         if(localStorage.getItem("accessToken")){
-    //             return(
-    //                 <AdminLayout >
-    //                     <Component {...propsComponent} />
-    //                 </AdminLayout>
-    //             )
-    //         }
-    //         return <Redirect to="/" />
-    //     }}
+        //         // return <Redirect to="/" />
+        //     }}
+        // />
+        <Route {...props}
+        render={(propsComponent) => {
+            if(localStorage.getItem("user") && Cookies.get('user')){
+                return(
+                    <AdminLayout >
+                        <Component {...propsComponent} />
+                    </AdminLayout>
+                )
+            }
+            return <Redirect to="/" />
+        }}
            
-    // />
+    />
     )
 }
 

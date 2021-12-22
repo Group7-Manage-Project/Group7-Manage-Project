@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import videoClass from './video/uef.mp4'
+import logo from './images/logo.jpg'
 import './index.css'
-
+import {Link} from "react-router-dom"
 import {PostSignInAPI} from './module-sign-in/action'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import  Cookies  from 'js-cookie';
+import {ToastContainer, toast, Zoom} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 class HomePage extends Component {
     constructor(props){
@@ -16,6 +20,22 @@ class HomePage extends Component {
         }
     }
 
+    // componentWillUnmount(){
+    //     const {userSignUp} = this.props
+    //     if(userSignUp && userSignUp.access_token){
+    //         return <Redirect to ="/admin/dashboard" /> 
+    //     }  
+    // }
+
+    // renderRedirect = () =>{
+    //     const {userSignUp} = this.props
+    //     if(userSignUp && userSignUp.access_token){
+    //         return(
+    //             <Redirect to ="/admin/dashboard" />
+    //         )
+    //     }
+    // }
+
     handleOnchange = e=>{
         const{name,value} = e.target
         this.setState({
@@ -24,17 +44,19 @@ class HomePage extends Component {
         console.log(name,value)
     }
 
+
     handleOnSubmit = e =>{
         e.preventDefault();
         console.log(this.state)
-        this.props.PostSignIn(this.state.user, this.props.history)
-        
+        this.props.PostSignIn(this.state.user)
     }
 
     render() {
+        
         return (
-            <div className="home-page" style={{position: 'relative', height: '100vh'}}>
-                <video src={videoClass} autoPlay loop muted />
+            <div className="my-login-page" style={{position: 'relative', height: '100vh'}}>             
+                {localStorage.getItem("user") && Cookies.get('user')  ? (<Redirect to ="/admin/dashboard" /> ) : null }
+                {/* <video src={videoClass} autoPlay loop muted />
                 <div>
 
                 <button type="button" className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{position: 'absolute', top:'50%', left: '50%'}}>
@@ -66,7 +88,60 @@ class HomePage extends Component {
                         </div>
                         </div>
                     </form>
-                </div>
+                </div> */}
+
+                    <div className="h-100">
+                        <div className="container h-100">
+                            <div className="row justify-content-md-center h-100">
+                                <div className="card-wrapper">
+                                    <div className="brand">
+                                    <img src= {logo} alt="logo" />
+                                    </div>
+                                    <div className="card fat">
+                                        <div className="card-body">
+                                            <h4 className="card-title">Login</h4>
+                                            <form className="my-login-validation"  onSubmit={this.handleOnSubmit}>
+                                                <div className="form-group">
+                                                    <label htmlFor="basic-url" className="form-label">User Name:</label>
+                                                    <div className="input-group mb-3">
+                                                        <input type="text" className="form-control" name="user_name" id="user_name"  onChange={this.handleOnchange} aria-describedby="basic-addon3"   required autoFocus/>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <label htmlFor="password">Password:
+                                                        <Link to="" style={{marginLeft:"120px"}}>Forgot Password?</Link>
+                                                    </label>
+                                                    <input id="password" type="password" className="form-control" name="password" onChange={this.handleOnchange} required data-eye style={{marginTop:"5px"}} />
+                                                    <div className="invalid-feedback">
+                                                        Password is required
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <div className="custom-checkbox custom-control d-flex">
+                                                        <input type="checkbox" name="remember" id="remember" className="custom-control-input" /> &ensp;
+                                                        <label htmlFor="remember" className="custom-control-label">Remember Me</label>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group m-0">
+                                                    <button type="submit" className="btn btn-primary btn-block">
+                                                    Login
+                                                    </button>
+                                                </div>
+                                                <div className="mt-4 text-center">
+                                                    Don't have an account? <a href="register.html">Create One</a>
+                                                </div>
+                                                <ToastContainer draggable={false} transition={Zoom} autoClose={6000} />
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div className="footer">
+                                        Copyright © 2022 — JHS Group
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
             </div>
         );
@@ -74,13 +149,19 @@ class HomePage extends Component {
 }
 
 
-
-const mapDispatchToProp = dispatch =>{
+export const mapStateToProp = state => {
     return{
-        PostSignIn: (user,history) =>{
-            dispatch(PostSignInAPI(user,history))
+        userSignUp: state.userSignUpReducer.userSignUp
+    }
+}
+
+
+export const mapDispatchToProp = dispatch =>{
+    return{
+        PostSignIn: (user) =>{
+            dispatch(PostSignInAPI(user))
         }
     }
 }
 
-export default connect(null,mapDispatchToProp)(HomePage);
+export default connect(mapStateToProp,mapDispatchToProp)(HomePage);

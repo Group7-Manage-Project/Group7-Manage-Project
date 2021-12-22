@@ -73,21 +73,21 @@ class BottmBarTask extends Component {
                     <div className="bd-highlight">
                         <div className="bd-highlight">
                             <div className="category-action d-flex">
-                                    <button className="btn-task-page" data-bs-toggle="modal" data-bs-target="#staticBackdrop">New Task</button>
+                                    <button className="btn-task-page" data-bs-toggle="modal" href="#exampleModalToggle">New Task</button>
                                     {/* <button className="btn-task-page">Export</button>                           */}
                                     {/* <ExportListTaskToExcel className="btn-task-page" table="table-list-task" filename="list-task-file-excel" sheet="Sheet" buttonText="Export"/> */}
-                                    {/* {listTask.result.length > 0 ? (
+                                    {listTask.result && listTask.result.length > 0 ? (
                                         <ExcelFile 
                                             filename="list-task-file-excel"
                                             element={<button className="btn-task-page">Export</button>}>
                                             <ExcelSheet dataSet={DataSet} name="List Task"  />
                                         </ExcelFile>
-                                    ): null} */}
-                                        <ExcelFile 
+                                    ): null}
+                                        {/* <ExcelFile 
                                             filename="list-task-file-excel"
                                             element={<button className="btn-task-page">Export</button>}>
                                             <ExcelSheet dataSet={DataSet} name="List Task"  />
-                                        </ExcelFile>
+                                        </ExcelFile> */}
 
                             </div>
                         </div>
