@@ -12,7 +12,7 @@ exports.get_list_task = function(req,res){
             }
             else {
                 let data1 = req.body;
-                let page = req.query.page;
+                let page = req.params.page;
                 page = parseInt(page)
                 let page_skip = (page - 1) * perPage;
                 let data = {
