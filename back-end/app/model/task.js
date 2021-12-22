@@ -25,7 +25,7 @@ const Task = function(task){
 }
 
 //Get list task
-Task.list = function(result) {
+Task.list = function(data,data1,result) {
     const query = `
     WITH REGISTER_T AS
     (
@@ -44,23 +44,147 @@ Task.list = function(result) {
         SELECT B.CATEGORY_NAME, A.TASK_ID   
         FROM TASK A, CATEGORY_TASK B
         WHERE A.CATEGORY_TASK_ID = B.CATEGORY_TASK_ID
-    ) 
-    SELECT A.TASK_ID, A.JOB,A.STATUS,A.CATEGORY,A.TITLE,A.PROGRESS,A.EFFORT,A.ASSIGNEE_ID,A.REGISTER_USER_ID,A.START_DATE,A.END_DATE,A.CATEGORY_TASK_ID,B.REGISTER_USER_NAME,C.ASSIGNEE_NAME,D.CATEGORY_NAME
-    FROM TASK A, REGISTER_T B, ASSIGNEE_T C, CATEGORY_TASK_T D
-    WHERE A.TASK_ID = B.TASK_ID AND A.TASK_ID = C.TASK_ID AND A.TASK_ID = D.TASK_ID
+    )
+    SELECT * 
+    FROM(
+        SELECT A.TASK_ID, A.JOB,A.STATUS,A.CATEGORY,A.TITLE,A.PROGRESS,A.EFFORT,A.ASSIGNEE_ID,A.REGISTER_USER_ID,A.START_DATE,A.END_DATE,A.CATEGORY_TASK_ID,B.REGISTER_USER_NAME,C.ASSIGNEE_NAME,D.CATEGORY_NAME
+        FROM TASK A, REGISTER_T B, ASSIGNEE_T C, CATEGORY_TASK_T D
+        WHERE A.TASK_ID = B.TASK_ID AND A.TASK_ID = C.TASK_ID AND A.TASK_ID = D.TASK_ID
+        LIMIT ?
+        OFFSET ?
+    ) AS A
     `;
-    db.query(query, function(err, task){
-        if(err){
-            result("Lấy danh sách Task không thành công :(");
-        }
-        else{
-            task.map(item =>{
-                item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
-                item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
-            })
-            result(task)
-        }
-    });
+// 3 condition
+    // 3 Category, Job, Status have condition
+    if (data1.category !== "ALL" && data1.job !== "ALL" && data1.status !== "ALL") {
+        const query1 = query.concat("WHERE CATEGORY = ? AND JOB = ? AND STATUS = ?");
+        db.query(query1, [data.limit,data.skip,data1.category,data1.job,data1.status], function(err, task){
+            if(err){
+                result("Lấy danh sách Task không thành công :(");
+            }
+            else{
+                task.map(item =>{
+                    item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
+                    item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                })
+                result(task)
+            }
+        });
+    }
+// 1 all 2 condition
+    // Category all
+    else if (data1.category === "ALL" && data1.job !== "ALL" && data1.status !== "ALL") {
+        const query1 = query.concat("WHERE JOB = ? AND STATUS = ?");
+        db.query(query1, [data.limit,data.skip,data1.job,data1.status], function(err, task){
+            if(err){
+                result("Lấy danh sách Task không thành công :(");
+            }
+            else{
+                task.map(item =>{
+                    item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
+                    item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                })
+                result(task)
+            }
+        });
+    }
+    // Job all
+    else if (data1.category !== "ALL" && data1.job === "ALL" && data1.status !== "ALL") {
+        const query1 = query.concat("WHERE CATEGORY = ? AND STATUS = ?");
+        db.query(query1, [data.limit,data.skip,data1.category,data1.status], function(err, task){
+            if(err){
+                result("Lấy danh sách Task không thành công :(");
+            }
+            else{
+                task.map(item =>{
+                    item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
+                    item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                })
+                result(task)
+            }
+        });
+    }
+    // Status all
+    else if (data1.category !== "ALL" && data1.job !== "ALL" && data1.status === "ALL") {
+        const query1 = query.concat("WHERE CATEGORY = ? AND JOB = ?");
+        db.query(query1, [data.limit,data.skip,data1.category,data1.job], function(err, task){
+            if(err){
+                result("Lấy danh sách Task không thành công :(");
+            }
+            else{
+                task.map(item =>{
+                    item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
+                    item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                })
+                result(task)
+            }
+        });
+    }
+// 2 all 1 condition
+    // Category and Job all
+    else if (data1.category === "ALL" && data1.job === "ALL" && data1.status !== "ALL") {
+        const query1 = query.concat("WHERE STATUS = ?");
+        db.query(query1, [data.limit,data.skip,data1.status], function(err, task){
+            if(err){
+                result("Lấy danh sách Task không thành công :(");
+            }
+            else{
+                task.map(item =>{
+                    item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
+                    item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                })
+                result(task)
+            }
+        });
+    }
+    // Category and Status all
+    else if (data1.category === "ALL" && data1.job !== "ALL" && data1.status === "ALL") {
+        const query1 = query.concat("WHERE JOB = ?");
+        db.query(query1, [data.limit,data.skip,data1.job], function(err, task){
+            if(err){
+                result("Lấy danh sách Task không thành công :(");
+            }
+            else{
+                task.map(item =>{
+                    item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
+                    item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                })
+                result(task)
+            }
+        });
+    }
+    // Job and Status all  
+    else if (data1.category !== "ALL" && data1.job === "ALL" && data1.status === "ALL") {
+        const query1 = query.concat("WHERE CATEGORY = ?");
+        db.query(query1, [data.limit,data.skip,data1.category], function(err, task){
+            if(err){
+                result("Lấy danh sách Task không thành công :(");
+            }
+            else{
+                task.map(item =>{
+                    item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
+                    item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                })
+                result(task)
+            }
+        });
+    }
+// 3 all
+    // 3 Category, Job, Status đều all
+    else {
+        db.query(query, [data.limit,data.skip], function(err, task){
+            if(err){
+                result("Lấy danh sách Task không thành công :(");
+            }
+            else{
+                task.map(item =>{
+                    item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
+                    item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+                })
+                result(task)
+            }
+        });
+    } 
 }
 
 //Get details of a task
@@ -202,7 +326,17 @@ Task.update = function(data,file,result){
             }
         });
     }
-    
+}
+
+//update assignee
+Task.update_assignee = function(result){
+    const query = "UPDATE TASK SET ASSIGNEE_ID = ? WHERE TASK_ID = ? AND STEP = ?"
+    db.query(query, function(err){
+        if (err) { result("update failed");}
+        else{
+            
+        }
+    })
 }
 
 //Delete task

@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
 const Task  = require('../model/task')
+const perPage = 25
 
 
 exports.get_list_task = function(req,res){
@@ -10,7 +11,15 @@ exports.get_list_task = function(req,res){
                 return res.status(403).send({message:'Unauthorized'})
             }
             else {
-                Task.list(function(response){
+                let data1 = req.body;
+                let page = req.query.page;
+                page = parseInt(page)
+                let page_skip = (page - 1) * perPage;
+                let data = {
+                    'limit': perPage,
+                    'skip': page_skip
+                }
+                Task.list(data,data1,function(response){
                     res.send({result:response})
                 })
             }

@@ -29,6 +29,7 @@ require('./app/router/staff.router')(app);
 require('./app/router/task.router')(app);
 require('./app/router/category_task.router')(app);
 require('./app/router/comment_task.router')(app);
+require('./app/router/departments.router')(app);
 
 /* /Router */
 
