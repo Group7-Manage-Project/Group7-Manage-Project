@@ -27,8 +27,6 @@ const Task = function(task){
 //Get list task
 Task.list = function(data,data1,result) {
     let query = `
-    SELECT *
-    FROM(
                 WITH REGISTER_T AS
         (
             SELECT B.FULL_NAME AS REGISTER_USER_NAME, A.TASK_ID
@@ -52,31 +50,30 @@ Task.list = function(data,data1,result) {
             SELECT A.TASK_ID, A.JOB,A.STATUS,A.CATEGORY,A.TITLE,A.PROGRESS,A.EFFORT,A.ASSIGNEE_ID,A.REGISTER_USER_ID,A.START_DATE,A.END_DATE,A.CATEGORY_TASK_ID,B.REGISTER_USER_NAME,C.ASSIGNEE_NAME,D.CATEGORY_NAME
             FROM TASK A, REGISTER_T B, ASSIGNEE_T C, CATEGORY_TASK_T D
             WHERE A.TASK_ID = B.TASK_ID AND A.TASK_ID = C.TASK_ID AND A.TASK_ID = D.TASK_ID
-            LIMIT 1
-            OFFSET 1
+            LIMIT ?
+            OFFSET ?
         ) AS A
-    ) AS T2
     WHERE 1=1
     `;
 // 3 condition
     // 3 Category, Job, Status have condition
-    let condition1 = `AND JOB = '${data1.search_job}'`
-    let condition2 = `AND CATEGORY = '${data1.search_category}'`
-    let condition3 = `AND STATUS = '${data1.search_state}'`
+    let condition1 = `\n AND JOB = '${data1.search_job}'`
+    let condition2 = `\n AND CATEGORY = '${data1.search_category}'`
+    let condition3 = `\n AND STATUS = '${data1.search_status}'`
 
     console.log("data", data)
     console.log("data1", data1)
     if(data1.search_job !== 'ALL'){
         query = query.concat(condition1)
     }
-    // if(data1.search_category !== 'ALL'){
-    //     query = query.concat(condition2)
-    // }
-    // if(data1.search_state !== 'ALL'){
-    //     query = query.concat(condition3)
-    // }
-    
-    db.query(query, function(err, task){
+    if(data1.search_category !== 'ALL'){
+        query = query.concat(condition2)
+    }
+    if(data1.search_status !== 'ALL'){
+        query = query.concat(condition3)
+    }
+    console.log(query);
+    db.query(query, [data.limit,data.skip], function(err, task){
         if(err){
             result("Lấy danh sách Task không thành công :(");
         }
