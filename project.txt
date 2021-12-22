@@ -7,3 +7,5 @@ https://mui.com/components/tree-view/#main-content tree-data
 
 https://www.youtube.com/watch?v=s5DmOa10aG8 phân page nodejs
 https://www.youtube.com/watch?v=1qKaHSpHdJE export excel
+https://www.youtube.com/watch?v=VdVGPov7Yqc React-Toastify (https://www.npmjs.com/package/react-toastify)
+https://www.youtube.com/watch?v=YPgMnugXBJo set cookie (https://www.npmjs.com/package/js-cookie)

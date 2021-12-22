@@ -4,10 +4,14 @@ import {POST_SIGN_IN_REQUEST,
 } 
     from './constant'
 import Axios from 'axios'
+import  Cookies  from 'js-cookie';
+import { toast} from "react-toastify"
+import {Redirect} from 'react-router-dom'
 
-export const PostSignInAPI = (user,history) =>{
+export const PostSignInAPI = (user) =>{
     return dispatch =>{
         dispatch(PostSignInRequest())
+        console.log("user", user)
         Axios({
             method:'POST',
             url:'http://localhost:9999/api/staff/login',
@@ -15,17 +19,26 @@ export const PostSignInAPI = (user,history) =>{
         })
         .then(result =>{
             dispatch(PostSignInSuccess(result.data))
-            history.push("/admin/dashboard")
-            console.log("login",result.data)
-            localStorage.setItem("user",JSON.stringify(result.data.staff[0].FULL_NAME))
-            localStorage.setItem("accessToken",JSON.stringify(result.data.access_token))
+            Cookies.set('user', result.data.access_token , { expires: 7 })
+            localStorage.setItem("user",JSON.stringify(result.data.staff))
+            console.log("infor user", result.data)        
+            // toast.success("Đăng nhập thành công ",{
+            //     className: "custom-toast",
+            //     draggable:true,
+            //     position: toast.POSITION.TOP_RIGHT
+            // })
+            (<Redirect to ="/admin/dashboard" />)
             
-
         })
         .catch(err =>{
             dispatch(PostSignInFalied(err))
-           
-           
+            toast.error("Đăng nhập thất bại",{
+                className: "custom-toast",
+                draggable:true,
+                position: toast.POSITION.TOP_RIGHT
+            })
+            console.log("err", err)
+            
         })
     }
 }
