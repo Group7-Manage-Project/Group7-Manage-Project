@@ -141,7 +141,8 @@ Staff.login = function(data,result){
     console.log("data user", data)
     db.query(query,[data.user_name, data.password], function(err,staff){
         if(staff.length > 0){
-            let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'3h'})
+            // let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'3h'})\
+            let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'1 days'})
             console.log("staff",staff);
             result({access_token:token,staff:staff});
         }

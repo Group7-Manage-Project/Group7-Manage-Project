@@ -48,3 +48,9 @@ exports.get_tree_depart_cate = function(req,res){
         }
     })
 }
+
+exports.get_list_department_tree = function(req,res){
+    Department.get_list_department_tree(function(response){
+        res.send({result: response});
+    })
+}
