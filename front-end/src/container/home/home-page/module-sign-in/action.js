@@ -19,7 +19,7 @@ export const PostSignInAPI = (user) =>{
         })
         .then(result =>{
             dispatch(PostSignInSuccess(result.data))
-            Cookies.set('user', result.data.access_token , { expires: 7 })
+            Cookies.set('user', result.data.access_token , { expires: 1 })
             localStorage.setItem("user",JSON.stringify(result.data.staff))
             console.log("infor user", result.data)        
             // toast.success("Đăng nhập thành công ",{

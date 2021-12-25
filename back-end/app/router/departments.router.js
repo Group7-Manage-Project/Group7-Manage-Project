@@ -7,4 +7,5 @@ module.exports = function(router){
     router.put('/api/departments/update', departmentsController.update_department);
     router.delete('/api/departments/delete/:department_id', departmentsController.delete_department);
     router.get('/api/departments/depart_cate', departmentsController.get_tree_depart_cate);
+    router.get('/api/departments/get/list/tree', departmentsController.get_list_department_tree);
 }

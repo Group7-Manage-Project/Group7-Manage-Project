@@ -1,4 +1,5 @@
 const db = require('../common/connect');
+let func = require('../common/convert-to-nested');
 
 const Department = function (department) {
     this.department_id = department.department_id;
@@ -63,6 +64,31 @@ Department.delete = function (department_id, result){
             result("delete successfully");
         }
     })
+}
+
+Department.get_list_department_tree = function (result){
+    let sql = "SELECT * FROM DEPARTMENTS, CATEGORY_TASK WHERE DEPARTMENTS.DEPARTMENT_ID = CATEGORY_TASK.DEPARTMENT_ID"
+    let nestingOptions = [
+        { tableName : 'DEPARTMENTS', pkey: 'DEPARTMENT_ID'},
+        { tableName : 'CATEGORY_TASK', pkey: 'CATEGORY_TASK_ID', fkeys:[{table:'DEPARTMENTS',col:'DEPARTMENT_ID'}]}
+        
+    ];
+    db.query({sql: sql, nestTables: true}, function (err, rows) {
+        // error handling
+        if (err){
+            console.log('Internal error: ', err);
+            result("Mysql query execution error!");
+        }
+
+        else {
+            var nestedRows = func.convertToNested(rows, nestingOptions);
+            // res.send(JSON.stringify(nestedRows));
+            console.log("nestedRows", nestedRows)
+            result(nestedRows);
+        }
+
+    });
+
 }
 
 module.exports = Department;

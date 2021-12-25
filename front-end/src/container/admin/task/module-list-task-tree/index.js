@@ -16,13 +16,14 @@ class LisTaskTree extends Component {
         this.props.FetchListTaskTree()
     }
 
+    // Nếu mà duyệt chung 1 mãng thì NodeId chỉ nhận "", ta nên chia ra 2 lần duyệt để tránh lỗi Focus từ NodeId
     renderHTML = () =>{
         const {listTaskTree} = this.props
         console.log("listTaskTree renderHTML",listTaskTree)
-        if(listTaskTree && listTaskTree.length > 0){
-            return listTaskTree[0].lstCumRap.map((item,index) =>{
+        if(listTaskTree.result && listTaskTree.result.length > 0){
+
                 return(
-                    <div key={index}>
+                    <div>
                             <TreeView
                                 aria-label="multi-select"
                                 defaultCollapseIcon={<ExpandMoreIcon />}
@@ -30,12 +31,25 @@ class LisTaskTree extends Component {
                                 multiSelect
                                 sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
                             >
-                            <TreeItem nodeId="1" label={item.tenCumRap}>
-                                {this.renderChildrenNode(item.danhSachPhim)}
-                            </TreeItem>
-                        </TreeView>
+                                {/* <TreeItem nodeId={`${item.DEPARTMENT_NAME}`} label={item.DEPARTMENT_NAME}>
+                                    {this.renderChildrenNode(item.CATEGORY_TASK)}
+                                </TreeItem> */}
+                                {this.renderParentNode(listTaskTree.result)}
+                            </TreeView>
                     </div>
 
+                )
+            
+        }
+    }
+
+    renderParentNode = listParentNode =>{
+        if(listParentNode && listParentNode.length > 0){
+            return listParentNode.map((item, index) =>{
+                return(
+                        <TreeItem key = {item.DEPARTMENT_ID} nodeId={item.DEPARTMENT_NAME} label={item.DEPARTMENT_NAME}>
+                            {this.renderChildrenNode(item.CATEGORY_TASK)}
+                        </TreeItem>
                 )
             })
         }
@@ -47,8 +61,7 @@ class LisTaskTree extends Component {
             if(listChildrenNode && listChildrenNode.length > 0){
                 return listChildrenNode.map((item, index) =>{
                     return(
-                            <TreeItem key = {index} nodeId='10' label={item.tenPhim}/>
-
+                            <TreeItem key = {item.CATEGORY_TASK_ID} nodeId={item.CATEGORY_NAME}label={item.CATEGORY_NAME}/>
                     )
                 })
             }
@@ -58,27 +71,6 @@ class LisTaskTree extends Component {
     render() {
         return (
             <div>
-                {/* <TreeView
-                    aria-label="multi-select"
-                    defaultCollapseIcon={<ExpandMoreIcon />}
-                    defaultExpandIcon={<ChevronRightIcon />}
-                    multiSelect
-                    sx={{ flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-                    >
-                    <TreeItem nodeId="1" label="Applications">
-                        <TreeItem nodeId="2" label="Calendar" />
-                        <TreeItem nodeId="3" label="Chrome" />
-                        <TreeItem nodeId="4" label="Webstorm" />
-                    </TreeItem>
-                    <TreeItem nodeId="5" label="Documents">
-                        <TreeItem nodeId="6" label="MUI">
-                        <TreeItem nodeId="7" label="src">
-                            <TreeItem nodeId="8" label="index.js" />
-                            <TreeItem nodeId="9" label="tree-view.js" />
-                        </TreeItem>
-                        </TreeItem>
-                    </TreeItem>
-                </TreeView> */}
                 {this.renderHTML()}
             </div>
         );
