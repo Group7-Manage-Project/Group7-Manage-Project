@@ -45,6 +45,8 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
 .admin-layout-container .admin-layout-right{
     /* background-color:yellow; */
     width: 98% !important;
+    height:100vh;
+    position: relative;
 }
 
 /* admin-layout-left */
@@ -243,6 +245,22 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
     color: #fff;
 }
 
+.admin-layout-right-container{
+    height:100%;
+}
+
+.admin-layout-right-container .employees-content{
+    height:87%;
+}
+
+.admin-layout-right-container .employees-content .employees-left{
+    height:100%;
+}
+
+.admin-layout-right-container .employees-content .employees-left .employees-admin{
+    height:83vh;
+}
+
 .admin-layout-right-container .employees-content .employees-left .employees-admin .table {
     /* height:400px !important; */
     overflow: auto !important;
@@ -423,6 +441,7 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
     padding-right: 0px !important;
     border: 1px solid rgba(0,0,0,.125);
     border-radius:10px;
+    height:100%;
 }
 
 

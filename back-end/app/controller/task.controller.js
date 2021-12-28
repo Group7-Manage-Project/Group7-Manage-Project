@@ -20,6 +20,7 @@ exports.get_list_task = function(req,res){
                     'skip': page_skip
                 }
                 Task.list(data,data1,function(response){
+                    console.log("response", response)
                     res.send({result:response})
                 })
             }

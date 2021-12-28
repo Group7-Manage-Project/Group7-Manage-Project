@@ -88,4 +88,23 @@ Category.delete_flg = function (data,result) {
     });
 }
 
+Category.get_list_category_task_by_department = function(data,result) {
+    const query = `
+    SELECT  B.* 
+    FROM DEPARTMENTS A, CATEGORY_TASK B 
+    WHERE 
+        A.DEPARTMENT_ID = B.DEPARTMENT_ID 
+        AND A.DEPARTMENT_ID =  ?
+    `
+    console.log("data.department_id: ", data.department_id)
+    db.query(query,data.department_id ,function(err, listCategory){
+        if (err) {
+            result("Lấy danh sách category theo departments không thành công :(");
+        }
+        else {
+            result(listCategory)
+        }
+    });
+}
+
 module.exports = Category;

@@ -5,6 +5,8 @@ import { POST_SIGNUP_REQUEST,
         from './constant.js'
 
 import Axios from 'axios'
+import  Cookies  from 'js-cookie';
+import {toast} from "react-toastify"
 
 
 export const actPostSignUpEmployeesAPI = (userSignUp) =>{
@@ -13,10 +15,10 @@ export const actPostSignUpEmployeesAPI = (userSignUp) =>{
         Axios({
             method:"POST",
             url:"http://localhost:9999/api/staff/insert",
-            // headers:{ 
-            //     "Content-Type": "multipart/form-data"
-            // },
-            data:userSignUp
+            data:userSignUp,
+            headers:{
+                Authorization:`Bearer ${Cookies.get('user')}`
+            }
         })
         .then(result =>{
             dispatch(actPostSignUpEmployeesSuccess(result.data))
@@ -24,6 +26,11 @@ export const actPostSignUpEmployeesAPI = (userSignUp) =>{
         })
         .catch(err =>{
             dispatch(actPostSignUpEmployeesFailed(err))
+            toast.error("Create Employee Failed",{
+                className: "custom-toast",
+                draggable:true,
+                position: toast.POSITION.TOP_RIGHT
+            })
         })
         
     }

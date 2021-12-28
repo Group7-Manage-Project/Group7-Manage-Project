@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 21, 2021 at 01:34 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.21
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th12 28, 2021 lúc 12:07 PM
+-- Phiên bản máy phục vụ: 10.4.20-MariaDB
+-- Phiên bản PHP: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `group7_sql`
+-- Cơ sở dữ liệu: `group7_sql`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category_task`
+-- Cấu trúc bảng cho bảng `category_task`
 --
 
 CREATE TABLE `category_task` (
@@ -39,7 +39,7 @@ CREATE TABLE `category_task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `category_task`
+-- Đang đổ dữ liệu cho bảng `category_task`
 --
 
 INSERT INTO `category_task` (`CATEGORY_TASK_ID`, `CATEGORY_NAME`, `CREATE_DATE`, `CREATE_USER`, `UPDATE_DATE`, `UPDATE_USER`, `DEPARTMENT_ID`, `DELETE_FLG`) VALUES
@@ -50,7 +50,7 @@ INSERT INTO `category_task` (`CATEGORY_TASK_ID`, `CATEGORY_NAME`, `CREATE_DATE`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment_task`
+-- Cấu trúc bảng cho bảng `comment_task`
 --
 
 CREATE TABLE `comment_task` (
@@ -63,7 +63,7 @@ CREATE TABLE `comment_task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `comment_task`
+-- Đang đổ dữ liệu cho bảng `comment_task`
 --
 
 INSERT INTO `comment_task` (`COMMENT_TASK_ID`, `USER_COMMENT_ID`, `PHASE_NAME`, `COMMENT`, `CREATE_COMMENT_DATE`, `TASK_ID`) VALUES
@@ -73,7 +73,7 @@ INSERT INTO `comment_task` (`COMMENT_TASK_ID`, `USER_COMMENT_ID`, `PHASE_NAME`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `departments`
+-- Cấu trúc bảng cho bảng `departments`
 --
 
 CREATE TABLE `departments` (
@@ -82,7 +82,7 @@ CREATE TABLE `departments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `departments`
+-- Đang đổ dữ liệu cho bảng `departments`
 --
 
 INSERT INTO `departments` (`DEPARTMENT_ID`, `DEPARTMENT_NAME`) VALUES
@@ -93,7 +93,7 @@ INSERT INTO `departments` (`DEPARTMENT_ID`, `DEPARTMENT_NAME`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `staff`
+-- Cấu trúc bảng cho bảng `staff`
 --
 
 CREATE TABLE `staff` (
@@ -110,17 +110,27 @@ CREATE TABLE `staff` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `staff`
+-- Đang đổ dữ liệu cho bảng `staff`
 --
 
 INSERT INTO `staff` (`EMPLOYEE_ID`, `FULL_NAME`, `USER_NAME`, `PASSWORD`, `BIRTH_DAY`, `EMAIL`, `IMAGE`, `POSITION`, `ROLL`, `DELETE_FLAG`) VALUES
 (1, 'John Switch', 'John', '1234', '1989-12-19', 'abc@gmail.com', NULL, 'xxxxx', 'xxxxx', 'flag'),
-(2, 'John Math', 'Math', '4567', '1989-12-19', 'def@gmail.com', NULL, 'xxxxx', 'xxxxx', NULL);
+(2, 'John Math', 'Math', '4567', '1989-12-19', 'def@gmail.com', NULL, 'xxxxx', 'xxxxx', NULL),
+(3, 'Nguyễn Trần Hoàng', 'hoang', '1234', '2000-04-11', 'hoangnt18@uef.edu.vn', '1640578766171--hoangFB.jpg', 'Leader', 'Admin', NULL),
+(4, 'Nguyễn Thị Thu Quyên', 'thuQuyen', '1234', '0000-00-00', 'quyenntt8@uef.edu.vn', NULL, 'Leader', 'Admin', NULL),
+(5, 'Vũ Nhật Minh Trường', 'truong', '1234', '2000-01-01', 'truongvnmt18@uef.edu.vn', '1640598853157--Phut.jpg', 'Leader', 'Admin', NULL),
+(6, 'Vũ Nhật Minh Trường', 'truong1', '1234', '2000-01-11', 'truongvnmt18@uef.edu.vn', '1640599011544--Phut.jpg', 'Leader', 'Admin', NULL),
+(7, 'Vũ Nhật Minh Trường', 'truong2', '1234', '2000-04-11', 'truongvnmt18@uef.edu.vn', '1640599576538--Phut.jpg', 'Leader', 'User', NULL),
+(8, 'Vũ Nhật Minh Trường', 'truong3', '1234', '2000-01-11', 'truongvnmt18@uef.edu.vn', '1640599915070--Phut.jpg', 'Leader', 'Admin', NULL),
+(9, 'Vũ Nhật Minh Trường', 'truong4', '1234', '2000-04-11', 'abc@dounets.com', '1640600070519--Phut.jpg', 'Leader', 'Admin', NULL),
+(10, 'Nguyễn Trần Hoàng', 'hoang10', '1234', '2000-04-11', 'abc@dounets.com', '1640601729704--hoang2.JPG', 'Leader', 'Admin', NULL),
+(11, 'Nguyễn Trần Hoàng', 'hoang', '1234', '2000-11-04', 'hoangnt18@uef.edu.vn', NULL, 'Leader', 'Admin', NULL),
+(12, 'Nguyễn Trần Hoàng', 'hoang', '1234', '2000-11-04', 'hoangnt18@uef.edu.vn', NULL, 'Leader', 'Admin', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `task`
+-- Cấu trúc bảng cho bảng `task`
 --
 
 CREATE TABLE `task` (
@@ -144,31 +154,32 @@ CREATE TABLE `task` (
   `START_DATE` date DEFAULT NULL,
   `END_DATE` date DEFAULT NULL,
   `STEP` int(11) DEFAULT NULL,
-  `CATEGORY_TASK_ID` int(11) DEFAULT NULL
+  `CATEGORY_TASK_ID` int(11) DEFAULT NULL,
+  `DEPARTMENT_NAME` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `task`
+-- Đang đổ dữ liệu cho bảng `task`
 --
 
-INSERT INTO `task` (`TASK_ID`, `JOB`, `STATUS`, `CATEGORY`, `TITLE`, `PROGRESS`, `EFFORT`, `IMPORTANT`, `DESCRIPTION`, `FILE`, `ASSIGNEE_ID`, `REGISTER_USER_ID`, `CONFIRMATION_ID`, `IMPLEMENTATION_ID`, `TEST_ID`, `APPROVAL_ID`, `FINISH_ID`, `START_DATE`, `END_DATE`, `STEP`, `CATEGORY_TASK_ID`) VALUES
-(1, 'Develop', 'In Progressing', 'DEK', 'Develop System', 10, 50, 'Very Important', 'Develop System and result', NULL, 2, 1, 2, 1, 2, 1, 2, '2021-12-19', '2021-12-25', 3, 4),
-(2, 'Bug Fixing', 'Complete', 'KFC', 'Fix bug UI', 5, 100, 'Important', 'Fix bug UI', NULL, 1, 2, 1, 2, 1, 2, 1, '2021-11-29', '2021-12-25', 3, 5),
-(4, 'Documentation', 'In Progressing', 'KFC', 'Document of website', 10, 30, 'Important', 'Document of the website to use', '1638438866699--1638437628123--bai-tap-tuan-1.docx', 1, 1, 1, 1, 1, 1, 1, '2021-12-02', '2021-12-25', 1, 4);
+INSERT INTO `task` (`TASK_ID`, `JOB`, `STATUS`, `CATEGORY`, `TITLE`, `PROGRESS`, `EFFORT`, `IMPORTANT`, `DESCRIPTION`, `FILE`, `ASSIGNEE_ID`, `REGISTER_USER_ID`, `CONFIRMATION_ID`, `IMPLEMENTATION_ID`, `TEST_ID`, `APPROVAL_ID`, `FINISH_ID`, `START_DATE`, `END_DATE`, `STEP`, `CATEGORY_TASK_ID`, `DEPARTMENT_NAME`) VALUES
+(1, 'Develop', 'In Progressing', 'DEK', 'Develop System', 10, 50, 'Very Important', 'Develop System and result', NULL, 2, 1, 2, 1, 2, 1, 2, '2021-12-19', '2021-12-25', 3, 4, NULL),
+(2, 'Bug Fixing', 'Complete', 'KFC', 'Fix bug UI', 5, 100, 'Important', 'Fix bug UI', NULL, 1, 2, 1, 2, 1, 2, 1, '2021-11-29', '2021-12-25', 3, 5, NULL),
+(4, 'Documentation', 'In Progressing', 'KFC', 'Document of website', 10, 30, 'Important', 'Document of the website to use', '1638438866699--1638437628123--bai-tap-tuan-1.docx', 1, 1, 1, 1, 1, 1, 1, '2021-12-02', '2021-12-25', 1, 4, NULL);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `category_task`
+-- Chỉ mục cho bảng `category_task`
 --
 ALTER TABLE `category_task`
   ADD PRIMARY KEY (`CATEGORY_TASK_ID`),
   ADD KEY `DEPARTMENT_ID` (`DEPARTMENT_ID`);
 
 --
--- Indexes for table `comment_task`
+-- Chỉ mục cho bảng `comment_task`
 --
 ALTER TABLE `comment_task`
   ADD PRIMARY KEY (`COMMENT_TASK_ID`),
@@ -176,19 +187,19 @@ ALTER TABLE `comment_task`
   ADD KEY `USER_COMMENT_ID` (`USER_COMMENT_ID`);
 
 --
--- Indexes for table `departments`
+-- Chỉ mục cho bảng `departments`
 --
 ALTER TABLE `departments`
   ADD PRIMARY KEY (`DEPARTMENT_ID`);
 
 --
--- Indexes for table `staff`
+-- Chỉ mục cho bảng `staff`
 --
 ALTER TABLE `staff`
   ADD PRIMARY KEY (`EMPLOYEE_ID`);
 
 --
--- Indexes for table `task`
+-- Chỉ mục cho bảng `task`
 --
 ALTER TABLE `task`
   ADD PRIMARY KEY (`TASK_ID`),
@@ -202,58 +213,58 @@ ALTER TABLE `task`
   ADD KEY `FINISH_ID` (`FINISH_ID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `category_task`
+-- AUTO_INCREMENT cho bảng `category_task`
 --
 ALTER TABLE `category_task`
   MODIFY `CATEGORY_TASK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `comment_task`
+-- AUTO_INCREMENT cho bảng `comment_task`
 --
 ALTER TABLE `comment_task`
   MODIFY `COMMENT_TASK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `departments`
+-- AUTO_INCREMENT cho bảng `departments`
 --
 ALTER TABLE `departments`
   MODIFY `DEPARTMENT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `staff`
+-- AUTO_INCREMENT cho bảng `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `EMPLOYEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `EMPLOYEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `task`
+-- AUTO_INCREMENT cho bảng `task`
 --
 ALTER TABLE `task`
   MODIFY `TASK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `category_task`
+-- Các ràng buộc cho bảng `category_task`
 --
 ALTER TABLE `category_task`
   ADD CONSTRAINT `category_task_ibfk_1` FOREIGN KEY (`DEPARTMENT_ID`) REFERENCES `departments` (`DEPARTMENT_ID`);
 
 --
--- Constraints for table `comment_task`
+-- Các ràng buộc cho bảng `comment_task`
 --
 ALTER TABLE `comment_task`
   ADD CONSTRAINT `comment_task_ibfk_1` FOREIGN KEY (`TASK_ID`) REFERENCES `task` (`TASK_ID`),
   ADD CONSTRAINT `comment_task_ibfk_2` FOREIGN KEY (`USER_COMMENT_ID`) REFERENCES `staff` (`EMPLOYEE_ID`);
 
 --
--- Constraints for table `task`
+-- Các ràng buộc cho bảng `task`
 --
 ALTER TABLE `task`
   ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`CATEGORY_TASK_ID`) REFERENCES `category_task` (`CATEGORY_TASK_ID`),

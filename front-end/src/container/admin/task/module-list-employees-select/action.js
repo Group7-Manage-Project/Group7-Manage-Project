@@ -5,13 +5,17 @@ import {
 } from './constant'
 
 import  Axios  from "axios"
+import  Cookies  from 'js-cookie';
 
 export const actFetchListEmployeesSelectAPI = () =>{
     return dispatch =>{
         dispatch(actFetchListEmployeesSelectRequest())
         Axios({
             method:"GET",
-            url:"http://localhost:9999/api/staff/list-name-image"
+            url:"http://localhost:9999/api/staff/list-name-image",
+            headers:{
+                Authorization:`Bearer ${Cookies.get('user')}`
+            }
         })
         .then(result =>{
             dispatch(actFetchListEmployeesSelectSuccess(result.data))
