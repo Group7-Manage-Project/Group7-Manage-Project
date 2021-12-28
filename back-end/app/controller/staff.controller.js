@@ -74,7 +74,13 @@ exports.insert_employee = function(req,res){
                 console.log("file",req.file);
                 console.log("staff", data)
                 Staff.create(data,file,function(response){
-                    res.send({result:response});
+                    if(response !== "Đăng ký thất bại :("){
+                        res.send({result:response});
+                    }
+                    else{
+                        res.status(403).send({message:'Đăng ký thất bại :('});
+                    }
+                    
                 }) 
             }
         })

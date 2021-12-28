@@ -9,6 +9,9 @@ import insertTaskReducer from '../container/admin/task/module-insert-task/reduce
 import listEmployeesSelectReducer from '../container/admin/task/module-list-employees-select/reducer'
 import listTaskReducer from '../container/admin/task/module-list-tasks/reducer'
 import listTaskTreeReducer from '../container/admin/task/module-list-task-tree/module/reducer'
+import listCategoryTaskReducer from '../container/admin/task/module-list-category/reducer'
+import listDepartmentReducer from '../container/admin/task/module-list-department/reducer'
+import listCategoryByDepartmentReducer from '../container/admin/task/module-list-category-by-department/reducer'
 
 import detailTaskReducer from '../container/admin/task/detail-task/module-detail-task/reducer'
 import userSignUpReducer from '../container/home/home-page/module-sign-in/reducer'
@@ -28,6 +31,9 @@ const rootReducer = combineReducers({
     listEmployeesSelectReducer,
     listTaskReducer,
     listTaskTreeReducer,
+    listCategoryTaskReducer,
+    listDepartmentReducer,
+    listCategoryByDepartmentReducer,
 
 
     detailTaskReducer,

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import cardPersonBg from "./img/background-person-card.jpg"
-import personCard from "./img/hoang2.JPG"
-
+import personCard from "./img/logo.jpg"
+import BottmBarTask from "./bottom-bar-task"
+import {ToastContainer, toast, Zoom} from "react-toastify"
 
 import {actPostSignUpEmployeesAPI} from "./module-sign-up/action"
 import {actFetchListEmployeesAPI} from "./module-list-employees/action"
@@ -9,6 +10,7 @@ import {actUpdateEmployeesAPI} from "./module-update-employee/action"
 import {actDeleteEmployeeAPI} from "./module-delete-employee/action"
 import {actDeleteEmployeeFlgAPI} from "./module-delete-employee-flg/action"
 import {connect} from 'react-redux'
+import moment from "moment"
 
 
 
@@ -39,8 +41,6 @@ class Employees extends Component {
             deleteBtn:"none",
             itemOld:{},
             checked:`<i className="fa fa-wifi"></i>`
-
-            
         }
         this.handleChange = this.handleOnChange.bind(this);
         this.handleSubmit = this.handleOnSubmit.bind(this);
@@ -262,7 +262,7 @@ class Employees extends Component {
                                                                 password:item.PASSWORD,
                                                                 full_name:item.FULL_NAME,
                                                                 email:item.EMAIL,
-                                                                birth_day:item.BIRTH_DAY,
+                                                                birth_day: moment(item.BIRTH_DAY).format("YYYY-DD-MM"), // can't not format YYYY-MM-DD 
                                                                 position:item.POSITION,
                                                                 roll:item.ROLL,
                                     },
@@ -311,117 +311,122 @@ class Employees extends Component {
 
 
     render() {
+        const {listEmployees} = this.props
         return (
-            <div className="employees-content row" >
-                <div className="employees-left col-lg-8">
-                    <div className="employees-admin" style={{backgroundColor:"#FFFFFF", borderRadius:"10px",padding:"0 20px"}}>
-                        <h3 style={{paddingTop:"40px"}}>List user Admin</h3>
-                        <div className="d-flex flex-row bd-highlight mb-3 employees-admin-action">
-                            <div className="p-2 bd-highlight">
-                            <label className="employees-admin-search" style={{marginBottom:"20px" }}>                               
-                                <input type="text" name="filter_array" placeholder="Search" value={this.state.filter_array} onChange={this.handleOnFilterArray}/><i className="fa fa-search"></i>
-                            </label>
+            <div style={{height: '100%'}}>
+                <div className="employees-content row" >
+                    <div className="employees-left col-lg-8">
+                        <div className="employees-admin" style={{backgroundColor:"#FFFFFF", borderRadius:"10px"}}>
+                            {/* <h3 style={{paddingTop:"40px"}}>List user Admin</h3> */}
+                            <div className="d-flex flex-row bd-highlight mb-3 employees-admin-action">
+                                <div className="p-2 bd-highlight">
+                                <label className="employees-admin-search" style={{marginBottom:"20px" }}>                               
+                                    <input type="text" name="filter_array" placeholder="Search" value={this.state.filter_array} onChange={this.handleOnFilterArray}/><i className="fa fa-search"></i>
+                                </label>
+                                </div>
+                                {/* <div className="p-2 bd-highlight employees-admin-action-i" style={{marginLeft:"20px"}}><i className="fa fa-chevron-left"></i></div>
+                                <div className="p-2 bd-highlight employees-admin-action-i"><i className="fa fa-chevron-right"></i></div>
+                                <div className="p-2 bd-highlight employees-admin-action-i" onClick={this.newFormOnClick}><i className="fa fa-plus"></i></div>
+                                <div className="p-2 bd-highlight employees-admin-action-i" onClick={this.editFormOnClick}><i className="fa fa-edit"></i></div>
+                                <div className="p-2 bd-highlight employees-admin-action-i" onClick={this.deleteEmployeeBtn}><i className="fa fa-trash"></i></div>                             */}
                             </div>
-                            <div className="p-2 bd-highlight employees-admin-action-i" style={{marginLeft:"20px"}}><i className="fa fa-chevron-left"></i></div>
-                            <div className="p-2 bd-highlight employees-admin-action-i"><i className="fa fa-chevron-right"></i></div>
-                            <div className="p-2 bd-highlight employees-admin-action-i" onClick={this.newFormOnClick}><i className="fa fa-plus"></i></div>
-                            <div className="p-2 bd-highlight employees-admin-action-i" onClick={this.editFormOnClick}><i className="fa fa-edit"></i></div>
-                            <div className="p-2 bd-highlight employees-admin-action-i" onClick={this.deleteEmployeeBtn}><i className="fa fa-trash"></i></div>                            
+
+                            <table className="table" style={{border:"1px solid #DADEE0",height:"93%"}}>
+                                <thead>
+                                    <tr>                                
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Birth Day</th>
+                                    <th scope="col">Position</th>
+                                    <th scope="col">Roll</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {/* <tr>
+                                        <th scope="row">EMPLOYEE ID</th>
+                                        <td style={{display:"none"}}>EMPLOYEE ID</td>
+                                        <td>USERNAME</td>
+                                        <td>PASSWORD</td>
+                                        <td>FULL NAME</td>
+                                        <td>EMAIL</td>
+                                        <td>BIRTH DAY</td>
+                                        <td>POSITION</td>
+                                        <td>ROLL</td>
+                                    </tr> */}
+                                    {this.renderHTMLAdmin()}
+                                </tbody>
+                            </table>
+
                         </div>
-
-                        <table className="table">
-                            <thead>
-                                <tr>                                
-                                <th scope="col">Username</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Birth Day</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Roll</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {/* <tr>
-                                    <th scope="row">EMPLOYEE ID</th>
-                                    <td style={{display:"none"}}>EMPLOYEE ID</td>
-                                    <td>USERNAME</td>
-                                    <td>PASSWORD</td>
-                                    <td>FULL NAME</td>
-                                    <td>EMAIL</td>
-                                    <td>BIRTH DAY</td>
-                                    <td>POSITION</td>
-                                    <td>ROLL</td>
-                                </tr> */}
-                                {this.renderHTMLAdmin()}
-                            </tbody>
-                        </table>
-
                     </div>
+                    <form className="employees-right col-lg-4" onSubmit={this.handleOnSubmit} method="post">
+                        <div className="employees-right-card">
+                            <img src={cardPersonBg} name="image_upload"  alt="admin"/>
+                            <div className="employees-right-card-person">
+                                <img  src={this.state.image_upload} name="image_upload" alt="admin"/>
+                                <label>
+                                    <i className="fa fa-camera"></i><br/>
+                                    <input type="file" name="image" id="image" style={{display:'none'}}  onChange={this.handleOnChange}/>
+                                </label>
+                            </div>
+                        </div>
+                        <div className="employees-right-form">
+                            <label className="employees-right-item" style={{display:this.state.employee_id_label}}>
+                                Employee ID:<br/>
+                                <input type="text" name="employee_id" id="employee_id" value={this.state.employees.employee_id} style={{width:"100%"}} disabled="disabled" onChange={this.handleOnChange}/>
+                            </label>
+                            <div className="employees-right-item d-flex justify-content-between">
+                                <label className="bd-highligh employees-right-item-seperate-2">
+                                    UserName:<br/>
+                                    <input type="text" name="user_name" value={this.state.employees.user_name} style={{width:"100%"}} onChange={this.handleOnChange}/>
+                                </label>
+                                <label className="bd-highlight employees-right-item-seperate-2">
+                                    Password:<br/>
+                                    <input type="password" name="password" value={this.state.employees.password} style={{width:"100%"}} onChange={this.handleOnChange}/>
+                                </label>
+                            </div>
+                            <label className="employees-right-item">
+                                Full Name:<br/>
+                                <input type="text" name="full_name" value={this.state.employees.full_name} style={{width:"100%"}} onChange={this.handleOnChange}/>
+                            </label>
+                            <label className="employees-right-item">
+                                Email:<br/>
+                                <input type="text" name="email" value={this.state.employees.email} style={{width:"100%"}} onChange={this.handleOnChange}/>
+                            </label>
+                            <div className="employees-right-item d-flex justify-content-between">
+                                <label className="bd-highligh employees-right-item-seperate-3">
+                                    Birth Day:<br/>
+                                    <input type="date" name="birth_day" data-date-format="DD/MM/YYYY" id="birth_day" value={this.state.employees.birth_day} style={{width:"100%"}} onChange={this.handleOnChange}/>
+                                </label>
+                                <label className="bd-highlight employees-right-item-seperate-3 ">
+                                    Position:<br/>
+                                    <input type="text" name="position" id="position" value={this.state.employees.position} style={{width:"100%", display : this.state.position_input}} onChange={this.handleOnChange}/>
+                                    <select name="position" id="position_select" value={this.state.employees.position}  style={{width:"100%", display:this.state.position_select }} onChange={this.handleChange}>
+                                        <option value="">Choose option</option>
+                                        <option value="Leader">Leader</option>
+                                        <option value="Developer">Developer</option>
+                                    </select>
+                                </label>
+                                <label className="bd-highlight employees-right-item-seperate-3 final-class">
+                                    Roll:<br/>
+                                    <input type="text" name="roll" id="roll_input" value={this.state.employees.roll} style={{width:"100%", display : this.state.roll_input}} onChange={this.handleOnChange} />
+                                    <select name="roll" id="roll_select" value={this.state.employees.roll}   style={{width:"100%", display:this.state.roll_select }} onChange={this.handleChange}>
+                                        <option value="">Choose option</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="User">User</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <button className="btn btn-outline-success" type="submit" style={{width:"100%", marginTop:"10px", marginBottom:"20px", display:this.state.insertBtn}}><i className="fa fa-plus"></i> Add Employee</button>
+                            <button className="btn btn-outline-warning" type="submit" style={{width:"100%", marginTop:"10px", marginBottom:"20px", display:this.state.updateBtn}}><i className="fa fa-edit"></i> Update Employee</button>
+                            <button className="btn btn-outline-danger" type="submit" style={{width:"100%", marginTop:"10px", marginBottom:"20px", display:this.state.deleteBtn}} onClick={this.deleteEmployeeOnClick}><i className="fa fa-trash"></i> Delete Employee</button>
+                        </div>
+                    </form>                                
                 </div>
-                <form className="employees-right col-lg-4" onSubmit={this.handleOnSubmit} method="post">
-                    <div className="employees-right-card">
-                        <img src={cardPersonBg} name="image_upload"  alt="admin"/>
-                        <div className="employees-right-card-person">
-                            <img  src={this.state.image_upload} name="image_upload" alt="admin"/>
-                            <label>
-                                <i className="fa fa-camera"></i><br/>
-                                <input type="file" name="image" id="image" style={{display:'none'}}  onChange={this.handleOnChange}/>
-                            </label>
-                        </div>
-                    </div>
-                    <div className="employees-right-form">
-                        <label className="employees-right-item" style={{display:this.state.employee_id_label}}>
-                            Employee ID:<br/>
-                            <input type="text" name="employee_id" id="employee_id" value={this.state.employees.employee_id} style={{width:"100%"}} disabled="disabled" onChange={this.handleOnChange}/>
-                        </label>
-                        <div className="employees-right-item d-flex justify-content-between">
-                            <label className="bd-highligh employees-right-item-seperate-2">
-                                UserName:<br/>
-                                <input type="text" name="user_name" value={this.state.employees.user_name} style={{width:"100%"}} onChange={this.handleOnChange}/>
-                            </label>
-                            <label className="bd-highlight employees-right-item-seperate-2">
-                                Password:<br/>
-                                <input type="password" name="password" value={this.state.employees.password} style={{width:"100%"}} onChange={this.handleOnChange}/>
-                            </label>
-                        </div>
-                        <label className="employees-right-item">
-                            Full Name:<br/>
-                            <input type="text" name="full_name" value={this.state.employees.full_name} style={{width:"100%"}} onChange={this.handleOnChange}/>
-                        </label>
-                        <label className="employees-right-item">
-                            Email:<br/>
-                            <input type="text" name="email" value={this.state.employees.email} style={{width:"100%"}} onChange={this.handleOnChange}/>
-                        </label>
-                        <div className="employees-right-item d-flex justify-content-between">
-                            <label className="bd-highligh employees-right-item-seperate-3">
-                                Birth Day:<br/>
-                                <input type="date" name="birth_day" id="birth_day" value={this.state.employees.birth_day} style={{width:"100%"}} onChange={this.handleOnChange}/>
-                            </label>
-                            <label className="bd-highlight employees-right-item-seperate-3 ">
-                                Position:<br/>
-                                <input type="text" name="position" id="position" value={this.state.employees.position} style={{width:"100%", display : this.state.position_input}} onChange={this.handleOnChange}/>
-                                <select name="position" id="position_select" value={this.state.employees.position}  style={{width:"100%", display:this.state.position_select }} onChange={this.handleChange}>
-                                    <option value="">Choose option</option>
-                                    <option value="Leader">Leader</option>
-                                    <option value="Developer">Developer</option>
-                                </select>
-                            </label>
-                            <label className="bd-highlight employees-right-item-seperate-3 final-class">
-                                Roll:<br/>
-                                <input type="text" name="roll" id="roll_input" value={this.state.employees.roll} style={{width:"100%", display : this.state.roll_input}} onChange={this.handleOnChange} />
-                                <select name="roll" id="roll_select" value={this.state.employees.roll}   style={{width:"100%", display:this.state.roll_select }} onChange={this.handleChange}>
-                                    <option value="">Choose option</option>
-                                    <option value="Admin">Admin</option>
-                                    <option value="User">User</option>
-                                </select>
-                            </label>
-                        </div>
-                        <button className="btn btn-outline-success" type="submit" style={{width:"100%", marginTop:"10px", marginBottom:"20px", display:this.state.insertBtn}}><i className="fa fa-plus"></i> Add Employee</button>
-                        <button className="btn btn-outline-warning" type="submit" style={{width:"100%", marginTop:"10px", marginBottom:"20px", display:this.state.updateBtn}}><i className="fa fa-edit"></i> Update Employee</button>
-                        <button className="btn btn-outline-danger" type="submit" style={{width:"100%", marginTop:"10px", marginBottom:"20px", display:this.state.deleteBtn}} onClick={this.deleteEmployeeOnClick}><i className="fa fa-trash"></i> Delete Employee</button>
-                    </div>
-                </form>                                
+                <BottmBarTask  listEmployees = {listEmployees}  newFormOnClick={this.newFormOnClick} editFormOnClick={this.editFormOnClick}/>
+                <ToastContainer draggable={false} transition={Zoom} autoClose={6000} />
             </div>
         );
     }

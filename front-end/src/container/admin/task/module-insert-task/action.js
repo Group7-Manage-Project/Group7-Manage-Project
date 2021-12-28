@@ -4,6 +4,7 @@ import{
     POST_TASK_FALIED
 } from './constant'
 import Axios from 'axios'
+import  Cookies  from 'js-cookie';
 
 export const actPostTaskAPI = taskInsert =>{
     return dispatch =>{
@@ -11,10 +12,10 @@ export const actPostTaskAPI = taskInsert =>{
         Axios({
             method:"POST",
             url:"http://localhost:9999/api/task/insert",
-            // headers:{ 
-            //     "Content-Type": "multipart/form-data"
-            // },
-            data:taskInsert
+            data:taskInsert,
+            headers:{
+                Authorization:`Bearer ${Cookies.get('user')}`
+            }
         })
         .then(result =>{
             dispatch(actPostTaskSuccess(result.data))

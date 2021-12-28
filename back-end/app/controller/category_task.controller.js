@@ -120,3 +120,25 @@ exports.delete_category_task_flg = function(req,res){
         return res.status(403).send({message:'Unauthorized'});
     }
 }
+
+
+exports.get_list_category_task_by_department = function(req,res){
+    if(req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token,'team7project@uef.edu.vn', function(err,data){
+            if(err){
+                return res.status(403).send({message:'Unauthorized'})
+            }
+            else {
+                let data = req.body
+                console.log("category_task",data)
+                Category.get_list_category_task_by_department(data,function(response){
+                    res.send({result:response});
+                })
+            }
+        })
+    }
+    else{
+        return res.status(403).send({message:'Unauthorized'});
+    }  
+}

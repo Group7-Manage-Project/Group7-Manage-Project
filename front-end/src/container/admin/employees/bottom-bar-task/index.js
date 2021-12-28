@@ -65,46 +65,36 @@ class BottmBarTask extends Component {
     }
 
     render() {
-        const {listTask} = this.props
+        const {listEmployees} = this.props
         const ExcelFile = ReactExport.ExcelFile
         const ExcelSheet = ReactExport.ExcelFile.ExcelSheet
         let DataSet = []
-        console.log("listTask in BottmBarTask", listTask.result)
-        if(listTask.result && listTask.result.task && listTask.result.task.length > 0){
+        console.log("listTask in BottmBarTask", listEmployees.result)
+        if(listEmployees.result && listEmployees.result.length > 0){
                 DataSet = [
                 {
                     columns:[
-                        {title:"ID Task", style: {font:{sz:"13", bold:true, }}, width:{wpx:100}}, // wch : width character , wpx: width character
-                        {title:"Status", style: {font:{sz:"13", bold:true, }}, width:{wpx:180}},
-                        {title:"Category", style: {font:{sz:"13", bold:true, }}, width:{wpx:150}},
-                        {title:"Title", style: {font:{sz:"13", bold:true, }}, width:{wpx:300}},
-                        {title:"Progress", style: {font:{sz:"13", bold:true, }}, width:{wpx:100}},
-                        {title:"Register User", style: {font:{sz:"13", bold:true, }}, width:{wpx:250}},
-                        {title:"Assignee", style: {font:{sz:"13", bold:true, }}, width:{wpx:250}},
-                        {title:"Registered Date", style: {font:{sz:"13", bold:true, }}, width:{wpx:200}},
-                        {title:"Due Date", style: {font:{sz:"13", bold:true, }}, width:{wpx:200}},
-                        {title:"Effort", style: {font:{sz:"13", bold:true, }}, width:{wpx:100}}
+                        {title:"EMPLOYEE_ID", style: {font:{sz:"13", bold:true, }}, width:{wpx:100}}, // wch : width character , wpx: width character
+                        {title:"FULL NAME", style: {font:{sz:"13", bold:true, }}, width:{wpx:180}},
+                        {title:"EMAIL", style: {font:{sz:"13", bold:true, }}, width:{wpx:250}},
+                        {title:"BIRTH_DAY", style: {font:{sz:"13", bold:true, }}, width:{wpx:200}},
+                        {title:"USER NAME", style: {font:{sz:"13", bold:true, }}, width:{wpx:150}},
+                        {title:"PASSWORD", style: {font:{sz:"13", bold:true, }}, width:{wpx:300}},
+                        {title:"POSITION", style: {font:{sz:"13", bold:true, }}, width:{wpx:100}},
+                        {title:"ROLL", style: {font:{sz:"13", bold:true, }}, width:{wpx:250}},
+                        {title:"IMAGE", style: {font:{sz:"13", bold:true, }}, width:{wpx:500}},
                     ],
-                    data: listTask.result.task.map((item)=>[
-                        {value: item.TASK_ID, style: {font: {sz:"13"} }},
-                        {value: item.JOB, style: {font: {sz:"13"} }},
-                        {value: item.CATEGORY, style: {font: {sz:"13"} }},
-                        {value: item.TITLE, style: {font: {sz:"13"} }},
-                        {value: item.PROGRESS, style: {font: {sz:"13"} }},
-                        {value: item.REGISTER_USER_NAME, style: {font: {sz:"13"} }},
-                        {value: item.ASSIGNEE_NAME, style: {font: {sz:"13"} }},
-                        {value: item.START_DATE, style: {font: {sz:"13"} }},
-                        {value: item.END_DATE, style: {font: {sz:"13"} }},
-                        {value: item.EFFORT, style: {font: {sz:"13"} }},
-                        // {value: item.JOB, style: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"3461eb"}} }},
-                        // {value: item.CATEGORY, sstyle: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"eb1027"}} }},
-                        // {value: item.TITLE, style: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"49bd909"}} }},
-                        // {value: item.PROGRESS, style: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"ebc907"}} }},
-                        // {value: item.REGISTER_USER_NAME, style: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"35bdb4"}} }},
-                        // {value: item.ASSIGNEE_NAME, style: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"ed14f5"}} }},
-                        // {value: item.START_DATE, style: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"3461eb"}} }},
-                        // {value: item.END_DATE,style: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"ed14f5"}} }},
-                        // {value: item.EFFORT, style: {font: {color: {rgb:"ffffff"}}, fill:{patternType: "solid" , fgColor: {rgb:"000000"}} }},
+                    data: listEmployees.result.map((item)=>[
+                        {value: item.EMPLOYEE_ID, style: {font: {sz:"13"} }},
+                        {value: item.FULL_NAME, style: {font: {sz:"13"} }},
+                        {value: item.EMAIL, style: {font: {sz:"13"} }},
+                        {value: item.BIRTH_DAY, style: {font: {sz:"13"} }},
+                        {value: item.USER_NAME, style: {font: {sz:"13"} }},
+                        {value: item.PASSWORD, style: {font: {sz:"13"} }},
+                        {value: item.POSITION, style: {font: {sz:"13"} }},
+                        {value: item.ROLL, style: {font: {sz:"13"} }},
+                        {value: item.IMAGE, style: {font: {sz:"13"} }},
+
                     ])
                 }
             ]
@@ -126,7 +116,7 @@ class BottmBarTask extends Component {
                         <div className="category-action d-flex">
                                 <button className="btn-task-page" onClick={this.firstPageClick}><i className="fa fa-angle-double-left"></i></button>
                                 <button className="btn-task-page" onClick={this.prevPageOnClick}> <i className="fa fa-angle-left"></i> </button>
-                                <span>&ensp;  {this.state.page} / </span> {listTask.result && listTask.result.total_page ? (<span> {listTask.result.total_page} </span>): null } &ensp;
+                                <span>&ensp;  {this.state.page} / </span> {listEmployees.result && listEmployees.result.total_page ? (<span> {listEmployees.result.total_page} </span>): null } &ensp;
                                 <button className="btn-task-page" onClick={this.nextPageOnClick}> <i className="fa fa-angle-right"></i> </button>
                                 <button className="btn-task-page" onClick={this.finalPageClick}><i className="fa fa-angle-double-right"></i></button>                          
                         </div>
@@ -134,22 +124,17 @@ class BottmBarTask extends Component {
                     <div className="bd-highlight">
                         <div className="bd-highlight">
                             <div className="category-action d-flex">
-                                    <button className="btn-task-page" data-bs-toggle="modal" href="#exampleModalToggle">New Task</button>
+                                    <button className="btn-task-page" onClick={this.props.newFormOnClick}>New Employee</button>
+                                    <button className="btn-task-page" onClick={this.props.editFormOnClick}>Edit Employee </button>
                                     {/* <button className="btn-task-page">Export</button>                           */}
                                     {/* <ExportListTaskToExcel className="btn-task-page" table="table-list-task" filename="list-task-file-excel" sheet="Sheet" buttonText="Export"/> */}
-                                    {listTask.result && listTask.result.task && listTask.result.task.length > 0 ? (
+                                    {listEmployees.result && listEmployees.result.length > 0 ? (
                                         <ExcelFile 
                                             filename="list-task-file-excel"
                                             element={<button className="btn-task-page">Export</button>}>
-                                            <ExcelSheet dataSet={DataSet} name="List Task"  />
+                                            <ExcelSheet dataSet={DataSet} name="List Employees"  />
                                         </ExcelFile>
                                     ): null}
-                                        {/* <ExcelFile 
-                                            filename="list-task-file-excel"
-                                            element={<button className="btn-task-page">Export</button>}>
-                                            <ExcelSheet dataSet={DataSet} name="List Task"  />
-                                        </ExcelFile> */}
-
                             </div>
                         </div>
                     </div>

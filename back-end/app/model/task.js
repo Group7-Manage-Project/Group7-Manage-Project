@@ -25,7 +25,7 @@ const Task = function(task){
 }
 
 //Get list task
-Task.list = function(data,data1,result) {
+Task.list = async function(data,data1,result) {
     let query = `
                 WITH REGISTER_T AS
         (
@@ -50,6 +50,7 @@ Task.list = function(data,data1,result) {
             SELECT A.TASK_ID, A.JOB,A.STATUS,A.CATEGORY,A.TITLE,A.PROGRESS,A.EFFORT,A.ASSIGNEE_ID,A.REGISTER_USER_ID,A.START_DATE,A.END_DATE,A.CATEGORY_TASK_ID,B.REGISTER_USER_NAME,C.ASSIGNEE_NAME,D.CATEGORY_NAME
             FROM TASK A, REGISTER_T B, ASSIGNEE_T C, CATEGORY_TASK_T D
             WHERE A.TASK_ID = B.TASK_ID AND A.TASK_ID = C.TASK_ID AND A.TASK_ID = D.TASK_ID
+            ORDER BY A.TASK_ID
             LIMIT ?
             OFFSET ?
         ) AS A
@@ -63,14 +64,15 @@ Task.list = function(data,data1,result) {
 
     console.log("data", data)
     console.log("data1", data1)
-    if(data1.search_job !== 'ALL'){
-        query = query.concat(condition1)
+    console.log("data1.search_job.toUpperCase()",data1.search_job.toUpperCase())
+    if(data1.search_job.toUpperCase() !== 'ALL'){
+        query = await query.concat(condition1)
     }
-    if(data1.search_category !== 'ALL'){
-        query = query.concat(condition2)
+    if(data1.search_category.toUpperCase() !== 'ALL'){
+        query = await query.concat(condition2)
     }
-    if(data1.search_status !== 'ALL'){
-        query = query.concat(condition3)
+    if(data1.search_status.toUpperCase() !== 'ALL'){
+        query = await query.concat(condition3)
     }
     console.log(query);
     db.query(query, [data.limit,data.skip], function(err, task){
@@ -78,11 +80,21 @@ Task.list = function(data,data1,result) {
             result("Lấy danh sách Task không thành công :(");
         }
         else{
+            console.log("task.length",task.length);
+            let task_length = task.length
+            let total_page = 1
+            if(task_length < 25){
+                total_page = total_page
+            }
+            else{
+                total_page = Math.round(task_length / 25)
+            }
+            console.log("total_page: ", total_page)
             task.map(item =>{
                 item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
                 item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
             })
-            result(task)
+            result({total_page:total_page,task:task});
         }
     });
     
@@ -182,9 +194,9 @@ Task.detail = function(task_id, result) {
 
 //Insert task
 Task.create = function(data,file,result){
-    const query = "INSERT INTO task (JOB,STATUS,CATEGORY,TITLE,PROGRESS,EFFORT,IMPORTANT,DESCRIPTION,FILE,ASSIGNEE_ID,REGISTER_USER_ID,CONFIRMATION_ID,IMPLEMENTATION_ID,TEST_ID,APPROVAL_ID,FINISH_ID,START_DATE,END_DATE,STEP,CATEGORY_TASK_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?,?,?)"
+    const query = "INSERT INTO task (JOB,STATUS,CATEGORY,TITLE,PROGRESS,EFFORT,IMPORTANT,DESCRIPTION,FILE,ASSIGNEE_ID,REGISTER_USER_ID,CONFIRMATION_ID,IMPLEMENTATION_ID,TEST_ID,APPROVAL_ID,FINISH_ID,START_DATE,END_DATE,STEP,CATEGORY_TASK_ID,DEPARTMENT_NAME) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?,?,?,?)"
     if(file && file !== undefined){
-        db.query(query,[data.job,data.status,data.category,data.title,data.progress,data.effort,data.important,data.description,file.filename,data.assignee_id,data.register_user_id,data.confirmation_id,data.implementation_id,data.test_id,data.approval_id,data.finish_id,data.end_date,data.step,data.category_task_id],function(err){
+        db.query(query,[data.job,data.status,data.category,data.title,data.progress,data.effort,data.important,data.description,file.filename,data.assignee_id,data.register_user_id,data.confirmation_id,data.implementation_id,data.test_id,data.approval_id,data.finish_id,data.end_date,data.step,data.category_task_id,data.department_name],function(err){
             if(err){
                 result("Thêm task thất bại :( ")
             }
@@ -194,7 +206,7 @@ Task.create = function(data,file,result){
         })
     }
     else{
-        db.query(query,[data.job,data.status,data.category,data.title,data.progress,data.effort,data.important,data.description,data.file,data.assignee_id,data.register_user_id,data.confirmation_id,data.implementation_id,data.test_id,data.approval_id,data.finish_id,data.end_date,data.step,data.category_task_id],function(err){
+        db.query(query,[data.job,data.status,data.category,data.title,data.progress,data.effort,data.important,data.description,data.file,data.assignee_id,data.register_user_id,data.confirmation_id,data.implementation_id,data.test_id,data.approval_id,data.finish_id,data.end_date,data.step,data.category_task_id,data.department_name],function(err){
             if(err){
                 result("Thêm task thất bại :( ")
             }

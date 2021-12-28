@@ -11,6 +11,7 @@ import rootReducer from './redux/reducer'
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.min.js';
+import "react-toastify/dist/ReactToastify.css"
 
 
 

@@ -8,6 +8,9 @@ import ListTaskTree from './module-list-task-tree'
 import {actPostTaskAPI} from "./module-insert-task/action"
 import {actFetchListEmployeesSelectAPI} from "./module-list-employees-select/action"
 import {actFetchListTaskAPI} from "./module-list-tasks/action"
+import {actFetchListCategoryAPI} from './module-list-category/action'
+import {actFetchListDepartmentAPI} from './module-list-department/action'
+import {actFetchListCategoryByDepartmentAPI} from './module-list-category-by-department/action'
 
 import { connect } from 'react-redux';
 
@@ -33,6 +36,7 @@ class Task extends Component {
                 register_user:"",
                 start_date:"",
                 end_date:"",
+                department_name:"",
                 effort:"",
                 important:"Very Important",
                 description:"",
@@ -45,9 +49,9 @@ class Task extends Component {
                 step:"",             
             },
             search_task:{
-                search_category:"All",
-                search_job:"All",
-                search_state:"All",
+                search_category:"ALL",
+                search_job:"ALL",
+                search_status:"ALL",
             },
 
             filter_array:"",
@@ -67,7 +71,21 @@ class Task extends Component {
 
     componentDidMount(){
         this.props.FetchListEmployeesSlect()
-        this.props.FetchListTask()
+        this.props.FetchListTask(this.state.search_task)
+        this.props.FetListCategoryTask()
+        this.props.FetchListDepartment()
+
+        console.log("componentDidMount")
+    }
+
+    componentWillMountUpdate(){
+        console.log("componentDidUpdate")
+        setTimeout(() =>{
+            if(this.state.task.department_name.split("noi chuoi")[0] !== ""){
+                this.props.FetchListCategoryByDepartment({department_id: this.state.task.department_name.split("noi chuoi")[0]})
+                console.log("da vao componentDidUpdate if")
+            }
+        },100)
     }
 
     handleOnFilterArray = event =>{
@@ -149,7 +167,23 @@ class Task extends Component {
                         })
                     },100)
                 }
+                if( this.state.task.department_name !== ""){
+                    setTimeout(()=>{
+                        this.setState({
+                            department_name : this.state.task.department_name
+                        })
+                        console.log("this.state.task.department_name[0]: ", this.state.task.department_name.split("noi chuoi")[0])
+                    },100)
+                    
+                }
             },100)
+            setTimeout(() =>{
+                if(this.state.task.department_name.split("noi chuoi")[0] !== ""){
+                    this.props.FetchListCategoryByDepartment({department_id: this.state.task.department_name.split("noi chuoi")[0]})
+                    console.log("da vao componentDidUpdate if")
+                }
+            },100)
+            
             console.log("imgEmployeesSelectRegister",this.state.imgEmployeesSelectRegister)
             console.log("this.state.task.confirmation.split", this.state.task.confirmation.split("noi chuoi"))
             console.log(name,value)
@@ -173,6 +207,7 @@ class Task extends Component {
         data.append("register_user",this.state.task.register_user.split("noi chuoi")[1])
         // data.append("start_date",this.state.task.start_date)
         data.append("end_date",this.state.task.end_date)
+        data.append("department_name",this.state.task.department_name)
         data.append("effort","30")
         data.append("important",this.state.task.important)
         data.append("description",this.state.task.description)
@@ -192,9 +227,45 @@ class Task extends Component {
         let data = new FormData()
         data.append("search_category",this.state.search_task.search_category)
         data.append("search_job",this.state.search_task.search_job)
-        data.append("search_state",this.state.search_task.search_state)
+        data.append("search_status",this.state.search_task.search_status)
         console.log('data search',Array.from(data))
         this.props.PostInsertTask(data)
+    }
+
+    renderListDepartment = () =>{
+        const {listDepartment} = this.props
+        console.log('listDepartment', listDepartment.result)
+        if(listDepartment.result && listDepartment.result.length > 0){
+            return listDepartment.result.map(item => {
+                return (
+                    <option value= {item.DEPARTMENT_ID + "noi chuoi" + item.DEPARTMENT_NAME} key={item.DEPARTMENT_ID}>{item.DEPARTMENT_NAME}</option>
+                )
+            })
+        }
+    }
+
+    renderListCategory = () =>{
+        const {listCategoryTask} = this.props
+        console.log("listCategoryTask", listCategoryTask)
+        if(listCategoryTask.result && listCategoryTask.result.length > 0){
+            return listCategoryTask.result.map(item =>{
+                return (
+                    <option key ={item.CATEGORY_TASK_ID} value={item.CATEGORY_NAME}>{item.CATEGORY_NAME}</option>
+                )
+            })
+        }
+    }
+
+    renderListCategoryByDepartment = () =>{
+        let {listCategoryByDepartment} = this.props
+        console.log("listCategoryByDepartment", listCategoryByDepartment)
+        if(listCategoryByDepartment.result && listCategoryByDepartment.result.length > 0){
+            return listCategoryByDepartment.result.map(item =>{
+                return(
+                    <option value={item.CATEGORY_NAME} key={item.CATEGORY_TASK_ID}>{item.CATEGORY_NAME}</option> 
+                )
+            })
+        }
     }
 
     renderListEmployeesSelect = () =>{
@@ -213,40 +284,40 @@ class Task extends Component {
         const {listTask} = this.props
         console.log("renderHTMLAdmin",listTask)
         
-        if(listTask.result && listTask.result.length > 0){
-            const listFilterTask = listTask.result.filter(item => {
+        if(listTask.result && listTask.result.task && listTask.result.task.length > 0){
+            const listFilterTask = listTask.result.task.filter(item => {
                 if(this.state.filter_array === ""){
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.TASK_ID.toString().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.JOB.toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.CATEGORY.toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.TITLE.toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.PROGRESS.toString().toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.REGISTER_USER_NAME.toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.ASSIGNEE_NAME.toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.START_DATE.toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.END_DATE.toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
                 else if(item.EFFORT.toString().toLowerCase().includes(this.state.filter_array.toLowerCase())){                   
-                    return listTask.result
+                    return listTask.result.task
                 }
             })
             return listFilterTask.map((item, index)=>{
@@ -288,7 +359,8 @@ class Task extends Component {
                                     <select name="search_category" id="search_category_task" value={this.state.search_task.search_category} onChange={this.handleOnChange}  style={{ padding:"2px",  width:"200px", height:"30px", fontSize:"16px"  }}>                                          
                                         <option value="All">All</option>
                                         <option value="Information Techonology">Information Techonology</option>
-                                        <option value="Digital Marketing">Digital Marketing</option>                                          
+                                        <option value="Digital Marketing">Digital Marketing</option>
+                                        {this.renderListCategory()}                                          
                                     </select>
                             </label>
                         </div>
@@ -298,7 +370,7 @@ class Task extends Component {
                                     <select name="search_job" id="search_job" value={this.state.search_task.search_job} onChange={this.handleOnChange}  style={{ padding:"2px",  width:"200px", height:"30px", fontSize:"16px"  }}>                                          
                                         <option value="All">All</option>
                                         <option value="Document">Document</option>
-                                        <option value="Fix Bug">Fix Bug</option>                                          
+                                        <option value="Fix Bug">Fix Bug</option>                                      
                                     </select>
                             </label>
                         </div>
@@ -365,14 +437,14 @@ class Task extends Component {
                             <div className="modal-dialog modal-dialog-centered">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+                                        <h5 className="modal-title" id="exampleModalToggleLabel">Create Task</h5>
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                                     </div>
-                                    <div className="modal-body">
+                                    <form className="modal-body" onSubmit={this.handleOnSubmit}>
                                     <div className="d-flex flex-row bd-highlight mb-3">
                                         <label className="bd-highlight task-right-item-seperate-3 final-class">
                                             JOB TYPE:<br/>                                       
-                                            <select name="job" id="job" value={this.state.task.job} onChange={this.handleOnChange}  style={{ padding:"2px",  width:"200px", height:"30px", fontSize:"16px"  }}>                                          
+                                            <select name="job" id="job" value={this.state.task.job} onChange={this.handleOnChange}  style={{ padding:"2px",  width:"150px", height:"30px", fontSize:"16px", marginRight:"10px"  }}>                                          
                                                 <option value="Bug Fixing">Bug Fixing</option>
                                                 <option value="Documentation">Documentation</option>
                                                 <option value="Develope">Develope</option>
@@ -389,7 +461,7 @@ class Task extends Component {
                                         </label>
                                         <label className="bd-highlight task-right-item-seperate-3 final-class">
                                             IMPORTANT:<br/>                                       
-                                            <select name="important" id="important" value={this.state.task.important} onChange={this.handleOnChange}   style={{ padding:"2px", width:"200px", height:"30px", fontSize:"16px" }}>
+                                            <select name="important" id="important" value={this.state.task.important} onChange={this.handleOnChange}   style={{ padding:"2px", width:"150px", height:"30px", fontSize:"16px", marginRight:"10px" }}>
                                                 <option value="Very Important">Very Important</option>
                                                 <option value="Important">Important</option>
                                                 <option value="Normal">Normal</option>
@@ -398,15 +470,23 @@ class Task extends Component {
                                             </select>
                                         </label>
                                         <label className="bd-highlight task-right-item-seperate-3 final-class">
+                                            DEPARTMENT:<br/>                                       
+                                            <select name="department_name" id="department_name" value={this.state.task.department}  onChange={this.handleOnChange}  style={{ padding:"2px", width:"150px", height:"30px", fontSize:"16px", marginRight:"10px" }}>
+                                                <option value="">Choose Department</option>
+                                                {this.renderListDepartment()}
+                                            </select>
+                                        </label>
+                                        <label className="bd-highlight task-right-item-seperate-3 final-class">
                                             CATEGORY:<br/>                                       
-                                            <select name="category" id="category" value={this.state.task.category}  onChange={this.handleOnChange}  style={{ padding:"2px", width:"200px", height:"30px", fontSize:"16px" }}>
+                                            <select name="category" id="category" value={this.state.task.category}  onChange={this.handleOnChange}  style={{ padding:"2px", width:"150px", height:"30px", fontSize:"16px", marginRight:"10px" }}>
                                                 <option value="KFC">KFC</option>
                                                 <option value="CYBER">CYBER</option>
+                                                {this.renderListCategoryByDepartment()}
                                             </select>
                                         </label>
                                         <label className="bd-highligh task-right-item-seperate-3">
                                             DUE DATE:<br/>
-                                            <input type="date" name="end_date" id="end_date" value={this.state.task.end_date} onChange={this.handleOnChange} style={{width:"200px", height:"30px", fontSize:"16px" }} />
+                                            <input type="date" name="end_date" id="end_date" value={this.state.task.end_date} onChange={this.handleOnChange} style={{width:"150px", height:"30px", fontSize:"16px", marginRight:"10px" }} />
                                         </label>
                                         </div>
                                         {/* body */}
@@ -569,8 +649,12 @@ class Task extends Component {
                                                 </div>
                                                                         
                                             </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" className="btn btn-primary">Submit</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -590,7 +674,10 @@ class Task extends Component {
 export const mapStateToProp = state => {
     return {
         listEmployeesSelect:state.listEmployeesSelectReducer.listEmployeesSelect,
-        listTask: state.listTaskReducer.listTask
+        listTask: state.listTaskReducer.listTask,
+        listCategoryTask : state.listCategoryTaskReducer.listCategoryTask,
+        listDepartment: state.listDepartmentReducer.listDepartment,
+        listCategoryByDepartment: state.listCategoryByDepartmentReducer.listCategoryByDepartment
     }
 }
 
@@ -602,8 +689,17 @@ export const mapDispatchToProp = dispatch => {
         FetchListEmployeesSlect: () =>{
             dispatch(actFetchListEmployeesSelectAPI())
         },
-        FetchListTask: () =>{
-            dispatch(actFetchListTaskAPI())
+        FetchListTask: search_task =>{
+            dispatch(actFetchListTaskAPI(search_task))
+        },
+        FetListCategoryTask: () =>{
+            dispatch(actFetchListCategoryAPI())
+        },
+        FetchListDepartment: () =>{
+            dispatch(actFetchListDepartmentAPI())
+        },
+        FetchListCategoryByDepartment: department_id =>{
+            dispatch(actFetchListCategoryByDepartmentAPI(department_id))
         }
     }
 }

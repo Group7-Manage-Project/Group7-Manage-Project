@@ -5,7 +5,7 @@ import {POST_SIGN_IN_REQUEST,
     from './constant'
 import Axios from 'axios'
 import  Cookies  from 'js-cookie';
-import { toast} from "react-toastify"
+import {toast} from "react-toastify"
 import {Redirect} from 'react-router-dom'
 
 export const PostSignInAPI = (user) =>{
@@ -32,7 +32,7 @@ export const PostSignInAPI = (user) =>{
         })
         .catch(err =>{
             dispatch(PostSignInFalied(err))
-            toast.error("Đăng nhập thất bại",{
+            toast.error("Username or Password is wrong",{
                 className: "custom-toast",
                 draggable:true,
                 position: toast.POSITION.TOP_RIGHT
