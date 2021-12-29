@@ -141,3 +141,24 @@ exports.count_employees_phase = function(req,res){
         return res.status(403).send({message:'Unauthorized'});
     }
 }
+
+exports.get_task_todo = function(req,res){
+    let employee_id = req.params.employee_id;
+    Task.get_task_todo_by_employee_id(employee_id,function(response){
+        res.send({result:response})
+    })
+}
+
+exports.get_task_doing = function(req,res){
+    let employee_id = req.params.employee_id;
+    Task.get_task_doing_by_employee_id(employee_id,function(response){
+        res.send({result:response})
+    })
+}
+
+exports.get_task_done = function(req,res){
+    let employee_id = req.params.employee_id;
+    Task.get_task_done_by_employee_id(employee_id,function(response){
+        res.send({result:response})
+    })
+}

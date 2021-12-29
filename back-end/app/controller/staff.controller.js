@@ -163,7 +163,13 @@ exports.login_employee = function(req,res){
         else{
             res.status(403).send({message:'Đăng nhập thất bại'});
         }
+    })  
+}
+
+exports.get_task_info = function(req, res){
+    let employee_id = req.params.employee_id;
+    Staff.get_info_task(employee_id,function(response){
+        res.send({result:response})
     })
-    
 }
 
