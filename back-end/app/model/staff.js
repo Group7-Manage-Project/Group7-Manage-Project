@@ -149,8 +149,6 @@ Staff.login = function(data,result){
             result("Đăng nhập thất bại");
         }
     });
-    
 }
-
 
 module.exports = Staff;
