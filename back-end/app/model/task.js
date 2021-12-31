@@ -289,7 +289,7 @@ Task.count_task_category = function(result) {
     const query = "SELECT CATEGORY, COUNT(JOB) AS COUNT_TASK FROM TASK GROUP BY CATEGORY";
     db.query(query, function(err, task){
         if(err){
-            result("Lấy danh sách Task không thành công :(");
+            result("Lấy danh sách số lượng Task không thành công :(");
         }
         else{
             result(task)
@@ -334,7 +334,7 @@ Task.count_employees_phase = function(result) {
     `;
     db.query(query, function(err, task){
         if(err){
-            result("Lấy danh sách Task không thành công :(");
+            result("Lấy danh sách số lượng employee mỗi phase không thành công :(");
         }
         else{
             result(task)

@@ -20,8 +20,13 @@ exports.get_list_task = function(req,res){
                     'skip': page_skip
                 }
                 Task.list(data,data1,function(response){
-                    console.log("response", response)
-                    res.send({result:response})
+                    if (response !== "Lấy danh sách Task không thành công :("){
+                        console.log("response", response)
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Lấy danh sách Task không thành công :('});
+                    }
                 })
             }
         })
@@ -41,7 +46,12 @@ exports.details_task = function(req,res){
             else {
                 let task_id = req.params.task_id;
                 Task.detail(task_id,function(response){
-                    res.send({result:response})
+                    if (response !== "Không có task cần tìm"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Không có task cần tìm'});
+                    }
                 })
             }
         })
@@ -64,7 +74,12 @@ exports.insert_task = function(req,res){
                 console.log("task", req.body)
                 console.log("file",req.file)
                 Task.create(data,file,function(response){
-                    res.send({result:response})
+                    if (response !== "Thêm task thất bại :( "){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Thêm task thất bại :( '});
+                    }
                 })
             }
         })
@@ -87,7 +102,12 @@ exports.update_task = function(req,res){
                 console.log("task update",data);
                 console.log("file",req.file);
                 Task.update(data,file,function(response){
-                    res.send({result:response});
+                    if (response !== "Cập nhật không thành công :("){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Cập nhật không thành công :('});
+                    }
                 })
             }
         })
@@ -113,7 +133,12 @@ exports.count_task_category = function(req,res){
             }
             else {
                 Task.count_task_category(function(response){
-                    res.send({result:response})
+                    if (response !== "Lấy danh sách số lượng Task không thành công :("){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Lấy danh sách số lượng Task không thành công :('});
+                    }
                 })
             }
         })
@@ -132,7 +157,12 @@ exports.count_employees_phase = function(req,res){
             }
             else {
                 Task.count_employees_phase(function(response){
-                    res.send({result:response})
+                    if (response !== "Lấy danh sách số lượng employee mỗi phase không thành công :("){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Lấy danh sách số lượng employee mỗi phase không thành công :('});
+                    }
                 })
             }
         })
@@ -143,22 +173,76 @@ exports.count_employees_phase = function(req,res){
 }
 
 exports.get_task_todo = function(req,res){
-    let employee_id = req.params.employee_id;
-    Task.get_task_todo_by_employee_id(employee_id,function(response){
-        res.send({result:response})
-    })
+    if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
+            if (err){
+                return res.status(403).send({message:'Unauthorized'})
+            }
+            else{
+                let employee_id = req.params.employee_id;
+                Task.get_task_todo_by_employee_id(employee_id,function(response){
+                    if (response !== "Get failed"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Get failed'});
+                    }
+                })
+            }
+        })
+    }
+    else{
+        return res.status(403).send({message:'Unauthorized'});
+    }
 }
 
 exports.get_task_doing = function(req,res){
-    let employee_id = req.params.employee_id;
-    Task.get_task_doing_by_employee_id(employee_id,function(response){
-        res.send({result:response})
-    })
+    if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
+            if (err){
+                return res.status(403).send({message:'Unauthorized'})
+            }
+            else{
+                let employee_id = req.params.employee_id;
+                Task.get_task_doing_by_employee_id(employee_id,function(response){
+                    if (response !== "Get failed"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Get failed'});
+                    }
+                })
+            }
+        })
+    }
+    else{
+        return res.status(403).send({message:'Unauthorized'});
+    }
 }
 
 exports.get_task_done = function(req,res){
-    let employee_id = req.params.employee_id;
-    Task.get_task_done_by_employee_id(employee_id,function(response){
-        res.send({result:response})
-    })
+    if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
+            if (err){
+                return res.status(403).send({message:'Unauthorized'})
+            }
+            else{
+                let employee_id = req.params.employee_id;
+                Task.get_task_done_by_employee_id(employee_id,function(response){
+                    if (response !== "Get failed"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Get failed'});
+                    }
+                }) 
+            }
+        })
+    }
+    else{
+        return res.status(403).send({message:'Unauthorized'});
+    }
 }

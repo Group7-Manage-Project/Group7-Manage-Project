@@ -10,7 +10,12 @@ exports.get_list_category_task = function(req,res){
             }
             else{
                 Category.list(function(response){
-                    res.send({result:response});
+                    if (response !== "Lấy danh sách Category không thành công :("){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Lấy danh sách Category không thành công :('});
+                    }
                 })  
             }
         })
@@ -30,7 +35,12 @@ exports.details_category_task = function(req,res){
             else {
                 let category_task_id = req.params.category_task_id;
                 Category.detail(category_task_id,function(response){
-                    res.send({result:response});
+                    if (response !== "Không có danh sách task cần tìm"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Không có danh sách task cần tìm'});
+                    }
                 })
             }
         })
@@ -51,7 +61,12 @@ exports.insert_category_task = function(req,res){
                 let data = req.body
                 console.log("category_task",data)
                 Category.create(data,function(response){
-                    res.send({result:response});
+                    if (response !== "Thêm category task thất bại"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Thêm category task thất bại'});
+                    }
                 })
             }
         })
@@ -71,7 +86,12 @@ exports.update_category_task = function(req,res){
             else {
                 let data = req.body;
                 Category.update(data,function(response){
-                    res.send({result:response});
+                    if (response !== "Cập nhật không thành công"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Cập nhật không thành công'});
+                    }
                 })
             }
         })
@@ -91,7 +111,12 @@ exports.delete_category_task = function(req,res){
             else {
                 let category_task_id = req.params.category_task_id;
                 Category.delete(category_task_id,function(response){
-                    res.send({result:response});
+                    if (response !== "Xóa loại task không thành công"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Xóa loại task không thành công'});
+                    }
                 });
             }
         })
@@ -111,7 +136,12 @@ exports.delete_category_task_flg = function(req,res){
             else {
                 let data = req.body;
                 Category.delete_flg(data,function(response){
-                    res.send({result:response});
+                    if (response !== "Chuyển cờ không thành công"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Chuyển cờ không thành công'});
+                    }
                 })
             }
         })
@@ -133,7 +163,12 @@ exports.get_list_category_task_by_department = function(req,res){
                 let data = req.body
                 console.log("category_task",data)
                 Category.get_list_category_task_by_department(data,function(response){
-                    res.send({result:response});
+                    if (response !== "Lấy danh sách category theo departments không thành công :("){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Lấy danh sách category theo departments không thành công :('});
+                    }
                 })
             }
         })

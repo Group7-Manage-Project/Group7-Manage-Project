@@ -27,8 +27,6 @@ module.exports = function(router) {
     router.delete('/api/staff/delete/:employee_id',staffController.delete_employee);
     router.put('/api/staff/delete-flag',staffController.delete_employee_flg);
     router.post('/api/staff/login', staffController.login_employee);
-    router.get('/api/staff/task_info/:employee_id',staffController.get_task_info);
-
     
     router.get('/get-image/:image',(req, res) => {
       const r = fs.createReadStream(`./image/${req.params.image}`) // or any other way to get a readable stream
