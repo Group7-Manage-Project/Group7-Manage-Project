@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import cardPersonBg from "./img/background-person-card.jpg"
+import cardPersonBg from "./img/background.jpg"
 import personCard from "./img/logo.jpg"
 import BottmBarTask from "./bottom-bar-task"
 import {ToastContainer, toast, Zoom} from "react-toastify"

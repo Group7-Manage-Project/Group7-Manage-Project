@@ -5,6 +5,8 @@ import{
 } from './constant'
 import Axios from 'axios'
 import  Cookies  from 'js-cookie';
+import {toast} from "react-toastify"
+
 
 export const actPostTaskAPI = taskInsert =>{
     return dispatch =>{
@@ -20,9 +22,19 @@ export const actPostTaskAPI = taskInsert =>{
         .then(result =>{
             dispatch(actPostTaskSuccess(result.data))
             console.log(result.data)
+            toast.success("Create Task Success",{
+                className: "custom-toast",
+                draggable:true,
+                position: toast.POSITION.TOP_RIGHT
+            })
         })
         .catch(err =>{
             dispatch(actPostTaskFailed(err))
+            toast.error("Create Task Failed",{
+                className: "custom-toast",
+                draggable:true,
+                position: toast.POSITION.TOP_RIGHT
+            })
         })
         
     }
