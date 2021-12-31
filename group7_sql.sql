@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 28, 2021 lúc 12:07 PM
+-- Thời gian đã tạo: Th12 31, 2021 lúc 12:43 PM
 -- Phiên bản máy phục vụ: 10.4.20-MariaDB
 -- Phiên bản PHP: 7.4.21
 
@@ -116,16 +116,12 @@ CREATE TABLE `staff` (
 INSERT INTO `staff` (`EMPLOYEE_ID`, `FULL_NAME`, `USER_NAME`, `PASSWORD`, `BIRTH_DAY`, `EMAIL`, `IMAGE`, `POSITION`, `ROLL`, `DELETE_FLAG`) VALUES
 (1, 'John Switch', 'John', '1234', '1989-12-19', 'abc@gmail.com', NULL, 'xxxxx', 'xxxxx', 'flag'),
 (2, 'John Math', 'Math', '4567', '1989-12-19', 'def@gmail.com', NULL, 'xxxxx', 'xxxxx', NULL),
-(3, 'Nguyễn Trần Hoàng', 'hoang', '1234', '2000-04-11', 'hoangnt18@uef.edu.vn', '1640578766171--hoangFB.jpg', 'Leader', 'Admin', NULL),
-(4, 'Nguyễn Thị Thu Quyên', 'thuQuyen', '1234', '0000-00-00', 'quyenntt8@uef.edu.vn', NULL, 'Leader', 'Admin', NULL),
-(5, 'Vũ Nhật Minh Trường', 'truong', '1234', '2000-01-01', 'truongvnmt18@uef.edu.vn', '1640598853157--Phut.jpg', 'Leader', 'Admin', NULL),
-(6, 'Vũ Nhật Minh Trường', 'truong1', '1234', '2000-01-11', 'truongvnmt18@uef.edu.vn', '1640599011544--Phut.jpg', 'Leader', 'Admin', NULL),
 (7, 'Vũ Nhật Minh Trường', 'truong2', '1234', '2000-04-11', 'truongvnmt18@uef.edu.vn', '1640599576538--Phut.jpg', 'Leader', 'User', NULL),
 (8, 'Vũ Nhật Minh Trường', 'truong3', '1234', '2000-01-11', 'truongvnmt18@uef.edu.vn', '1640599915070--Phut.jpg', 'Leader', 'Admin', NULL),
 (9, 'Vũ Nhật Minh Trường', 'truong4', '1234', '2000-04-11', 'abc@dounets.com', '1640600070519--Phut.jpg', 'Leader', 'Admin', NULL),
 (10, 'Nguyễn Trần Hoàng', 'hoang10', '1234', '2000-04-11', 'abc@dounets.com', '1640601729704--hoang2.JPG', 'Leader', 'Admin', NULL),
 (11, 'Nguyễn Trần Hoàng', 'hoang', '1234', '2000-11-04', 'hoangnt18@uef.edu.vn', NULL, 'Leader', 'Admin', NULL),
-(12, 'Nguyễn Trần Hoàng', 'hoang', '1234', '2000-11-04', 'hoangnt18@uef.edu.vn', NULL, 'Leader', 'Admin', NULL);
+(13, 'Nguyễn Trần Hoàng', 'admin', '1234', '2000-04-11', 'abc@dounets.com', '1640757469008--Phut.jpg', 'Leader', 'Admin', NULL);
 
 -- --------------------------------------------------------
 
@@ -165,7 +161,23 @@ CREATE TABLE `task` (
 INSERT INTO `task` (`TASK_ID`, `JOB`, `STATUS`, `CATEGORY`, `TITLE`, `PROGRESS`, `EFFORT`, `IMPORTANT`, `DESCRIPTION`, `FILE`, `ASSIGNEE_ID`, `REGISTER_USER_ID`, `CONFIRMATION_ID`, `IMPLEMENTATION_ID`, `TEST_ID`, `APPROVAL_ID`, `FINISH_ID`, `START_DATE`, `END_DATE`, `STEP`, `CATEGORY_TASK_ID`, `DEPARTMENT_NAME`) VALUES
 (1, 'Develop', 'In Progressing', 'DEK', 'Develop System', 10, 50, 'Very Important', 'Develop System and result', NULL, 2, 1, 2, 1, 2, 1, 2, '2021-12-19', '2021-12-25', 3, 4, NULL),
 (2, 'Bug Fixing', 'Complete', 'KFC', 'Fix bug UI', 5, 100, 'Important', 'Fix bug UI', NULL, 1, 2, 1, 2, 1, 2, 1, '2021-11-29', '2021-12-25', 3, 5, NULL),
-(4, 'Documentation', 'In Progressing', 'KFC', 'Document of website', 10, 30, 'Important', 'Document of the website to use', '1638438866699--1638437628123--bai-tap-tuan-1.docx', 1, 1, 1, 1, 1, 1, 1, '2021-12-02', '2021-12-25', 1, 4, NULL);
+(4, 'Documentation', 'In Progressing', 'KFC', 'Document of website', 10, 30, 'Important', 'Document of the website to use', '1638438866699--1638437628123--bai-tap-tuan-1.docx', 1, 1, 1, 1, 1, 1, 1, '2021-12-02', '2021-12-25', 1, 4, NULL),
+(5, 'Bug Fixing', 'In Processing', 'code', 'Fix Bug UI', 10, 30, 'Very Important', 'Fix Bug UI', '1640865635072--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, '1noi chuoiFaculty of Information Technology'),
+(6, 'Bug Fixing', 'In Processing', '', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, ''),
+(7, 'Bug Fixing', 'In Processing', '', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, ''),
+(8, 'Bug Fixing', 'In Processing', '', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '1640865776812--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, ''),
+(9, 'Bug Fixing', 'In Processing', 'read', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '1640865854333--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, '1noi chuoiFaculty of Information Technology'),
+(10, 'Bug Fixing', 'In Processing', 'read', 'Review Code', 10, 30, 'Very Important', 'Review Code UI', '1640866333858--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '2022-01-03', 1, NULL, 'Faculty of Information Technology'),
+(11, 'Documentation', 'In Processing', 'code', 'Write Document', 10, 30, 'Normal', 'Write Document for client', '1640866693871--review .docx', 7, 7, 8, 10, 10, 10, 7, '2021-12-30', '2022-01-07', 1, NULL, 'Faculty of Information Technology'),
+(17, 'Bug Fixing', 'In Processing', 'code', 'Fix Bug UI', 10, 30, 'Important', 'Fix Bug UI', '1640868327893--review .docx', 8, 8, 9, 9, 10, 10, 13, '2021-12-30', '2021-12-31', 1, 4, 'Faculty of Information Technology'),
+(18, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, NULL, NULL, NULL),
+(19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, NULL, NULL, NULL),
+(20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, NULL, NULL, NULL),
+(21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, NULL, NULL, NULL),
+(22, 'Develope', 'In Processing', 'code', 'Develope software', 10, 30, 'Important', 'Develope software', '', 7, 7, 8, 8, 8, 10, 7, '2021-12-30', '2022-01-08', 1, 4, 'Faculty of Information Technology'),
+(23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-31', NULL, NULL, NULL, NULL),
+(24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-31', NULL, NULL, NULL, NULL),
+(25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-31', NULL, NULL, NULL, NULL);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -238,13 +250,13 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT cho bảng `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `EMPLOYEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `EMPLOYEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `task`
 --
 ALTER TABLE `task`
-  MODIFY `TASK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `TASK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

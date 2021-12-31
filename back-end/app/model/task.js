@@ -152,20 +152,14 @@ Task.detail = function(task_id, result) {
         FROM TASK A, CATEGORY_TASK B
         WHERE A.CATEGORY_TASK_ID = B.CATEGORY_TASK_ID AND A.TASK_ID = ?
     ),
-    COMMENT_TASK_T AS
-    (
-        SELECT A.TASK_ID, C.FULL_NAME AS USER_COMMENT, B.PHASE_NAME, B.COMMENT, B.CREATE_COMMENT_DATE
-        FROM TASK A, COMMENT_TASK B, STAFF C
-        WHERE A.TASK_ID = B.TASK_ID AND B.USER_COMMENT_ID = C.EMPLOYEE_ID AND A.TASK_ID = ?
-    ),
     TASK_T AS
     (
         SELECT *
         FROM TASK
         WHERE TASK_ID = ?
     )
-    SELECT A.*, B.*,C.*,D.*,E.*,F.*,G.*, H.*, I.*, J.*
-    FROM TASK_T A,REGISTER_T B,ASSIGNEE_T C,CONFIRMATION_T D,IMPLEMENTATION_T E,TEST_T F,APPROVAL_T G,FINISH_T H, CATEGORY_TASK_T I, COMMENT_TASK_T J
+    SELECT A.*, B.*,C.*,D.*,E.*,F.*,G.*, H.*, I.*
+    FROM TASK_T A,REGISTER_T B,ASSIGNEE_T C,CONFIRMATION_T D,IMPLEMENTATION_T E,TEST_T F,APPROVAL_T G,FINISH_T H, CATEGORY_TASK_T I
     `;
     db.query(query,[task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id,task_id],function(err, task){
         if(err || task.length == 0){
@@ -215,6 +209,7 @@ Task.create = function(data,file,result){
             }
         })
     }
+    console.log("data task", data)
 }
 
 //Update task
