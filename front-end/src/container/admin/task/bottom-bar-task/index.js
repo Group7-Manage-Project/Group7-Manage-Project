@@ -117,8 +117,8 @@ class BottmBarTask extends Component {
                 <div className="d-flex d-flex justify-content-between bd-highlight">
                     <div className="bd-highlight">
                         <div className="category-action d-flex">
-                            <button className="btn-task-page">Create</button>
-                            <button className="btn-task-page">Modify</button>
+                            <button className="btn-task-page" data-bs-toggle="modal" href="#exampleModalToggleDepartmentCategory">Create</button>
+                            <button className="btn-task-page" data-bs-toggle="modal" href="#exampleModifyModalToggleDepartmentCategory">Modify</button>
                             <button className="btn-task-page">Delete</button>                           
                         </div>
                     </div>
