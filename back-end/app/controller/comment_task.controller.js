@@ -10,7 +10,12 @@ exports.get_list_comment_task = function(req,res){
             }
             else {
                 Comment.list(function(response){
-                    res.send({result:response});
+                    if (response !== "Get list failure"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Get list failure'});
+                    }
                 })
             }
         })
@@ -30,7 +35,12 @@ exports.details_comment_task = function(req,res){
             else {
                 let comment_task_id = req.params.comment_task_id;;
                 Comment.detail(comment_task_id, function(response){
-                    res.send({result:response});
+                    if (response !== "Không có comment_task cần tìm"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Không có comment_task cần tìm'});
+                    }
                 })
             }
         })
@@ -51,7 +61,12 @@ exports.insert_comment_task = function(req,res){
                 let data = req.body;
                 console.log("comment_task",data);
                 Comment.create(data,function(response){
-                    res.send({result:response});
+                    if (response !== "Add failure"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Add failure'});
+                    }
                 })
             }
         })
@@ -71,7 +86,12 @@ exports.update_comment_task = function(req,res){
             else {
                 let data = req.body;
                 Comment.update(data,function(response){
-                    res.send({result:response});
+                    if (response !== "Error updating comment"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Error updating comment'});
+                    }
                 })
             }
         })
@@ -91,7 +111,12 @@ exports.delete_comment_task = function(req,res){
             else {
                 let comment_task_id = req.params.comment_task_id;
                 Comment.delete(comment_task_id, function(response){
-                    res.send({result:response});
+                    if (response !== "Error deleting comment"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Error deleting comment'});
+                    }
                 })
             }
         })

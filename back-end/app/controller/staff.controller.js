@@ -1,5 +1,4 @@
 var jwt = require('jsonwebtoken');
-
 const Staff = require('../model/staff');
 
 exports.get_list_employee = function(req,res){
@@ -11,7 +10,12 @@ exports.get_list_employee = function(req,res){
             }
             else {
                 Staff.list(function(response){
-                    res.send({result:response})
+                    if (response !== "Lấy danh sách Staff không thành công :("){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Lấy danh sách Staff không thành công :('});
+                    }
                 })
             }
         })
@@ -31,7 +35,12 @@ exports.get_list_employee_name_image = function(req,res){
             }
             else{
                 Staff.list_name_image(function(response){
-                    res.send({result:response})
+                   if (response !== "Lấy danh sách Staff không thành công :("){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Lấy danh sách Staff không thành công :('});
+                    }
                 })
             }
         })
@@ -51,7 +60,12 @@ exports.details_employee = function(req,res){
             else{
                 let employee_id = req.params.employee_id;
                 Staff.detail(employee_id,function(response){
-                    res.send({result:response})
+                    if (response !== "Không có nhân viên cần tìm"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Không có nhân viên cần tìm'});
+                    }
                 }) 
             }
         })
@@ -78,9 +92,8 @@ exports.insert_employee = function(req,res){
                         res.send({result:response});
                     }
                     else{
-                        res.status(403).send({message:'Đăng ký thất bại :('});
-                    }
-                    
+                        res.status(404).send({message:'Đăng ký thất bại :('});
+                    }   
                 }) 
             }
         })
@@ -102,7 +115,12 @@ exports.update_employee = function(req,res){
                 let file = req.file;
                 console.log("file",req.file);
                 Staff.update(data,file,function(response){
-                    res.send({result:response});
+                    if (response !== "Cập nhật không thành công :("){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Cập nhật không thành công :('});
+                    }
                 })  
             }
         })
@@ -122,7 +140,12 @@ exports.delete_employee = function(req,res){
             else{
                 let employee_id = req.params.employee_id;
                 Staff.delete(employee_id,function(response){
-                    res.send({result:response});
+                    if(response !== "Xóa nhân viên không thành công :)"){
+                        res.send({result:response});
+                    }
+                    else{
+                        res.status(404).send({message:'Xóa nhân viên không thành công :)'});
+                    }   
                 }); 
             }
         })
@@ -142,7 +165,12 @@ exports.delete_employee_flg = function(req,res){
             else{
                 let data = req.body;
                 Staff.delete_flg(data,function(response){
-                    res.send({result:response});
+                    if(response !== "Chuyển cờ không thành công :("){
+                        res.send({result:response});
+                    }
+                    else{
+                        res.status(404).send({message:'Chuyển cờ không thành công :('});
+                    }  
                 }) 
             }
         })
@@ -156,7 +184,6 @@ exports.login_employee = function(req,res){
     let data = req.body;
     console.log("user", data)
     Staff.login(data,function(response){
-        
         if(response !== "Đăng nhập thất bại"){
             res.send(response);
         }
@@ -164,12 +191,5 @@ exports.login_employee = function(req,res){
             res.status(403).send({message:'Đăng nhập thất bại'});
         }
     })  
-}
-
-exports.get_task_info = function(req, res){
-    let employee_id = req.params.employee_id;
-    Staff.get_info_task(employee_id,function(response){
-        res.send({result:response})
-    })
 }
 
