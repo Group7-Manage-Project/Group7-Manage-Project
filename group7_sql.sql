@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 31, 2021 lúc 12:43 PM
--- Phiên bản máy phục vụ: 10.4.20-MariaDB
--- Phiên bản PHP: 7.4.21
+-- Host: 127.0.0.1
+-- Generation Time: Jan 03, 2022 at 03:52 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `group7_sql`
+-- Database: `group7_sql`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `category_task`
+-- Table structure for table `category_task`
 --
 
 CREATE TABLE `category_task` (
@@ -39,7 +39,7 @@ CREATE TABLE `category_task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `category_task`
+-- Dumping data for table `category_task`
 --
 
 INSERT INTO `category_task` (`CATEGORY_TASK_ID`, `CATEGORY_NAME`, `CREATE_DATE`, `CREATE_USER`, `UPDATE_DATE`, `UPDATE_USER`, `DEPARTMENT_ID`, `DELETE_FLG`) VALUES
@@ -50,7 +50,7 @@ INSERT INTO `category_task` (`CATEGORY_TASK_ID`, `CATEGORY_NAME`, `CREATE_DATE`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `comment_task`
+-- Table structure for table `comment_task`
 --
 
 CREATE TABLE `comment_task` (
@@ -63,7 +63,7 @@ CREATE TABLE `comment_task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `comment_task`
+-- Dumping data for table `comment_task`
 --
 
 INSERT INTO `comment_task` (`COMMENT_TASK_ID`, `USER_COMMENT_ID`, `PHASE_NAME`, `COMMENT`, `CREATE_COMMENT_DATE`, `TASK_ID`) VALUES
@@ -73,27 +73,32 @@ INSERT INTO `comment_task` (`COMMENT_TASK_ID`, `USER_COMMENT_ID`, `PHASE_NAME`, 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `departments`
+-- Table structure for table `departments`
 --
 
 CREATE TABLE `departments` (
   `DEPARTMENT_ID` int(11) NOT NULL,
-  `DEPARTMENT_NAME` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `DEPARTMENT_NAME` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `DESCRIPTION` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `CREATE_DATE` date DEFAULT NULL,
+  `CREATE_USER` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `UPDATE_DATE` date DEFAULT NULL,
+  `UPDATE_USER` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `departments`
+-- Dumping data for table `departments`
 --
 
-INSERT INTO `departments` (`DEPARTMENT_ID`, `DEPARTMENT_NAME`) VALUES
-(1, 'Faculty of Information Technology'),
-(2, 'Department of E-Commerce'),
-(3, 'Department management');
+INSERT INTO `departments` (`DEPARTMENT_ID`, `DEPARTMENT_NAME`, `DESCRIPTION`, `CREATE_DATE`, `CREATE_USER`, `UPDATE_DATE`, `UPDATE_USER`) VALUES
+(1, 'Faculty of Information Technology', '', NULL, NULL, NULL, NULL),
+(2, 'Department of E-Commerce', '', NULL, NULL, NULL, NULL),
+(3, 'Department management', '', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `staff`
+-- Table structure for table `staff`
 --
 
 CREATE TABLE `staff` (
@@ -110,7 +115,7 @@ CREATE TABLE `staff` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `staff`
+-- Dumping data for table `staff`
 --
 
 INSERT INTO `staff` (`EMPLOYEE_ID`, `FULL_NAME`, `USER_NAME`, `PASSWORD`, `BIRTH_DAY`, `EMAIL`, `IMAGE`, `POSITION`, `ROLL`, `DELETE_FLAG`) VALUES
@@ -126,7 +131,7 @@ INSERT INTO `staff` (`EMPLOYEE_ID`, `FULL_NAME`, `USER_NAME`, `PASSWORD`, `BIRTH
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `task`
+-- Table structure for table `task`
 --
 
 CREATE TABLE `task` (
@@ -155,7 +160,7 @@ CREATE TABLE `task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `task`
+-- Dumping data for table `task`
 --
 
 INSERT INTO `task` (`TASK_ID`, `JOB`, `STATUS`, `CATEGORY`, `TITLE`, `PROGRESS`, `EFFORT`, `IMPORTANT`, `DESCRIPTION`, `FILE`, `ASSIGNEE_ID`, `REGISTER_USER_ID`, `CONFIRMATION_ID`, `IMPLEMENTATION_ID`, `TEST_ID`, `APPROVAL_ID`, `FINISH_ID`, `START_DATE`, `END_DATE`, `STEP`, `CATEGORY_TASK_ID`, `DEPARTMENT_NAME`) VALUES
@@ -180,18 +185,18 @@ INSERT INTO `task` (`TASK_ID`, `JOB`, `STATUS`, `CATEGORY`, `TITLE`, `PROGRESS`,
 (25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-31', NULL, NULL, NULL, NULL);
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `category_task`
+-- Indexes for table `category_task`
 --
 ALTER TABLE `category_task`
   ADD PRIMARY KEY (`CATEGORY_TASK_ID`),
   ADD KEY `DEPARTMENT_ID` (`DEPARTMENT_ID`);
 
 --
--- Chỉ mục cho bảng `comment_task`
+-- Indexes for table `comment_task`
 --
 ALTER TABLE `comment_task`
   ADD PRIMARY KEY (`COMMENT_TASK_ID`),
@@ -199,19 +204,19 @@ ALTER TABLE `comment_task`
   ADD KEY `USER_COMMENT_ID` (`USER_COMMENT_ID`);
 
 --
--- Chỉ mục cho bảng `departments`
+-- Indexes for table `departments`
 --
 ALTER TABLE `departments`
   ADD PRIMARY KEY (`DEPARTMENT_ID`);
 
 --
--- Chỉ mục cho bảng `staff`
+-- Indexes for table `staff`
 --
 ALTER TABLE `staff`
   ADD PRIMARY KEY (`EMPLOYEE_ID`);
 
 --
--- Chỉ mục cho bảng `task`
+-- Indexes for table `task`
 --
 ALTER TABLE `task`
   ADD PRIMARY KEY (`TASK_ID`),
@@ -225,58 +230,58 @@ ALTER TABLE `task`
   ADD KEY `FINISH_ID` (`FINISH_ID`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `category_task`
+-- AUTO_INCREMENT for table `category_task`
 --
 ALTER TABLE `category_task`
   MODIFY `CATEGORY_TASK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `comment_task`
+-- AUTO_INCREMENT for table `comment_task`
 --
 ALTER TABLE `comment_task`
   MODIFY `COMMENT_TASK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `departments`
+-- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
   MODIFY `DEPARTMENT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT cho bảng `staff`
+-- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
   MODIFY `EMPLOYEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT cho bảng `task`
+-- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
   MODIFY `TASK_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `category_task`
+-- Constraints for table `category_task`
 --
 ALTER TABLE `category_task`
   ADD CONSTRAINT `category_task_ibfk_1` FOREIGN KEY (`DEPARTMENT_ID`) REFERENCES `departments` (`DEPARTMENT_ID`);
 
 --
--- Các ràng buộc cho bảng `comment_task`
+-- Constraints for table `comment_task`
 --
 ALTER TABLE `comment_task`
   ADD CONSTRAINT `comment_task_ibfk_1` FOREIGN KEY (`TASK_ID`) REFERENCES `task` (`TASK_ID`),
   ADD CONSTRAINT `comment_task_ibfk_2` FOREIGN KEY (`USER_COMMENT_ID`) REFERENCES `staff` (`EMPLOYEE_ID`);
 
 --
--- Các ràng buộc cho bảng `task`
+-- Constraints for table `task`
 --
 ALTER TABLE `task`
   ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`CATEGORY_TASK_ID`) REFERENCES `category_task` (`CATEGORY_TASK_ID`),

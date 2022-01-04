@@ -8,6 +8,7 @@ const Category = function(category) {
     this.create_user = category.create_user;
     this.update_date = category.update_date;
     this.update_user = category.update_user;
+    this.department_id = category.department_id;
     this.delete_flg = category.delete_flg;
 }
 // cậu chạy node index trong phần terminal, để run cái project
@@ -40,7 +41,7 @@ Category.detail = function(category_task_id, result) {
 }
 
 Category.create = function(data,result){
-    const query = "INSERT INTO CATEGORY_TASK (CATEGORY_NAME,CREATE_DATE,CREATE_USER,DELETE_FLG) VALUES(?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?,?)";
+    const query = "INSERT INTO CATEGORY_TASK (CATEGORY_NAME,CREATE_DATE,CREATE_USER,DEPARTMENT_ID,DELETE_FLG) VALUES(?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?,?,?)";
     db.query(query,[data.category_name,data.create_user,data.delete_flg],function(err){
         if (err){
             result("Thêm category task thất bại");

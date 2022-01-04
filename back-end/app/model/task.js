@@ -22,6 +22,8 @@ const Task = function(task){
     this.start_date = task.start_date;
     this.end_date = task.end_date;
     this.step = task.step;
+    this.category_task_id = task.category_task_id;
+    this.department_name = task.department_name;    
 }
 
 //Get list task
@@ -61,6 +63,7 @@ Task.list = async function(data,data1,result) {
     let condition1 = `\n AND JOB = '${data1.search_job}'`
     let condition2 = `\n AND CATEGORY = '${data1.search_category}'`
     let condition3 = `\n AND STATUS = '${data1.search_status}'`
+    let condition4 = `\n AND DEPARTMENT_NAME = '${data1.search_department_name}'`
 
     console.log("data", data)
     console.log("data1", data1)
@@ -73,6 +76,9 @@ Task.list = async function(data,data1,result) {
     }
     if(data1.search_status.toUpperCase() !== 'ALL'){
         query = await query.concat(condition3)
+    }
+    if(data1.search_department_name.toUpperCase() !== 'ALL'){
+        query = await query.concat(condition4)
     }
     console.log(query);
     db.query(query, [data.limit,data.skip], function(err, task){

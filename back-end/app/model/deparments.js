@@ -4,6 +4,11 @@ let func = require('../common/convert-to-nested');
 const Department = function (department) {
     this.department_id = department.department_id;
     this.department_name = department.department_name;
+    this.description = department.description;
+    this.create_date = department.create_date;
+    this.create_user = department.create_user;
+    this.update_date = department.update_date;
+    this.update_user = department.update_user;
 }
 
 Department.list = function (result){
@@ -31,8 +36,8 @@ Department.details = function (department_id, result){
 }
 
 Department.create = function (data, result){
-    const query = "INSERT INTO DEPARTMENTS (DEPARTMENT_NAME) VALUES (?)";
-    db.query(query, [data.department_name], function(err){
+    const query = "INSERT INTO DEPARTMENTS (DEPARTMENT_NAME,DESCRIPTION,CREATE_DATE,CREATE_USER) VALUES (?,?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?)";
+    db.query(query, [data.department_name,data.description,data.create_date,data.create_user], function(err){
         if (err) {
             result("Insert failed");
         }
@@ -43,7 +48,7 @@ Department.create = function (data, result){
 }
 
 Department.update = function (data, result){
-    const query= "UPDATE DEPARTMENTS SET DEPARTMENT_NAME = ? WHERE DEPARTMENT_ID = ?";
+    const query= "UPDATE DEPARTMENTS SET DEPARTMENT_NAME = ?, DESCRIPTION = ?, UPDATE_DATE = DATE_FORMAT(SYSDATE(), '%Y-%m-%d'), UPDATE_USER = ?  WHERE DEPARTMENT_ID = ?";
     db.query(query, [data.department_name,data.department_id], function(err){
         if (err){
             result("update failed");
