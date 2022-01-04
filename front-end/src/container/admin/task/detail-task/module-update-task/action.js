@@ -1,36 +1,36 @@
 import {
-    UPDATE_EMPLOYEES_REQUEST,
-    UPDATE_EMPLOYEES_SUCCESS,
-    UPDATE_EMPLOYEES_FALIED
+    UPDATE_TASK_REQUEST,
+    UPDATE_TASK_SUCCESS,
+    UPDATE_TASK_FALIED
 } from "./constant"
 import Axios from "axios"
 import  Cookies  from 'js-cookie';
 import {toast} from "react-toastify"
 
 
-export const actUpdateEmployeesAPI = userUpdate =>{
+export const actUpdateTasksAPI = task =>{
     return dispatch  =>{
-        dispatch(actUpdateEmployeeRequest())
+        dispatch(actUpdateTaskRequest())
         Axios({
             method: "PUT",
-            url:"http://localhost:9999/api/staff/update",
-            data:userUpdate,
+            url:"http://localhost:9999/api/task/update",
+            data:task,
             headers:{
                 Authorization:`Bearer ${Cookies.get('user')}`
             }
         })
         .then(result =>{
-            dispatch(actUpdateEmployeeSuccess(result.data))
+            dispatch(actUpdateTaskSuccess(result.data))
             console.log(result.data)
-            toast.success("Update Employee Successful",{
+            toast.success("Update Task Successful",{
                 className: "custom-toast",
                 draggable:true,
                 position: toast.POSITION.TOP_RIGHT
             })
         })
         .catch(err =>{
-            dispatch(actUpdateEmployeeFailed(err))
-            toast.error("Update Employee Failed",{
+            dispatch(actUpdateTaskFailed(err))
+            toast.error("Update Task Failed",{
                 className: "custom-toast",
                 draggable:true,
                 position: toast.POSITION.TOP_RIGHT
@@ -39,22 +39,22 @@ export const actUpdateEmployeesAPI = userUpdate =>{
     }
 }
 
-export const actUpdateEmployeeRequest = () =>{
+export const actUpdateTaskRequest = () =>{
     return{
-        type: UPDATE_EMPLOYEES_REQUEST
+        type: UPDATE_TASK_REQUEST
     }
 }
 
-export const actUpdateEmployeeSuccess = data =>{
+export const actUpdateTaskSuccess = data =>{
     return{
-        type: UPDATE_EMPLOYEES_SUCCESS,
+        type: UPDATE_TASK_SUCCESS,
         data
     }
 }
 
-export const actUpdateEmployeeFailed = err =>{
+export const actUpdateTaskFailed = err =>{
     return {
-        type: UPDATE_EMPLOYEES_FALIED,
+        type: UPDATE_TASK_FALIED,
         err
     }
 }

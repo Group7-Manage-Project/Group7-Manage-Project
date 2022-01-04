@@ -19,6 +19,7 @@ export const actFetchDetailTaskAPI = task_id =>{
         })
         .then(result =>{
             dispatch(actFetchDetailTaskSuccess(result.data))
+            localStorage.setItem("task",JSON.stringify(result.data))            
             console.log("data",result.data)
         })
         .catch(err =>{

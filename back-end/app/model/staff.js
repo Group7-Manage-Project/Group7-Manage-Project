@@ -89,9 +89,11 @@ Staff.create = function(data,file,result){
 }
 
 Staff.update = function(data,file,result){
-    const query = "UPDATE STAFF SET FULL_NAME= ? , USER_NAME = ? , PASSWORD = ? , BIRTH_DAY = ? , EMAIL= ? , IMAGE = ? , POSITION = ? , ROLL= ?, DELETE_FLAG = ?  WHERE EMPLOYEE_ID = ? ";
+    const query_file = "UPDATE STAFF SET FULL_NAME= ? , USER_NAME = ? , PASSWORD = ? , BIRTH_DAY = ? , EMAIL= ? , IMAGE = ? , POSITION = ? , ROLL= ?, DELETE_FLAG = ?  WHERE EMPLOYEE_ID = ? ";
+    const query = "UPDATE STAFF SET FULL_NAME= ? , USER_NAME = ? , PASSWORD = ? , BIRTH_DAY = ? , EMAIL= ? , POSITION = ? , ROLL= ?, DELETE_FLAG = ?  WHERE EMPLOYEE_ID = ? "
+    console.log("data update employee", data)
     if(file && file !== undefined){
-        db.query(query,[data.full_name, data.user_name, data.password, data.birth_day, data.email, file.filename, data.position, data.roll, data.delete_flag,data.employee_id],function(err){
+        db.query(query_file,[data.full_name, data.user_name, data.password, data.birth_day, data.email, file.filename, data.position, data.roll, data.delete_flag,data.employee_id],function(err){
             if(err){
                 result("Cập nhật không thành công :(");
             }
@@ -101,7 +103,7 @@ Staff.update = function(data,file,result){
         });
     }
     else{
-        db.query(query,[data.full_name, data.user_name, data.password, data.birth_day, data.email, data.file, data.position, data.roll, data.delete_flag,data.employee_id],function(err){
+        db.query(query,[data.full_name, data.user_name, data.password, data.birth_day, data.email, data.position, data.roll, data.delete_flag,data.employee_id],function(err){
             if(err){
                 result("Cập nhật không thành công :(");
             }
@@ -137,7 +139,7 @@ Staff.delete_flg = function(data,result){
 }
 
 Staff.login = function(data,result){
-    const query = "SELECT USER_NAME,ROLL,FULL_NAME FROM STAFF WHERE USER_NAME = ? AND PASSWORD = ?";
+    const query = "SELECT EMPLOYEE_ID,USER_NAME,ROLL,FULL_NAME,IMAGE FROM STAFF WHERE USER_NAME = ? AND PASSWORD = ?";
     console.log("data user", data)
     db.query(query,[data.user_name, data.password], function(err,staff){
         if(staff.length > 0){

@@ -40,7 +40,7 @@
 }
 
 .detail-task-left-body .detail-task-left-body-center-bottom {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .detail-task-left-body-center-bottom-item .detail-task-left-body-center-bottom-item-text{
@@ -95,4 +95,35 @@
     color:#666666;
 }
 
+.detail-task-container::-webkit-scrollbar{
+    width: 10px;
+}
+
+.detail-task-container::-webkit-scrollbar-track{
+    background: #f1f1f1; 
+}
+
+.detail-task-container::-webkit-scrollbar-thumb{
+    background: #888; 
+}
+
+.detail-task-container::-webkit-scrollbar-thumb:hover{
+    background: #555; 
+}
+
+.detail-task-container .detail-task-button-submit{
+    width: 50px;
+    border: none !important;
+    background-color: none !important;
+}
+
+.detail-task-container .detail-task-button-submit i{
+    /* font-size: 30px;
+    position: absolute;
+    top: 30px;
+    right: 0; */
+    margin-top:25px;
+    font-size: 30px;
+    color: #3a7eb6;
+}
 
