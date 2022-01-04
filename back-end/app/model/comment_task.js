@@ -11,14 +11,20 @@ const Comment = function(comment) {
     this.task_id = task_id;
 }
 
-Comment.list = function(result) {
-    const query = "SELECT * FROM COMMENT_TASK";
-    db.query(query, function(err,comment){
+Comment.list = function(data,result) {
+    const query = "SELECT A.*, B.IMAGE, B.FULL_NAME FROM COMMENT_TASK A, STAFF B WHERE A.TASK_ID = ? AND A.USER_COMMENT_ID = B.EMPLOYEE_ID ORDER BY CREATE_COMMENT_DATE, A.COMMENT_TASK_ID";
+    console.log("task_id comment",data);
+    db.query(query,data.task_id, function(err,comment){
         if (err) {
             result("Get list failure");
         }
         else{
-            comment.map(item=>item.CREATE_COMMENT_DATE = moment(item.CREATE_COMMENT_DATE).format("DD/MM/YYYY"));
+            comment.map(item=>{
+                item.CREATE_COMMENT_DATE = moment(item.CREATE_COMMENT_DATE).format("DD/MM/YYYY");
+                item.IMAGE = `http://localhost:9999/get-image/${item.IMAGE}`;
+                item.FILE = `http://localhost:9999/get-file/${item.FILE}`
+
+            });
             result(comment);
         }
     })
@@ -60,16 +66,30 @@ Comment.detail = function(comment_task_id, result){
     })
 }
 
-Comment.create = function(data,result){
-    const query = "INSERT INTO COMMENT_TASK (USER_COMMENT_ID,PHASE_NAME,COMMENT,CREATE_COMMENT_DATE,TASK_ID) VALUES (?,?,?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?)";
-    db.query(query,[data.user_comment_id,data.phase_name,data.comment,data.task_id],function(err){
-        if(err){
-            result("Add failure");
-        }
-        else{
-            result("Add successful :)");
-        }
-    })
+Comment.create = function(data,file,result){
+    const query = "INSERT INTO COMMENT_TASK (USER_COMMENT_ID,PHASE_NAME,COMMENT,FILE,CREATE_COMMENT_DATE,TASK_ID) VALUES (?,?,?,?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?)";
+    data.task_id = parseInt(data.task_id)
+    console.log("comment data", data)
+    if(file && file !== undefined){
+        db.query(query,[data.user_comment_id,data.phase_name,data.comment,file.filename,data.task_id],function(err){
+            if(err){
+                result("Add failure");
+            }
+            else{
+                result("Add successful :)");
+            }
+        })
+    }
+    else{
+        db.query(query,[data.user_comment_id,data.phase_name,data.comment,data.file,data.task_id],function(err){
+            if(err){
+                result("Add failure");
+            }
+            else{
+                result("Add successful :)");
+            }
+        })
+    }
 }
 
 Comment.update = function(data,result){

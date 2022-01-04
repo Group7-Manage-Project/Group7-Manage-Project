@@ -3,8 +3,6 @@ import {Link} from 'react-router-dom';
 
 import register from "./img/logo.jpg"
 
-
-
 import {actPostTaskAPI} from "./module-insert-task/action"
 import {actFetchListEmployeesSelectAPI} from "./module-list-employees-select/action"
 import {actFetchListTaskAPI} from "./module-list-tasks/action"

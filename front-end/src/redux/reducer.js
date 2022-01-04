@@ -20,6 +20,11 @@ import userSignUpReducer from '../container/home/home-page/module-sign-in/reduce
 import listCountEmployeesReducer from '../container/admin/dashboard/module-count-employees-phase/reducer'
 import listCountCategoryReducer from '../container/admin/dashboard/module-count-category/reducer'
 
+
+import insertCommentReducer from '../container/admin/task/detail-task/module-insert-comment/reducer'
+import listCommentReducer from '../container/admin/task/detail-task/module-list-comment/reducer'
+import taskUpdateReducer from '../container/admin/task/detail-task/module-update-task/reducer'
+
 const rootReducer = combineReducers({
     userSignUpEmployeesReducer,
     listEmployeesReducer,
@@ -37,11 +42,14 @@ const rootReducer = combineReducers({
 
 
     detailTaskReducer,
+    insertCommentReducer,
+    taskUpdateReducer,
 
     userSignUpReducer,
 
 
     listCountEmployeesReducer,
-    listCountCategoryReducer
+    listCountCategoryReducer,
+    listCommentReducer
 });
 export default rootReducer

@@ -272,6 +272,7 @@ class Employees extends Component {
                             position_select:"none",
                             employee_id_label:"block",
                             insertBtn:"none",
+                            updateBtn:"none",
                                                               
                         })
                         

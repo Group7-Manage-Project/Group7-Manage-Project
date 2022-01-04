@@ -9,7 +9,8 @@ exports.get_list_comment_task = function(req,res){
                 return res.status(403).send({message:'Unauthorized'})
             }
             else {
-                Comment.list(function(response){
+                let data =  req.body
+                Comment.list(data,function(response){
                     if (response !== "Get list failure"){
                         res.send({result:response})
                     }
@@ -59,8 +60,9 @@ exports.insert_comment_task = function(req,res){
             }
             else {
                 let data = req.body;
+                let file = req.file
                 console.log("comment_task",data);
-                Comment.create(data,function(response){
+                Comment.create(data,file,function(response){
                     if (response !== "Add failure"){
                         res.send({result:response})
                     }

@@ -166,6 +166,7 @@ Task.detail = function(task_id, result) {
             result("Không có task cần tìm");
         }
         else{
+            
             // console.log("staff",staff)
             task.map(item =>{
                 item.START_DATE = moment(item.START_DATE).format("DD/MM/YYYY")
@@ -181,6 +182,7 @@ Task.detail = function(task_id, result) {
                 item.IMAGE_FINISH = `http://localhost:9999/get-image/${item.IMAGE_FINISH}`            
             })
             // result(task)
+            setTimeout(()=>{console.log(task)},1000)
             result(task[0]);
         }
     })
@@ -214,9 +216,15 @@ Task.create = function(data,file,result){
 
 //Update task
 Task.update = function(data,file,result){
-    const query = "UPDATE TASK SET JOB = ?, STATUS = ?, CATEGORY = ?, TITLE = ?, PROGRESS = ?, EFFORT = ?, IMPORTANT = ?, DESCRIPTION = ?, FILE = ?, ASSIGNEE_ID = ?, REGISTER_USER_ID = ?, CONFIRMATION_ID = ?, IMPLEMENTATION_ID = ?, TEST_ID = ?, APPROVAL_ID = ?, FINISH_ID = ?, END_DATE = ?, STEP = ?, CATEGORY_TASK_ID = ? WHERE TASK_ID = ?";
+    const query_file = "UPDATE TASK SET  STATUS = ?, PROGRESS = ?, EFFORT = ?,  FILE = ?, ASSIGNEE_ID = ?,  STEP = ? WHERE TASK_ID = ?";
+    const query = "UPDATE TASK SET  STATUS = ?, PROGRESS = ?, EFFORT = ?,   ASSIGNEE_ID = ?,  STEP = ? WHERE TASK_ID = ?";
+    data.step = parseInt(data.step)
+    data.effort = parseInt(data.effort)
+    data.assignee_id = parseInt(data.assignee_id)
+    data.progress = parseInt(data.progress)
+    console.log("data update", data)
     if (file && file !== undefined){
-        db.query(query,[data.job,data.status,data.category,data.title,data.progress,data.effort,data.important,data.description,file.filename,data.assignee_id,data.register_user_id,data.confirmation_id,data.implementation_id,data.test_id,data.approval_id,data.finish_id,data.end_date,data.step,data.category_task_id,data.task_id],function(err){
+        db.query(query_file,[data.status,data.progress,data.effort,file.filename,data.assignee_id,data.step,data.task_id],function(err){
             if(err){
                 result("Cập nhật không thành công :(");
             }
@@ -226,7 +234,7 @@ Task.update = function(data,file,result){
         });
     }
     else{
-        db.query(query,[data.job,data.status,data.category,data.title,data.progress,data.effort,data.important,data.description,data.file,data.assignee_id,data.register_user_id,data.confirmation_id,data.implementation_id,data.test_id,data.approval_id,data.finish_id,data.end_date,data.step,data.category_task_id,data.task_id],function(err){
+        db.query(query,[data.status,data.progress,data.effort,data.assignee_id,data.step,data.task_id],function(err){
             if(err){
                 result("Cập nhật không thành công :(");
             }
