@@ -1,0 +1,22 @@
+.profile-content{
+    position: absolute;
+    top: 0;
+    left: 40%;
+}
+
+.profile-content img{
+    border: 2px solid #DDDDDD;
+    border-radius:50%;
+    padding: 20px;
+}
+
+.profile-content h3{
+    margin-top:20px;
+    margin-bottom: 20px;
+    color: #9B9B9B;
+    text-align: center;
+}
+
+.profile-content button{
+    width: 100%;
+}

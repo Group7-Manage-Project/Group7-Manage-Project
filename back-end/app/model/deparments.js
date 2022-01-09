@@ -36,8 +36,9 @@ Department.details = function (department_id, result){
 }
 
 Department.create = function (data, result){
-    const query = "INSERT INTO DEPARTMENTS (DEPARTMENT_NAME,DESCRIPTION,CREATE_DATE,CREATE_USER) VALUES (?,?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?)";
-    db.query(query, [data.department_name,data.description,data.create_date,data.create_user], function(err){
+    const query = "INSERT INTO DEPARTMENTS (DEPARTMENT_NAME,DESCRIPTION,CREATE_DATE,CREATE_USER,UPDATE_DATE,UPDATE_USER) VALUES (?,?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?)";
+    db.query(query, [data.department_name,data.department_description,data.create_user,data.update_user], function(err){
+        console.log("department data: ", data)
         if (err) {
             result("Insert failed");
         }
@@ -49,7 +50,7 @@ Department.create = function (data, result){
 
 Department.update = function (data, result){
     const query= "UPDATE DEPARTMENTS SET DEPARTMENT_NAME = ?, DESCRIPTION = ?, UPDATE_DATE = DATE_FORMAT(SYSDATE(), '%Y-%m-%d'), UPDATE_USER = ?  WHERE DEPARTMENT_ID = ?";
-    db.query(query, [data.department_name,data.department_id], function(err){
+    db.query(query, [data.department_name,data.department_description,data.update_user,data.department_id], function(err){
         if (err){
             result("update failed");
         }

@@ -30,6 +30,7 @@ require('./app/router/task.router')(app);
 require('./app/router/category_task.router')(app);
 require('./app/router/comment_task.router')(app);
 require('./app/router/departments.router')(app);
+require('./app/router/schedule.router')(app);
 
 /* /Router */
 

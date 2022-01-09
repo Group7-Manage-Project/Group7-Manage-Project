@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import register from "../img/hoang2.JPG"
+import register from "../img/logo.jpg"
 
 import {actFetchDetailTaskAPI} from './module-detail-task/action'
 import {actPostCommentAPI} from './module-insert-comment/action'
@@ -70,6 +70,7 @@ class DetailTask extends Component {
         // console.log("this.props.match.params.id",this.props.match.params.task_id)
         this.props.FetchDetailTask(task_id)
         this.props.FetListComment({task_id:task_id})
+        localStorage.setItem("task",JSON.stringify({"result":{"TASK_ID":27,"JOB":"Training","STATUS":"IN-PROGRESS","CATEGORY":"find","TITLE":"Training SQL","PROGRESS":70,"EFFORT":150,"IMPORTANT":"Very Low","DESCRIPTION":"Training SQL","FILE":"http://localhost:9999/get-file/1641290687684--review .docx","ASSIGNEE_ID":10,"REGISTER_USER_ID":7,"CONFIRMATION_ID":9,"IMPLEMENTATION_ID":8,"TEST_ID":10,"APPROVAL_ID":10,"FINISH_ID":10,"START_DATE":"04/01/2022","END_DATE":"11/01/2022","STEP":5,"CATEGORY_TASK_ID":5,"DEPARTMENT_NAME":"Department of E-Commerce","IMAGE_REGISTER":"http://localhost:9999/get-image/1640599576538--Phut.jpg","FULL_NAME_REGISTER":"Vũ Nhật Minh Trường","IMAGE_ASSIGNEE":"http://localhost:9999/get-image/1640601729704--hoang2.JPG","FULL_NAME_ASSIGNEE":"Nguyễn Trần Hoàng","IMAGE_CONFIRMATION":"http://localhost:9999/get-image/1640600070519--Phut.jpg","FULL_NAME_CONFIRMATION":"Vũ Nhật Minh Trường","IMAGE_IMPLEMENTATION":"http://localhost:9999/get-image/1640599915070--Phut.jpg","FULL_NAME_IMPLEMENTATION":"Vũ Nhật Minh Trường","IMAGE_TEST":"http://localhost:9999/get-image/1640601729704--hoang2.JPG","FULL_NAME_TEST":"Nguyễn Trần Hoàng","IMAGE_APPROVAL":"http://localhost:9999/get-image/1640601729704--hoang2.JPG","FULL_NAME_APPROVAL":"Nguyễn Trần Hoàng","IMAGE_FINISH":"http://localhost:9999/get-image/1640601729704--hoang2.JPG","FULL_NAME_FINISH":"Nguyễn Trần Hoàng","CATEGORY_NAME":"find","CREATE_COMMENT_DATE":"05/01/2022"}}))
     }
 
     componentDidMount(){
@@ -83,44 +84,44 @@ class DetailTask extends Component {
             detailTask = JSON.parse(localStorage.getItem("task"));
         }
         setTimeout(()=>{
-            if(document.getElementById("step").value && parseInt(document.getElementById("step").value) === 1){
+            if(detailTask.result && document.getElementById("step").value && parseInt(document.getElementById("step").value) === 1){
                 this.setState({
                     comment_task:{...this.state.comment_task, phase_name:"Register"},
-                    task:{...this.state.task, assignee:detailTask.result.CONFIRMATION_ID, status:"In Progressing" },
+                    task:{...this.state.task, assignee:detailTask.result.CONFIRMATION_ID, status:"IN-PROGRESS" },
                     styleRegister:"#0097CC"
                 })
             }
-            else if(document.getElementById("step").value && parseInt(document.getElementById("step").value) === 2){
+            else if(detailTask.result && document.getElementById("step").value && parseInt(document.getElementById("step").value) === 2){
                 this.setState({
                     comment_task:{...this.state.comment_task, phase_name:"Confirmation"},
-                    task:{...this.state.task, assignee:detailTask.result.IMPLEMENTATION_ID, status:"In Progressing" },
+                    task:{...this.state.task, assignee:detailTask.result.IMPLEMENTATION_ID, status:"IN-PROGRESS" },
                     styleRegister:"#0097CC",
                     styleConfirmation:"#0097CC",
                 })
             }
-            else if(document.getElementById("step").value && parseInt(document.getElementById("step").value) === 3){
+            else if(detailTask.result && document.getElementById("step").value && parseInt(document.getElementById("step").value) === 3){
                 this.setState({
                     comment_task:{...this.state.comment_task, phase_name:"Implementation"},
-                    task:{...this.state.task, assignee:detailTask.result.TEST_ID, status:"In Progressing" },
+                    task:{...this.state.task, assignee:detailTask.result.TEST_ID, status:"IN-PROGRESS" },
                     styleRegister:"#0097CC",
                     styleConfirmation:"#0097CC",
                     styleImplementation:"#0097CC"
                 })
             }
-            else if(document.getElementById("step").value && parseInt(document.getElementById("step").value) === 4){
+            else if(detailTask.result && document.getElementById("step").value && parseInt(document.getElementById("step").value) === 4){
                 this.setState({
                         omment_task:{...this.state.comment_task, phase_name:"Test"},
-                        task:{...this.state.task, assignee:detailTask.result.APPROVAL_ID, status:"In Progressing" },
+                        task:{...this.state.task, assignee:detailTask.result.APPROVAL_ID, status:"IN-PROGRESS" },
                         styleRegister:"#0097CC",
                         styleConfirmation:"#0097CC",
                         styleImplementation:"#0097CC",
                         styleTest:"#0097CC",
                 })
             }
-            else if(document.getElementById("step").value && parseInt(document.getElementById("step").value) === 5){
+            else if(detailTask.result && document.getElementById("step").value && parseInt(document.getElementById("step").value) === 5){
                 this.setState({
                     comment_task:{...this.state.comment_task, phase_name:"Approval"},
-                    task:{...this.state.task, assignee:detailTask.result.FINISH_ID, status:"In Progressing"  },
+                    task:{...this.state.task, assignee:detailTask.result.FINISH_ID, status:"IN-PROGRESS"  },
                     styleRegister:"#0097CC",
                     styleConfirmation:"#0097CC",
                     styleImplementation:"#0097CC",
@@ -128,7 +129,7 @@ class DetailTask extends Component {
                     styleApproval:"#0097CC",
                 })
             }
-            else if(document.getElementById("step").value && parseInt(document.getElementById("step").value) === 6){
+            else if(detailTask.result && document.getElementById("step").value && parseInt(document.getElementById("step").value) === 6){
                 this.setState({
                     comment_task:{...this.state.comment_task, phase_name:"Finish"},
                     task:{...this.state.task, assignee:'', status:"Finished" },
@@ -140,11 +141,13 @@ class DetailTask extends Component {
                     styleFinish:"#0097CC"
                 })
             }
-            this.setState({
+            if(detailTask.result){
+                this.setState({
                     comment_task:{...this.state.comment_task, task_id: detailTask.result.TASK_ID },
                     // nameFile:detailTask.result.FILE.split("http://localhost:9999/get-file/")[1]
             })
-        },10)
+            }
+        },100)
     
         console.log("da vao vong if")
         console.log("detailTask result", detailTask.result)
@@ -260,10 +263,10 @@ class DetailTask extends Component {
                 dataUpdate.append("file",this.state.task.file)
             }
             if(detailTask.result.STEP ===6){
-                dataUpdate.append("status", "Finished")
+                dataUpdate.append("status", "FINISHED")
             }
             else{
-                dataUpdate.append("status", "In Progressing")
+                dataUpdate.append("status", "IN-PROGRESS")
             }
             this.props.UpdateTask(dataUpdate)
             setTimeout(()=>{
@@ -319,7 +322,7 @@ class DetailTask extends Component {
                 <div style={{height: '100vh', overflow: 'hidden'}}>
                     <div className="detail-task-top">
                         <p style={{marginBottom:"0px"}}># {detailTask.result.TASK_ID}</p>
-                        <input name="step" id="step" type="hidden" value={detailTask.result.STEP ? detailTask.result.STEP : 1}/>
+                        <input name="step" id="step" type="hidden" value={detailTask.result.STEP ? detailTask.result.STEP : '1'}/>
                     </div>
                     <div className="detail-task-container row" style={{marginLeft:"0px", marginRight:"0px"}}>
                         <div className="detail-task-left col-lg-9" style={{position:"relative", paddingLeft:"0px"}}>

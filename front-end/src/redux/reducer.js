@@ -12,6 +12,10 @@ import listTaskTreeReducer from '../container/admin/task/module-list-task-tree/m
 import listCategoryTaskReducer from '../container/admin/task/module-list-category/reducer'
 import listDepartmentReducer from '../container/admin/task/module-list-department/reducer'
 import listCategoryByDepartmentReducer from '../container/admin/task/module-list-category-by-department/reducer'
+import insertDepartmentReducer from '../container/admin/task/department/module-insert-department/reducer'
+import insertCategoryReducer from '../container/admin/task/category/module-insert-category/reducer'
+import departmentUpdateReducer from '../container/admin/task/department/module-insert-department/reducer'
+import detailDepartmentReducer from '../container/admin/task/department/module-detail-department/reducer'
 
 import detailTaskReducer from '../container/admin/task/detail-task/module-detail-task/reducer'
 import userSignUpReducer from '../container/home/home-page/module-sign-in/reducer'
@@ -19,11 +23,19 @@ import userSignUpReducer from '../container/home/home-page/module-sign-in/reduce
 
 import listCountEmployeesReducer from '../container/admin/dashboard/module-count-employees-phase/reducer'
 import listCountCategoryReducer from '../container/admin/dashboard/module-count-category/reducer'
+import listTaskToDoReducer from '../container/admin/dashboard/module-list-task-to-do/reducer'
+import listTaskDoingReducer from '../container/admin/dashboard/module-list-task-doing/reducer'
+import listTaskDoneReducer from '../container/admin/dashboard/module-list-task-done/reducer'
 
 
 import insertCommentReducer from '../container/admin/task/detail-task/module-insert-comment/reducer'
 import listCommentReducer from '../container/admin/task/detail-task/module-list-comment/reducer'
 import taskUpdateReducer from '../container/admin/task/detail-task/module-update-task/reducer'
+
+import scheduleInsertReducer from '../container/admin/schedule/module-insert-schedule/reducer'
+import listScheduleReducer from '../container/admin/schedule/module-list-schedule/reducer'
+import updateScheduleReducer from '../container/admin/schedule/module-update-schedule/reducer'
+import deleteScheduleReducer from '../container/admin/schedule/module-delete-schedule/reducer'
 
 const rootReducer = combineReducers({
     userSignUpEmployeesReducer,
@@ -39,6 +51,10 @@ const rootReducer = combineReducers({
     listCategoryTaskReducer,
     listDepartmentReducer,
     listCategoryByDepartmentReducer,
+    insertDepartmentReducer,
+    insertCategoryReducer,
+    departmentUpdateReducer,
+    detailDepartmentReducer,
 
 
     detailTaskReducer,
@@ -47,9 +63,22 @@ const rootReducer = combineReducers({
 
     userSignUpReducer,
 
+    
+
 
     listCountEmployeesReducer,
     listCountCategoryReducer,
-    listCommentReducer
+    listCommentReducer,
+    listTaskToDoReducer,
+    listTaskDoingReducer,
+    listTaskDoneReducer,
+
+
+
+    scheduleInsertReducer,
+    listScheduleReducer,
+    updateScheduleReducer,
+    deleteScheduleReducer,
+    
 });
 export default rootReducer

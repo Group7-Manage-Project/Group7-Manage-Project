@@ -49,7 +49,7 @@ Task.list = async function(data,data1,result) {
         )
         SELECT * 
         FROM(
-            SELECT A.TASK_ID, A.JOB,A.STATUS,A.CATEGORY,A.TITLE,A.PROGRESS,A.EFFORT,A.ASSIGNEE_ID,A.REGISTER_USER_ID,A.START_DATE,A.END_DATE,A.CATEGORY_TASK_ID,B.REGISTER_USER_NAME,C.ASSIGNEE_NAME,D.CATEGORY_NAME
+            SELECT A.TASK_ID, A.JOB,A.STATUS,A.CATEGORY,A.TITLE,A.PROGRESS,A.EFFORT,A.ASSIGNEE_ID,A.REGISTER_USER_ID,A.START_DATE,A.END_DATE,A.CATEGORY_TASK_ID,B.REGISTER_USER_NAME,C.ASSIGNEE_NAME,D.CATEGORY_NAME, A.DEPARTMENT_NAME
             FROM TASK A, REGISTER_T B, ASSIGNEE_T C, CATEGORY_TASK_T D
             WHERE A.TASK_ID = B.TASK_ID AND A.TASK_ID = C.TASK_ID AND A.TASK_ID = D.TASK_ID
             ORDER BY A.TASK_ID
@@ -62,22 +62,22 @@ Task.list = async function(data,data1,result) {
     // 3 Category, Job, Status have condition
     let condition1 = `\n AND JOB = '${data1.search_job}'`
     let condition2 = `\n AND CATEGORY = '${data1.search_category}'`
-    let condition3 = `\n AND STATUS = '${data1.search_status}'`
+    let condition3 = `\n AND STATUS = '${data1.search_state}'`
     let condition4 = `\n AND DEPARTMENT_NAME = '${data1.search_department_name}'`
 
     console.log("data", data)
     console.log("data1", data1)
     console.log("data1.search_job.toUpperCase()",data1.search_job.toUpperCase())
-    if(data1.search_job.toUpperCase() !== 'ALL'){
+    if(data1.search_job && data1.search_job.toUpperCase() !== 'ALL'){
         query = await query.concat(condition1)
     }
-    if(data1.search_category.toUpperCase() !== 'ALL'){
+    if(data1.search_category && data1.search_category.toUpperCase() !== 'ALL'){
         query = await query.concat(condition2)
     }
-    if(data1.search_status.toUpperCase() !== 'ALL'){
+    if(data1.search_state && data1.search_state.toUpperCase() !== 'ALL'){
         query = await query.concat(condition3)
     }
-    if(data1.search_department_name.toUpperCase() !== 'ALL'){
+    if(data1.search_department_name && data1.search_department_name.toUpperCase() !== 'ALL'){
         query = await query.concat(condition4)
     }
     console.log(query);
@@ -351,9 +351,9 @@ Task.count_employees_phase = function(result) {
     });
 }
 
-Task.get_task_todo_by_employee_id = function(employee_id,result){
+Task.get_task_todo_by_employee_id = function(data,result){
     const query =`
-    SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.FULL_NAME, task.STEP,
+    SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.USER_NAME, task.STEP, task.DEPARTMENT_NAME, task.STATUS, 
     CASE
 	    WHEN task.STEP = 1 THEN "Register"
   	    WHEN task.STEP = 2 THEN "Confirmation"
@@ -371,7 +371,7 @@ Task.get_task_todo_by_employee_id = function(employee_id,result){
         WHEN task.STEP = 6 THEN NULL
     END AS TODO
     FROM (
-        SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.FULL_NAME
+        SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.USER_NAME
 	    FROM (
 		    SELECT A.TASK_ID, A.JOB, A.TITLE, B.CATEGORY_NAME, A.END_DATE, A.STEP,
 		    CASE
@@ -390,19 +390,23 @@ Task.get_task_todo_by_employee_id = function(employee_id,result){
     ) AS F LEFT JOIN task ON F.TASK_ID = task.TASK_ID, staff G
     WHERE G.EMPLOYEE_ID = ?
     `;
-    db.query(query, employee_id, function(err, task) {
+    db.query(query, data.employee_id, function(err, task) {
         if (err) {
             result("Get failed");
         }
         else{
+            task.map(item =>{
+                item.IMAGE = `http://localhost:9999/get-image/${item.IMAGE}`,
+                item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+            })
             result(task);
         }
     })
 }
 
-Task.get_task_doing_by_employee_id = function(employee_id,result){
+Task.get_task_doing_by_employee_id = function(data,result){
     const query = `
-    SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.FULL_NAME, task.STEP,
+    SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.USER_NAME, task.STEP, task.STATUS,
     CASE
 	    WHEN task.STEP = 1 THEN "Register"
   	    WHEN task.STEP = 2 THEN "Confirmation"
@@ -412,7 +416,7 @@ Task.get_task_doing_by_employee_id = function(employee_id,result){
         WHEN task.STEP = 6 THEN "Finish"
     END AS PHASE
     FROM (
-        SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.FULL_NAME
+        SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.USER_NAME
 	    FROM (
 		    SELECT A.TASK_ID, A.JOB, A.TITLE, B.CATEGORY_NAME, A.END_DATE, A.STEP,
 		    CASE
@@ -431,19 +435,23 @@ Task.get_task_doing_by_employee_id = function(employee_id,result){
     ) AS F LEFT JOIN task ON F.TASK_ID = task.TASK_ID
     WHERE F.EMPLOYEE_ID = ?
     `;
-    db.query(query, employee_id, function(err, task) {
+    db.query(query, data.employee_id, function(err, task) {
         if (err) {
             result("Get failed");
         }
         else{
+            task.map(item =>{
+                item.IMAGE = `http://localhost:9999/get-image/${item.IMAGE}`,
+                item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+            })
             result(task);
         }
     })
 }
 
-Task.get_task_done_by_employee_id = function(employee_id,result){
+Task.get_task_done_by_employee_id = function(data,result){
     const query = `
-    SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.FULL_NAME, task.STEP,
+    SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.USER_NAME, task.STEP, task.STATUS,
     CASE
 	    WHEN task.STEP = 1 THEN "Register"
   	    WHEN task.STEP = 2 THEN "Confirmation"
@@ -461,7 +469,7 @@ Task.get_task_done_by_employee_id = function(employee_id,result){
         WHEN task.STEP = 6 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
     END AS DONE
     FROM (
-        SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.FULL_NAME
+        SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.USER_NAME
 	    FROM (
 		    SELECT A.TASK_ID, A.JOB, A.TITLE, B.CATEGORY_NAME, A.END_DATE, A.STEP,
 		    CASE
@@ -480,11 +488,15 @@ Task.get_task_done_by_employee_id = function(employee_id,result){
     ) AS F LEFT JOIN task ON F.TASK_ID = task.TASK_ID, staff G
     WHERE G.EMPLOYEE_ID = ?
     `;
-     db.query(query, employee_id, function(err, task) {
+     db.query(query, data.employee_id, function(err, task) {
         if (err) {
             result("Get failed");
         }
         else{
+            task.map(item =>{
+                item.IMAGE = `http://localhost:9999/get-image/${item.IMAGE}`,
+                item.END_DATE = moment(item.END_DATE).format("DD/MM/YYYY")
+            })
             result(task);
         }
     })

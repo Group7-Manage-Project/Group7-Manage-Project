@@ -2,6 +2,8 @@ import HomePage from "../container/home/home-page"
 import Dashboard from "../container/admin/dashboard"
 import Employees from "../container/admin/employees"
 import Task from "../container/admin/task"
+import Schedule from "../container/admin/schedule"
+import DeTailPerson from "../container/admin/detail-person"
 
 const routerHome = [
     {
@@ -26,7 +28,18 @@ const routerAdmin = [
         path:"/admin/tasks",
         exact:false,
         Component:Task
-    }
+    },
+    {
+        path:"/admin/schedule",
+        exact:false,
+        Component:Schedule
+    },
+    {
+        path:"/admin/profile",
+        exact:false,
+        Component:DeTailPerson
+    },
+
 ]
 
 export {routerHome,routerAdmin}

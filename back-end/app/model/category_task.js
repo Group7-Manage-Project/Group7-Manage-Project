@@ -41,8 +41,9 @@ Category.detail = function(category_task_id, result) {
 }
 
 Category.create = function(data,result){
-    const query = "INSERT INTO CATEGORY_TASK (CATEGORY_NAME,CREATE_DATE,CREATE_USER,DEPARTMENT_ID,DELETE_FLG) VALUES(?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?,?,?)";
-    db.query(query,[data.category_name,data.create_user,data.delete_flg],function(err){
+    const query = "INSERT INTO CATEGORY_TASK (CATEGORY_NAME,CREATE_DATE,CREATE_USER,DEPARTMENT_ID,DELETE_FLG,UPDATE_DATE,UPDATE_USER) VALUES(?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?,?,?,DATE_FORMAT(SYSDATE(), '%Y-%m-%d'),?)";
+    console.log("data category", data)
+    db.query(query,[data.category_name,data.create_user,data.department_id,data.delete_flg,data.update_user],function(err){
         if (err){
             result("Thêm category task thất bại");
         }

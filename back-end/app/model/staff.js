@@ -142,7 +142,7 @@ Staff.login = function(data,result){
     const query = "SELECT EMPLOYEE_ID,USER_NAME,ROLL,FULL_NAME,IMAGE FROM STAFF WHERE USER_NAME = ? AND PASSWORD = ?";
     console.log("data user", data)
     db.query(query,[data.user_name, data.password], function(err,staff){
-        if(staff.length > 0){
+        if(staff && staff.length > 0){
             // let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'3h'})\
             let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'1 days'})
             console.log("staff",staff);

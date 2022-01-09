@@ -28,6 +28,12 @@ class Navbar extends Component {
         else if(path && path === "/admin/employees"){
             this.setState({title: "Employees"})
         }
+        else if(path && path === "/admin/schedule"){
+            this.setState({title: "Schedule"})
+        }
+        else if(path && path === "/admin/profile"){
+            this.setState({title: "Profile"})
+        }
 
         else{
             this.setState({title: "Title"})
@@ -63,9 +69,9 @@ class Navbar extends Component {
                         <div className="navbar-right-item">
                             <i className="fa fa-bell"></i>
                         </div>
-                        <div className="navbar-right-item navbar-right-item-person-content">
+                        <Link to="/admin/profile" className="navbar-right-item navbar-right-item-person-content">
                             <img src={person} alt="" width={30} height={30} style={{borderRadius:"50%" , cursor:"pointer"}} onClick={this.hanleStylePersonOnClick}/>
-                            <div className="navbar-right-item-person" style={{display:this.state.stylePerson}}>
+                            {/* <div className="navbar-right-item-person" style={{display:this.state.stylePerson}}>
                                 <div className="navbar-right-item-person-title">
                                     <div className="d-flex flex-row bd-highlight" style={{paddingTop:"10px"}}>
                                         <div className="bd-highlight">
@@ -81,8 +87,8 @@ class Navbar extends Component {
                                     <p>Profile</p>
                                     <p>Log out</p>
                                 </div>
-                            </div>
-                        </div>
+                            </div> */}
+                        </Link>
                     </div>
                 </div>
             </div>
