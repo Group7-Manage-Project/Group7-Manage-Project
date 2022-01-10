@@ -21,8 +21,8 @@ class Sidebar extends Component {
                             <h3>Project Management</h3>
                             <hr style={{width:"100%", height:"2px", backgroundColor:"#FFFFFF", margin:"0px"}} />
                             <div className="side-bar-item-content-link">
-                                <Link to="/admin/dashboard" style={{width:"200px"}}>
-                                    Dashboard
+                                <Link to="/admin/tasks" style={{width:"200px"}}>
+                                    Tasks
                                 </Link>
                             </div>
                         </div>                   
@@ -44,27 +44,13 @@ class Sidebar extends Component {
                     </div>
                     <div  className="side-bar-item">
                         <div className="bd-highlight">
-                            <i className="fa fa-user-friends"></i>
-                        </div>
-                        <div className="side-bar-item-content">
-                            <h3>Tasks Management</h3>
-                            <hr style={{width:"100%", height:"2px", backgroundColor:"#FFFFFF", margin:"0px"}} />
-                            <div className="side-bar-item-content-link">
-                                <Link to="/admin/tasks" style={{width:"200px"}}>
-                                    Tasks
-                                </Link>
-                            </div>
-                        </div>                        
-                    </div>
-                    <div  className="side-bar-item">
-                        <div className="bd-highlight">
                             <i className="fab fa-twitter"></i>
                         </div>
                         <div className="side-bar-item-content">
                             <h3>Schedule Management</h3>
                             <hr style={{width:"100%", height:"2px", backgroundColor:"#FFFFFF", margin:"0px"}} />
                             <div className="side-bar-item-content-link">
-                                <Link to="/admin/dashboard" style={{width:"200px"}}>
+                                <Link to="/admin/schedule" style={{width:"200px"}}>
                                     Schedule
                                 </Link>
                             </div>
@@ -72,7 +58,7 @@ class Sidebar extends Component {
                     </div>
                     <div  className="side-bar-item">
                         <div className="bd-highlight">
-                            <i className="fab fa-twitter"></i>
+                            <i className="fa fa-calculator"></i>
                         </div>
                         <div className="side-bar-item-content">
                             <h3>Satstatistical</h3>

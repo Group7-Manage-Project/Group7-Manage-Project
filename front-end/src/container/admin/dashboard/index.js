@@ -88,7 +88,7 @@ class Dashboard extends Component {
                                     <div className="w-100">
                                         <p><i className="fa fa-folder"></i> {item.CATEGORY_NAME}</p>
                                         <p><i className="fa fa-stream"></i> {item.PHASE}</p>
-                                        <p><i className="fa fa-clock"></i>{item.END_DATE}</p>
+                                        <p><i className="fa fa-clock"></i> {item.END_DATE}</p>
                                     </div>
                                     <div className="flex-shrink-1" style={{paddingLeft:"10px", textAlign:"right"}}>
                                         <p>7 day(s)</p>
@@ -125,7 +125,7 @@ class Dashboard extends Component {
                                     <div className="w-100">
                                         <p><i className="fa fa-folder"></i> {item.CATEGORY_NAME}</p>
                                         <p><i className="fa fa-stream"></i> {item.PHASE}</p>
-                                        <p><i className="fa fa-clock"></i>{item.END_DATE}</p>
+                                        <p><i className="fa fa-clock"></i> {item.END_DATE}</p>
                                     </div>
                                     <div className="flex-shrink-1" style={{paddingLeft:"10px", textAlign:"right"}}>
                                         <p>7 day(s)</p>

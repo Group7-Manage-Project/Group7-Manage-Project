@@ -34,6 +34,9 @@ class Navbar extends Component {
         else if(path && path === "/admin/profile"){
             this.setState({title: "Profile"})
         }
+        else if(path && path === "/admin/statistical"){
+            this.setState({title: "Statistical"})
+        }
 
         else{
             this.setState({title: "Title"})
@@ -60,7 +63,7 @@ class Navbar extends Component {
             <div className="navbar">
                 <div className="navbar-content">
                     <div className="navbar-left">
-                        <h3><NavbarClick />&emsp;{this.state.title}</h3>                       
+                        <h3><NavbarClick />&emsp;{this.state.title}</h3> <span></span>                       
                     </div>
                     <div className="navbar-right">
                         <div className="navbar-right-item">
