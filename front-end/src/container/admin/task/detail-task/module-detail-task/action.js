@@ -7,7 +7,7 @@ import {
 import Axios from 'axios'
 import  Cookies  from 'js-cookie';
 
-export const actFetchDetailTaskAPI = task_id =>{
+export  const  actFetchDetailTaskAPI = task_id =>{
     return dispatch =>{
         dispatch(actFetchDetailTaskRequest())
         Axios({

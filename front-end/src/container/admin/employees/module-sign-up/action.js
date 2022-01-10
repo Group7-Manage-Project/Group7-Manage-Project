@@ -22,6 +22,11 @@ export const actPostSignUpEmployeesAPI = (userSignUp) =>{
         })
         .then(result =>{
             dispatch(actPostSignUpEmployeesSuccess(result.data))
+            toast.success("Create Employee Success",{
+                className: "custom-toast",
+                draggable:true,
+                position: toast.POSITION.TOP_RIGHT
+            })
             console.log(result.data)
         })
         .catch(err =>{

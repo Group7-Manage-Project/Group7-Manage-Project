@@ -36,6 +36,7 @@ exports.detail_department = function(req,res){
             }
             else{
                 let department_id = req.params.department_id;
+                console.log("department_id: ", department_id)
                 Department.details(department_id, function(response){
                     if (response !== "Get details failed"){
                         res.send({result:response})

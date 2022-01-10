@@ -20,14 +20,15 @@ module.exports = function(router){
 
     router.post('/api/task/list/page=:page', taskController.get_list_task)
     router.get('/api/task/detail/:task_id', taskController.details_task)
+    router.get('/api/task/get_count_task_by_employee_id/:employee_id', taskController.get_count_task_by_employee_id)
     router.post('/api/task/insert', upload.single('file'), taskController.insert_task) 
     router.put('/api/task/update', upload.single('file'), taskController.update_task)
     // router.delete('/api/task/delete/:task_id',taskController.delete_task)
     router.get('/api/task/count/category', taskController.count_task_category)
     router.get('/api/task/count/employee-phase', taskController.count_employees_phase)
-    router.get('/api/task/tasktodo', taskController.get_task_todo)
-    router.get('/api/task/taskdoing', taskController.get_task_doing)
-    router.get('/api/task/taskdone', taskController.get_task_done)
+    router.post('/api/task/to-do', taskController.get_task_todo)
+    router.post('/api/task/doing', taskController.get_task_doing)
+    router.post('/api/task/done', taskController.get_task_done)
     // chỗ này dùng để xuất ra file, chỉ cần /get-file/tên-file 
     router.get('/get-file/:file',(req, res) => {
         const r = fs.createReadStream(`./file/${req.params.file}`) // or any other way to get a readable stream

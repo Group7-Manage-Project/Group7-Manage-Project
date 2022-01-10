@@ -107,16 +107,16 @@ class BottmBarTask extends Component {
                 <div className="d-flex d-flex justify-content-between bd-highlight">
                     <div className="bd-highlight">
                         <div className="category-action d-flex">
-                            <button className="btn-task-page">Create</button>
+                            {/* <button className="btn-task-page">Create</button>
                             <button className="btn-task-page">Modify</button>
-                            <button className="btn-task-page">Delete</button>                           
+                            <button className="btn-task-page">Delete</button>                            */}
                         </div>
                     </div>
                     <div className="bd-highlight">
                         <div className="category-action d-flex">
                                 <button className="btn-task-page" onClick={this.firstPageClick}><i className="fa fa-angle-double-left"></i></button>
                                 <button className="btn-task-page" onClick={this.prevPageOnClick}> <i className="fa fa-angle-left"></i> </button>
-                                <span>&ensp;  {this.state.page} / </span> {listEmployees.result && listEmployees.result.total_page ? (<span> {listEmployees.result.total_page} </span>): null } &ensp;
+                                {/* <span>&ensp;  {this.state.page} / </span> {listEmployees.result && listEmployees.result.total_page ? (<span> {listEmployees.result.total_page} </span>): null } &ensp; */}
                                 <button className="btn-task-page" onClick={this.nextPageOnClick}> <i className="fa fa-angle-right"></i> </button>
                                 <button className="btn-task-page" onClick={this.finalPageClick}><i className="fa fa-angle-double-right"></i></button>                          
                         </div>

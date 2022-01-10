@@ -10,6 +10,10 @@ import {actFetchListCategoryAPI} from './module-list-category/action'
 import {actFetchListDepartmentAPI} from './module-list-department/action'
 import {actFetchListCategoryByDepartmentAPI} from './module-list-category-by-department/action'
 import {actFetchListTaskTreeAPI} from './module-list-task-tree/module/actions'
+import {actPostDepartmentAPI} from './department/module-insert-department/action'
+import {actPostCategoryAPI} from './category/module-insert-category/action'
+import {actUpdateDepartmentsAPI} from './department/module-update-department/action'
+import {actFetchDetailDepartmentAPI} from './department/module-detail-department/action'
 
 
 import TreeView from '@mui/lab/TreeView';
@@ -59,16 +63,21 @@ class Task extends Component {
                 search_category:"ALL",
                 search_job:"ALL",
                 search_status:"ALL",
+                search_department_name:"ALL"
             },
-
             department:{
                 department_name:"",
                 department_description:"",
+                create_user:"",
+                update_user:"",
+                department_id:""
             },
             category:{
                 category_name:"",
-                delete_flg:"",
                 department_id:"",
+                delete_flg:"N",
+                create_user:"",
+                update_user:"",
             },
             filter_array:"",
             nameFile:"Attachment",
@@ -85,6 +94,21 @@ class Task extends Component {
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
 
+    componentWillMount(){
+        let user = {}
+        if(localStorage.getItem("user")){
+            user = JSON.parse(localStorage.getItem("user"))[0]
+            console.log("user",user)
+            this.setState({
+                department:{...this.state.department, create_user:user.FULL_NAME, update_user:user.FULL_NAME },
+                category:{...this.state.category, create_user:user.FULL_NAME, update_user:user.FULL_NAME },
+            })
+            
+            // this.props.PostDepartment(this.state.department)
+        }
+
+    }
+
     componentDidMount(){
         this.props.FetchListEmployeesSlect()
         this.props.FetchListTask(this.state.search_task)
@@ -94,7 +118,8 @@ class Task extends Component {
         console.log("componentDidMount")
     }
 
-    handleSearchFetchListTaskOnClick = () =>{
+    handleSearchFetchListTaskOnClick = event =>{
+        event.preventDefault()
         console.log("hthis.state.search_task click:", this.state.search_task)
         this.props.FetchListTask(this.state.search_task)
     }
@@ -107,6 +132,7 @@ class Task extends Component {
                 console.log("da vao componentDidUpdate if")
             }
         },100)
+        
     }
 
     handleOnFilterArray = event =>{
@@ -213,6 +239,9 @@ class Task extends Component {
                     this.props.FetchListCategoryByDepartment({department_id: this.state.task.department_name.split("noi chuoi")[0]})
                     console.log("da vao componentDidUpdate if")
                 }
+                if(this.state.department.department_id !== ""){
+                    this.props.DetailDepartment(this.state.department.department_id)
+                }
             },100)
             
             console.log("imgEmployeesSelectRegister",this.state.imgEmployeesSelectRegister)
@@ -266,16 +295,45 @@ class Task extends Component {
         data.append("search_category",this.state.search_task.search_category)
         data.append("search_job",this.state.search_task.search_job)
         data.append("search_status",this.state.search_task.search_status)
+        data.append("search_department_name",this.state.search_task.search_department_name)
         console.log('data search',Array.from(data))
         this.props.PostInsertTask(data)
     }
 
     handleSubmitDepartmentOnSubmit = event => {
-
+        event.preventDefault()
+        console.log(this.state.department);
+        if(localStorage.getItem("user")){          
+            this.props.PostDepartment(this.state.department)
+        }
+        
     }
 
     handleSubmitCategoryTasktOnSubmit = event => {
-        
+        event.preventDefault()
+        if(this.state.category.department_id.split("noi chuoi")[0] !== ""){
+            this.setState({
+                category : {...this.state.category, department_id:this.state.category.department_id.split("noi chuoi")[0]}
+            })
+        }
+        if(localStorage.getItem("user")){      
+            this.props.PostCategory(this.state.category)
+        }
+        setTimeout(()=>{
+            console.log("Submit this.state.category: ", this.state.category)
+            this.props.FetchListTaskTree()
+        },100)
+    }
+
+    hanleUpdateDepartment = event =>{
+        event.preventDefault()
+        if(localStorage.getItem("user")){      
+            this.props.UpdateDepartment(this.state.department)
+        }
+        setTimeout(()=>{
+            console.log("Submit this.state.category: ", this.state.category)
+            this.props.FetchListTaskTree()
+        },100)
     }
 
     renderListDepartment = () =>{
@@ -285,6 +343,51 @@ class Task extends Component {
             return listDepartment.result.map(item => {
                 return (
                     <option value= {item.DEPARTMENT_ID + "noi chuoi" + item.DEPARTMENT_NAME} key={item.DEPARTMENT_ID}>{item.DEPARTMENT_NAME}</option>
+                )
+            })
+        }
+    }
+
+    // Used to show html update form
+    renderListDepartmentUpdate = () =>{
+        const {listDepartment} = this.props
+        console.log('listDepartment', listDepartment.result)
+        if(listDepartment.result && listDepartment.result.length > 0){
+            return listDepartment.result.map(item => {
+                return (
+                    <option value= {item.DEPARTMENT_ID} key={item.DEPARTMENT_ID}>{item.DEPARTMENT_NAME}</option>
+                )
+            })
+        }
+    }
+
+    // render form update department
+    renderFormUpdate = () =>{
+        const {detailDepartment} = this.props
+        if(detailDepartment.result && detailDepartment.result !== undefined){
+            return(
+                <div className="mb-3" key={detailDepartment.result.DEPARTMENT_ID}>
+                    <div className="mb-3">
+                        <label htmlFor="department_name" className="form-label">Name Department</label>
+                        <input type="text" name="department_name" onChange={this.handleOnChange} value={this.state.department.department_name} className="form-control" id="department_name" placeholder={detailDepartment.result && detailDepartment.result.undefined ? detailDepartment.result.DEPARTMENT_NAME : "Enter Department Name"} />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="department_description" className="form-label">Description</label>
+                        <input type="text" name="department_description" onChange={this.handleOnChange} value={this.state.department.department_description} className="form-control" id="department_description" placeholder={detailDepartment.result && detailDepartment.result.undefined ? detailDepartment.result.DEPARTMENT_NAME : "Enter Description Name"} />
+                    </div>
+                </div>
+
+            )
+        }
+    }
+
+    renderListDepartmentNoSplit = () =>{
+        const {listDepartment} = this.props
+        console.log('listDepartment', listDepartment.result)
+        if(listDepartment.result && listDepartment.result.length > 0){
+            return listDepartment.result.map(item => {
+                return (
+                    <option value= {item.DEPARTMENT_NAME} key={item.DEPARTMENT_ID}>{item.DEPARTMENT_NAME}</option>
                 )
             })
         }
@@ -459,16 +562,16 @@ class Task extends Component {
         const {listTask} = this.props
         return (
             <div>
-                <form className="task-admin-search-total" >
+                <form className="task-admin-search-total" style={{overflow: 'hidden'}}>
                     <div className="d-flex flex-row bd-highlight mb-3">
                         <div className="bd-highlight" style={{marginRight:"20px"}}>
                             <label className="bd-highlight task-right-item-seperate-3 final-class">
                                     Department:&emsp;                                  
-                                    <select name="search_category" id="search_category_task" value={this.state.search_task.search_category} onChange={this.handleOnChange}  style={{ padding:"2px",  width:"200px", height:"30px", fontSize:"16px"  }}>                                          
+                                    <select name="search_department_name" id="search_department_name" value={this.state.search_task.search_department_name} onChange={this.handleOnChange}  style={{ padding:"2px",  width:"200px", height:"30px", fontSize:"16px"  }}>                                          
                                         <option value="All">All</option>
                                         {/* <option value="Information Techonology">Information Techonology</option>
                                         <option value="Digital Marketing">Digital Marketing</option> */}
-                                        {this.renderListDepartment()}                                          
+                                        {this.renderListDepartmentNoSplit()}                                          
                                     </select>
                             </label>
                         </div>
@@ -507,14 +610,14 @@ class Task extends Component {
                                     Status:&emsp;                                  
                                     <select name="search_state" id="search_state" value={this.state.search_task.search_state} onChange={this.handleOnChange}  style={{ padding:"2px",  width:"200px", height:"30px", fontSize:"16px"  }}>                                                                                
                                         <option value="All">All</option>
-                                        <option value="In Progressing">In Progressing</option>
+                                        <option value="IN-PROGRESS">IN-PROGRESS</option>
                                         <option value="Pending">Pending</option>
                                         <option value="Finished">Finished</option>                                                                                
                                     </select>
                             </label>
                         </div>
                         <div className="bd-highlight">
-                            <button type="button" className="bd-highlight" onClick={this.handleSearchFetchListTaskOnClick} style={{backgroundColor:"#3f6aae", color:"#fff", padding:"2px 20px", fontSize:"14px",borderRadius:"6px" ,cursor:"pointer"}}>Search</button>
+                            <button type="submit" className="bd-highlight" onClick={this.handleSearchFetchListTaskOnClick} style={{backgroundColor:"#3f6aae", color:"#fff", padding:"2px 20px", fontSize:"14px",borderRadius:"6px" ,cursor:"pointer"}}>Search</button>
                         </div>
                     </div>
                 </form>
@@ -522,7 +625,7 @@ class Task extends Component {
                     <div className="task-left col-lg-2">
                         {this.renderListTaskTreeHTML()}
                     </div>
-                    <div className="col-lg-10 task-right task-admin" style={{backgroundColor:"#FFFFFF", borderRadius:"10px",padding:"0 20px", height:"83vh",overflow:"auto"}}>
+                    <div className="col-lg-10 task-right task-admin" style={{backgroundColor:"#FFFFFF", borderRadius:"10px",padding:"0 20px", height:"80vh",overflow:"auto"}}>
                             <div className="d-flex flex-row bd-highlight mb-3 task-admin-action">
                                 <div className="bd-highlight">
                                     <label className="task-admin-search" style={{marginBottom:"20px" }}>                               
@@ -778,7 +881,7 @@ class Task extends Component {
                                             </div>
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" className="btn btn-primary">Submit</button>
+                                                <button type="submit" className="btn btn-primary" >Submit</button>
                                             </div>
                                         </div>
                                     </form>
@@ -817,26 +920,26 @@ class Task extends Component {
                                                         <input type="text" name="department_description" onChange={this.handleOnChange} className="form-control" id="department_description" placeholder="Enter Description Name" />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <button className="btn btn-primary">Submit</button>
+                                                        <button className="btn btn-primary" onClick={this.handleSubmitDepartmentOnSubmit}>Submit</button>
                                                     </div>
                                             </form>
                                             <div className="tab-pane fade" id="nav-category-task" role="tabpanel" aria-labelledby="nav-category-task-tab">
                                                 <form className="tab-pane fade show active" id="nav-department" role="tabpanel" aria-labelledby="nav-department-tab" style={{marginTop:"15px"}}>
                                                         <div className="mb-3">
                                                             <label htmlFor="category_name" className="form-label">Category Name</label>
-                                                            <input type="text" name="category_name" onChange={this.handleOnChange} className="form-control" id="category_name" placeholder="Enter Department Name" />
+                                                            <input type="text" name="category_name" onChange={this.handleOnChange} className="form-control" id="category_name" placeholder="Enter Category Name" />
                                                         </div>
                                                         <div className="mb-3">
                                                             <label className="bd-highlight task-right-item-seperate-3 final-class">
                                                                 DEPARTMENT:<br/>                                       
-                                                                <select name="department_name" id="department_name" value={this.state.task.department}  onChange={this.handleOnChange}  style={{ padding:"2px", width:"100%", height:"30px", fontSize:"16px", marginRight:"10px" }}>
+                                                                <select name="department_id" id="department_id" value={this.state.task.department}  onChange={this.handleOnChange}  style={{ padding:"2px", width:"100%", height:"30px", fontSize:"16px", marginRight:"10px" }}>
                                                                     <option value="">Choose Department</option>
                                                                     {this.renderListDepartment()}
                                                                 </select>
                                                             </label>
                                                         </div>
                                                         <div className="mb-3">
-                                                            <button className="btn btn-primary">Submit</button>
+                                                            <button className="btn btn-primary" onClick={this.handleSubmitCategoryTasktOnSubmit} >Submit</button>
                                                         </div>
                                                 </form>
                                             </div>
@@ -871,35 +974,32 @@ class Task extends Component {
                                         </nav>
                                         <div className="tab-content" id="nav-tabContent">
                                             <form className="tab-pane fade show active" id="nav-modify-department" role="tabpanel" aria-labelledby="nav-modify-department-tab" style={{marginTop:"15px"}}>
-                                                    <div className="mb-3">
-                                                        <label htmlFor="department_name" className="form-label">Name Department</label>
-                                                        <input type="text" name="department_name" onChange={this.handleOnChange} className="form-control" id="department_name" placeholder="Enter Department Name" />
-                                                    </div>
-                                                    <div className="mb-3">
-                                                        <label htmlFor="department_description" className="form-label">Description</label>
-                                                        <input type="text" name="department_description" onChange={this.handleOnChange} className="form-control" id="department_description" placeholder="Enter Description Name" />
-                                                    </div>
-                                                    <div className="mb-3">
-                                                        <button className="btn btn-primary">Submit</button>
+                                                    <select name="department_id" id="department_id" value={this.state.task.department}  onChange={this.handleOnChange}  style={{ padding:"2px", width:"100%", height:"30px", fontSize:"16px", marginRight:"10px" }}>
+                                                        <option value="">Choose Department</option>
+                                                        {this.renderListDepartmentUpdate()}
+                                                    </select>
+                                                    {this.renderFormUpdate()}
+                                                    <div className="mb-3 mt-3">
+                                                        <button className="btn btn-outline-primary">Update</button>
                                                     </div>
                                             </form>
                                             <div className="tab-pane fade" id="nav-modify-category-task" role="tabpanel" aria-labelledby="nav-modify-category-task-tab">
                                                 <form className="tab-pane fade show active" id="nav-modify-department" role="tabpanel" aria-labelledby="nav-modify-department-tab" style={{marginTop:"15px"}}>
                                                         <div className="mb-3">
                                                             <label htmlFor="category_name" className="form-label">Category Name</label>
-                                                            <input type="text" name="category_name" onChange={this.handleOnChange} className="form-control" id="category_name" placeholder="Enter Department Name" />
+                                                            <input type="text" name="category_name" onChange={this.handleOnChange} className="form-control" id="category_name" placeholder="Enter Category Name" />
                                                         </div>
                                                         <div className="mb-3">
                                                             <label className="bd-highlight task-right-item-seperate-3 final-class">
                                                                 DEPARTMENT:<br/>                                       
-                                                                <select name="department_name" id="department_name" value={this.state.task.department}  onChange={this.handleOnChange}  style={{ padding:"2px", width:"100%", height:"30px", fontSize:"16px", marginRight:"10px" }}>
+                                                                <select name="department_id" id="department_id" value={this.state.task.department}  onChange={this.handleOnChange}  style={{ padding:"2px", width:"100%", height:"30px", fontSize:"16px", marginRight:"10px" }}>
                                                                     <option value="">Choose Department</option>
                                                                     {this.renderListDepartment()}
                                                                 </select>
                                                             </label>
                                                         </div>
-                                                        <div className="mb-3">
-                                                            <button className="btn btn-primary">Submit</button>
+                                                        <div className="mb-3 mt-3">
+                                                            <button className="btn btn-outline-primary">Update</button>
                                                         </div>
                                                 </form>
                                             </div>
@@ -910,7 +1010,7 @@ class Task extends Component {
                             </div>
                             </div>
                         </div>
-                        <a  className="btn btn-primary" data-bs-toggle="modal" href="#exampleModifyModalToggleDepartmentCategory" role="button">Create</a>
+                        <a  className="btn btn-primary" style={{display: "none"}} data-bs-toggle="modal" href="#exampleModifyModalToggleDepartmentCategory" role="button">Create</a>
                         </div>
 
                         {/* Modify Modal Department Category */}
@@ -933,7 +1033,8 @@ export const mapStateToProp = state => {
         listCategoryTask : state.listCategoryTaskReducer.listCategoryTask,
         listDepartment: state.listDepartmentReducer.listDepartment,
         listCategoryByDepartment: state.listCategoryByDepartmentReducer.listCategoryByDepartment,
-        listTaskTree: state.listTaskTreeReducer.listTaskTree
+        listTaskTree: state.listTaskTreeReducer.listTaskTree,
+        detailDepartment: state.detailDepartmentReducer.detailDepartment
     }
 }
 
@@ -959,6 +1060,18 @@ export const mapDispatchToProp = dispatch => {
         },
         FetchListTaskTree: () =>{
             dispatch(actFetchListTaskTreeAPI())
+        },
+        PostDepartment : departmentInsert =>{
+            dispatch(actPostDepartmentAPI(departmentInsert))
+        },
+        PostCategory: categoryInsert =>{
+            dispatch(actPostCategoryAPI(categoryInsert))
+        },
+        UpdateDepartment: departmentUpdate =>{
+            dispatch(actUpdateDepartmentsAPI(departmentUpdate))
+        },
+        DetailDepartment : department_id =>{
+            dispatch(actFetchDetailDepartmentAPI(department_id))
         }
         
     }

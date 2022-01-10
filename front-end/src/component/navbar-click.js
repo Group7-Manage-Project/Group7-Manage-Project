@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas'
-import logo from './images/Logo.png'
+import logo from './images/logo.jpg'
 import {Link} from 'react-router-dom'
 
 import TreeView from '@mui/lab/TreeView';
@@ -32,7 +32,7 @@ const options = [
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>
                 <span><img src={logo} alt="logo" width="60" height="60" /></span>&emsp;
-                <span style ={{fontSize:"30px", color:"#008037", fontWeight:"700"}}>Team 6</span>
+                <span style ={{fontSize:"30px", color:"#fff", fontWeight:"700"}}>JHS Group</span>
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
@@ -45,11 +45,14 @@ const options = [
             <TreeItem nodeId="1" label="Project Management">
               <Link to="/"><TreeItem nodeId="2" label="Requirement" /></Link>
             </TreeItem>
-            <TreeItem nodeId="5" label="Documents">
-              <TreeItem nodeId="10" label="OSS" />
-              {/* <TreeItem nodeId="6" label="MUI">
-                <TreeItem nodeId="8" label="index.js" />
-              </TreeItem> */}
+            <TreeItem nodeId="3" label="Employees Management">
+              <Link to="/admin/employees"><TreeItem nodeId="4" label="Employees" /></Link>
+            </TreeItem>
+            <TreeItem nodeId="5" label="Schedule Management">
+              <Link to="/admin/schedule"><TreeItem nodeId="6" label="Schedule" /></Link>
+            </TreeItem>
+            <TreeItem nodeId="7" label="Satstatistical">
+              <Link to="/admin/statistical"><TreeItem nodeId="8" label="Tasks" /></Link>
             </TreeItem>
           </TreeView>
 

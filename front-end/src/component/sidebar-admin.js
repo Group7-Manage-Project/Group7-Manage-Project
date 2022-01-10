@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from "./images/Logo.png";
+import logo from "./images/logo.jpg";
 import {Link, NavLink} from 'react-router-dom';
 
 
@@ -21,8 +21,8 @@ class Sidebar extends Component {
                             <h3>Project Management</h3>
                             <hr style={{width:"100%", height:"2px", backgroundColor:"#FFFFFF", margin:"0px"}} />
                             <div className="side-bar-item-content-link">
-                                <Link to="/admin/dashboard" style={{width:"200px"}}>
-                                    Requirement
+                                <Link to="/admin/tasks" style={{width:"200px"}}>
+                                    Tasks
                                 </Link>
                             </div>
                         </div>                   
@@ -32,11 +32,11 @@ class Sidebar extends Component {
                             <i className="fa fa-tasks"></i>
                         </div>
                         <div className="side-bar-item-content">
-                            <h3>Project Management</h3>
+                            <h3>Employees Management</h3>
                             <hr style={{width:"100%", height:"2px", backgroundColor:"#FFFFFF", margin:"0px"}} />
                             <div className="side-bar-item-content-link">
-                                <Link to="/admin/dashboard" style={{width:"200px"}}>
-                                    Requirement
+                                <Link to="/admin/employees" style={{width:"200px"}}>
+                                    Employees
                                 </Link>
                             </div>
                         </div> 
@@ -44,32 +44,35 @@ class Sidebar extends Component {
                     </div>
                     <div  className="side-bar-item">
                         <div className="bd-highlight">
-                            <i className="fa fa-user-friends"></i>
-                        </div>
-                        <div className="side-bar-item-content">
-                            <h3>Project Management</h3>
-                            <hr style={{width:"100%", height:"2px", backgroundColor:"#FFFFFF", margin:"0px"}} />
-                            <div className="side-bar-item-content-link">
-                                <Link to="/admin/dashboard" style={{width:"200px"}}>
-                                    Requirement
-                                </Link>
-                            </div>
-                        </div>                        
-                    </div>
-                    <div  className="side-bar-item">
-                        <div className="bd-highlight">
                             <i className="fab fa-twitter"></i>
                         </div>
                         <div className="side-bar-item-content">
-                            <h3>Project Management</h3>
+                            <h3>Schedule Management</h3>
                             <hr style={{width:"100%", height:"2px", backgroundColor:"#FFFFFF", margin:"0px"}} />
                             <div className="side-bar-item-content-link">
-                                <Link to="/admin/dashboard" style={{width:"200px"}}>
-                                    Requirement
+                                <Link to="/admin/schedule" style={{width:"200px"}}>
+                                    Schedule
                                 </Link>
                             </div>
                         </div>                         
                     </div>
+                    <div  className="side-bar-item">
+                        <div className="bd-highlight">
+                            <i className="fa fa-calculator"></i>
+                        </div>
+                        <div className="side-bar-item-content">
+                            <h3>Satstatistical</h3>
+                            <hr style={{width:"100%", height:"2px", backgroundColor:"#FFFFFF", margin:"0px"}} />
+                            <div className="side-bar-item-content-link">
+                                <Link to="/admin/statistical" style={{width:"200px"}}>
+                                    Satstatistical
+                                </Link>
+                            </div>
+                        </div>                         
+                    </div>
+                    
+
+
                 </div>
             </div>
         );

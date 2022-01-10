@@ -39,7 +39,7 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
     width: 60px;
     max-width: 60px;
     min-width: 60px;
-    background: url('../component/images/background-sidebar-crop.jpg') no-repeat 0 40%;
+    background: url('../component/images/background_side_bar.jpg') no-repeat 0 40%;
 }
 
 .admin-layout-container .admin-layout-right{
@@ -241,7 +241,7 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
 
 .offcanvas-start{
     width: 300px !important;
-    background:  url("../component/images/background-sidebar.jpg") no-repeat 0 10%;
+    background:  url("../component/images/background_side_bar.jpg") no-repeat 0 10%;
     color: #fff;
 }
 
@@ -548,6 +548,11 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
 
 .admin-layout-right-container .employees-right .employees-right-form select:focus-visible{
     outline:none;
+}
+
+.MuiCollapse-wrapperInner a{
+    text-decoration:none;
+    color: #fff !important;
 }
 
 

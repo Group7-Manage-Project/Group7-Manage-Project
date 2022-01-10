@@ -78,6 +78,15 @@
     overflow-y: hidden;
 }
 
+.dashboard-ticket a{
+    text-decoration: none;
+    color: #888888;
+}
+
+.dashboard-ticket a:hover{
+    color: #888888;
+}
+
 @media only screen and (max-width: 1795px) {
     .dashboard-content .dashboard-ticket .dashboard-ticket-body .w-100{
         width: 70% !important;
