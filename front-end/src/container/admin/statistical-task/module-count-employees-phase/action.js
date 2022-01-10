@@ -5,13 +5,17 @@ import {
 } from './constant'
 
 import  Axios  from "axios"
+import  Cookies  from 'js-cookie';
 
 export const actFetchCountEmployeesPhaseAPI = () =>{
     return dispatch =>{
         dispatch(actFetchCountEmployeesPhaseRequest())
         Axios({
             method:"GET",
-            url:"http://localhost:9999/api/task/count/employee-phase"
+            url:"http://localhost:9999/api/task/count/employee-phase",
+            headers:{
+                Authorization:`Bearer ${Cookies.get('user')}`
+            }
         })
         .then(result =>{
             dispatch(actFetchCountEmployeesPhaseSuccess(result.data))

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
-import {actFetchCountEmployeesPhaseAPI} from './module-count-employees-phase/action'
-import {actFetchCountCategoryAPI} from './module-count-category/action'
+// import {actFetchCountEmployeesPhaseAPI} from './module-count-employees-phase/action'
+// import {actFetchCountCategoryAPI} from './module-count-category/action'
 import {actFetchListTaskToDoAPI} from './module-list-task-to-do/action'
 import {actFetchListTaskDoingAPI} from './module-list-task-doing/action'
 import {actFetchListTaskDoneAPI} from './module-list-task-done/action'
@@ -23,10 +23,10 @@ class Dashboard extends Component {
         
     }
 
-    componentDidMount(){
-        this.props.FetchCountEmployessPhase()
-        this.props.FetchCountCategory()
-    }
+    // componentDidMount(){
+    //     this.props.FetchCountEmployessPhase()
+    //     this.props.FetchCountCategory()
+    // }
 
     renderToDoHTml = () =>{
         const {listTaskToDo} = this.props
@@ -185,12 +185,12 @@ class Dashboard extends Component {
                             <div className="d-flex">
                                 <div className="w-100"><h5>Done</h5></div>
                                 <div className="flex-shrink-1">
-                                    <p>{listTaskToDo.result && listTaskToDo.result.length > 0 ? listTaskToDo.result.length : 0}</p>
+                                    <p>{listTaskDoing.result && listTaskDoing.result.length > 0 ? listTaskDoing.result.length : 0}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="dashboard-list-ticket">
-                            {this.renderTaskDoneHTml()}
+                            {this.renderDoingHTml()}
                         </div> 
                     </div>          
                 </div>
@@ -203,8 +203,8 @@ class Dashboard extends Component {
 
 export const mapStateToProp = state => {
     return {
-        listCountEmployeesPhase: state.listCountEmployeesReducer.listCountEmployeesPhase,
-        listCountCategory:state.listCountCategoryReducer.listCountCategory,
+        // listCountEmployeesPhase: state.listCountEmployeesReducer.listCountEmployeesPhase,
+        // listCountCategory:state.listCountCategoryReducer.listCountCategory,
         listTaskToDo: state.listTaskToDoReducer.listTaskToDo,
         listTaskDoing:state.listTaskDoingReducer.listTaskDoing,
         listTaskDone:state.listTaskDoneReducer.listTaskDone
@@ -213,12 +213,12 @@ export const mapStateToProp = state => {
 
 export const mapDispatchToProp = dispatch =>{
     return{
-        FetchCountEmployessPhase: () =>{
-            dispatch(actFetchCountEmployeesPhaseAPI())
-        },
-        FetchCountCategory: () =>{
-            dispatch(actFetchCountCategoryAPI())
-        },
+        // FetchCountEmployessPhase: () =>{
+        //     dispatch(actFetchCountEmployeesPhaseAPI())
+        // },
+        // FetchCountCategory: () =>{
+        //     dispatch(actFetchCountCategoryAPI())
+        // },
         FetchListToDo: user =>{
             dispatch(actFetchListTaskToDoAPI(user))
         },

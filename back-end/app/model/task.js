@@ -501,4 +501,58 @@ Task.get_task_done_by_employee_id = function(data,result){
         }
     })
 }
+
+Task.get_count_task_by_employee_id = function(employee_id,result){
+    console.log("employee_id model: ",employee_id)
+    const query = `
+    WITH COUNT_REGISTER AS(
+            SELECT COUNT(*) AS COUNT_REGISTER
+    FROM TASK A, STAFF B
+    WHERE A.REGISTER_USER_ID = B.EMPLOYEE_ID
+    AND B.EMPLOYEE_ID = ?
+    ),
+    COUNT_CONFIRMATION AS(
+        SELECT COUNT(*) AS COUNT_CONFIRMATION
+    FROM TASK A, STAFF B
+    WHERE A.CONFIRMATION_ID = B.EMPLOYEE_ID
+    AND B.EMPLOYEE_ID = ?
+    ),
+    COUNT_IMPLEMENTATION AS(
+        SELECT COUNT(*) AS COUNT_IMPLEMENTATION
+    FROM TASK A, STAFF B
+    WHERE A.IMPLEMENTATION_ID  = B.EMPLOYEE_ID
+    AND B.EMPLOYEE_ID = ?
+    ),
+    COUNT_TEST AS(
+        SELECT COUNT(*) AS COUNT_TEST
+    FROM TASK A, STAFF B
+    WHERE A.TEST_ID = B.EMPLOYEE_ID
+    AND B.EMPLOYEE_ID = ?
+    ),
+    COUNT_APPROVAL AS(
+        SELECT COUNT(*) AS COUNT_APPROVAL
+    FROM TASK A, STAFF B
+    WHERE A.APPROVAL_ID  = B.EMPLOYEE_ID
+    AND B.EMPLOYEE_ID = ?
+    ),
+    COUNT_FINISH AS(
+        SELECT COUNT(*) AS COUNT_FINISH
+    FROM TASK A, STAFF B
+    WHERE A.FINISH_ID = B.EMPLOYEE_ID
+    AND B.EMPLOYEE_ID = ?
+    )
+    
+    SELECT A.*,B.*,C.*,D.*,E.*,F.*
+    FROM COUNT_REGISTER A,COUNT_CONFIRMATION B,COUNT_IMPLEMENTATION C,COUNT_TEST D,COUNT_APPROVAL E,COUNT_FINISH F
+    `;
+     db.query(query, [employee_id,employee_id,employee_id,employee_id,employee_id,employee_id], function(err, task) {
+        if (err) {
+            result("Get failed");
+        }
+        else{
+            result(task);
+        }
+    })
+}
+
 module.exports =  Task

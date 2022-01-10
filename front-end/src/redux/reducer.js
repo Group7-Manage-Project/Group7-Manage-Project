@@ -16,13 +16,12 @@ import insertDepartmentReducer from '../container/admin/task/department/module-i
 import insertCategoryReducer from '../container/admin/task/category/module-insert-category/reducer'
 import departmentUpdateReducer from '../container/admin/task/department/module-insert-department/reducer'
 import detailDepartmentReducer from '../container/admin/task/department/module-detail-department/reducer'
-
 import detailTaskReducer from '../container/admin/task/detail-task/module-detail-task/reducer'
 import userSignUpReducer from '../container/home/home-page/module-sign-in/reducer'
 
 
-import listCountEmployeesReducer from '../container/admin/dashboard/module-count-employees-phase/reducer'
-import listCountCategoryReducer from '../container/admin/dashboard/module-count-category/reducer'
+
+
 import listTaskToDoReducer from '../container/admin/dashboard/module-list-task-to-do/reducer'
 import listTaskDoingReducer from '../container/admin/dashboard/module-list-task-doing/reducer'
 import listTaskDoneReducer from '../container/admin/dashboard/module-list-task-done/reducer'
@@ -36,6 +35,11 @@ import scheduleInsertReducer from '../container/admin/schedule/module-insert-sch
 import listScheduleReducer from '../container/admin/schedule/module-list-schedule/reducer'
 import updateScheduleReducer from '../container/admin/schedule/module-update-schedule/reducer'
 import deleteScheduleReducer from '../container/admin/schedule/module-delete-schedule/reducer'
+
+import listCountReducer from '../container/admin/detail-person/module-list-count/reducer'
+
+import listCountCategoryReducer from '../container/admin/statistical-task/module-count-category/reducer'
+import listCountEmployeesReducer from '../container/admin/statistical-task/module-count-employees-phase/reducer'
 
 const rootReducer = combineReducers({
     userSignUpEmployeesReducer,
@@ -79,6 +83,8 @@ const rootReducer = combineReducers({
     listScheduleReducer,
     updateScheduleReducer,
     deleteScheduleReducer,
+
+    listCountReducer
     
 });
 export default rootReducer

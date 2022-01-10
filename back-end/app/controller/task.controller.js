@@ -247,3 +247,29 @@ exports.get_task_done = function(req,res){
         return res.status(403).send({message:'Unauthorized'});
     }
 }
+
+exports.get_count_task_by_employee_id = function(req,res){
+    if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
+            if (err){
+                return res.status(403).send({message:'Unauthorized'})
+            }
+            else{
+                let employee_id = req.params.employee_id;
+                console.log("employee_id: ", employee_id)
+                Task.get_count_task_by_employee_id(employee_id,function(response){
+                    if (response !== "Get failed"){
+                        res.send({result:response})
+                    }
+                    else {
+                        res.status(404).send({message:'Get failed'});
+                    }
+                }) 
+            }
+        })
+    }
+    else{
+        return res.status(403).send({message:'Unauthorized'});
+    }
+}

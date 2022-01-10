@@ -146,6 +146,11 @@ Staff.login = function(data,result){
             // let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'3h'})\
             let token = jwt.sign({staff},'team7project@uef.edu.vn',{algorithm:'HS256',expiresIn:'1 days'})
             console.log("staff",staff);
+            staff.map(item =>{
+                // console.log("image",item.IMAGE)
+                item.IMAGE = `http://localhost:9999/get-image/${item.IMAGE}`;
+                // console.log(item.BIRTH_DAY)
+            })
             result({access_token:token,staff:staff});
         }
         else{
