@@ -145,6 +145,15 @@ class Dashboard extends Component {
         const {listTaskToDo} = this.props
         const {listTaskDoing} = this.props
         const {listTaskDone} = this.props
+        if(listTaskToDo.result && listTaskToDo.result.length > 0){
+            listTaskToDo.result = listTaskToDo.result.filter(item => item.STATUS !== "FINISHED" && item.STATUS !== null && item.STATUS !== "")
+        }
+        if(listTaskDoing.result && listTaskDoing.result.length > 0){
+            listTaskDoing.result = listTaskDoing.result.filter(item => item.STATUS !== "FINISHED" && item.STATUS !== null && item.STATUS !== "")
+        }
+        if(listTaskDone.result && listTaskDone.result.length > 0){
+            listTaskDone.result = listTaskDone.result.filter(item => item.STATUS !== "FINISHED" && item.STATUS !== null && item.STATUS !== "")
+        }
         return(
             <div className="dashboard-content row">
                 <div className="dashboard-left col-md-4">
@@ -160,8 +169,6 @@ class Dashboard extends Component {
                         <div className="dashboard-list-ticket">
                             {this.renderToDoHTml()}
                         </div>
-                        
-                         
                     </div>           
                 </div>
                 <div className="dashboard-center col-md-4">
@@ -170,7 +177,7 @@ class Dashboard extends Component {
                             <div className="d-flex">
                                 <div className="w-100"><h5>Doing</h5></div>
                                 <div className="flex-shrink-1">
-                                    <p>{listTaskDone.result && listTaskDone.result.length > 0 ? listTaskDone.result.length : 0}</p>
+                                    <p>{listTaskDoing.result && listTaskDoing.result.length > 0 ? listTaskDoing.result.length : 0}</p>
                                 </div>
                             </div>
                         </div>
@@ -185,12 +192,12 @@ class Dashboard extends Component {
                             <div className="d-flex">
                                 <div className="w-100"><h5>Done</h5></div>
                                 <div className="flex-shrink-1">
-                                    <p>{listTaskDoing.result && listTaskDoing.result.length > 0 ? listTaskDoing.result.length : 0}</p>
+                                    <p>{listTaskDone.result && listTaskDone.result.length > 0 ? listTaskDone.result.length : 0}</p>
                                 </div>
                             </div>
                         </div>
                         <div className="dashboard-list-ticket">
-                            {this.renderDoingHTml()}
+                            {this.renderTaskDoneHTml()}
                         </div> 
                     </div>          
                 </div>
