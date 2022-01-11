@@ -48,3 +48,30 @@
     margin: 0px !important;
     padding: 0px !important;
 }
+
+@media only screen and (max-height: 930px) {
+    .task-content .task-left{
+        overflow-y: auto;
+        height: 83%;
+        border: 1px solid #DADEE0;
+    }
+
+    .task-admin{
+        height:77vh !important;
+    }
+
+    .admin-layout-right-container .employees-content .employees-left .employees-admin{
+        height:78vh !important;
+    }
+    .admin-layout-right-container .employees-right{
+        height: 96% !important;
+    }
+
+    .admin-layout-right-container .employees-content{
+        height: 86%;
+    }
+
+    .employees-admin table{
+        height: 88%;
+    }
+}
