@@ -22,7 +22,7 @@ export const actPostCommentAPI = comment =>{
         .then(result =>{
             dispatch(actPostCommentSuccess(result.data))
             console.log(result.data)
-            toast.success("Create Task Success",{
+            toast.success("Create Comment Success",{
                 className: "custom-toast",
                 draggable:true,
                 position: toast.POSITION.TOP_RIGHT
@@ -30,7 +30,7 @@ export const actPostCommentAPI = comment =>{
         })
         .catch(err =>{
             dispatch(actPostCommentFailed(err))
-            toast.error("Create Task Failed",{
+            toast.error("Create Comment Failed",{
                 className: "custom-toast",
                 draggable:true,
                 position: toast.POSITION.TOP_RIGHT
