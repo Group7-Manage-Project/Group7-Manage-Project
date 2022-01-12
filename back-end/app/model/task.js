@@ -353,44 +353,48 @@ Task.count_employees_phase = function(result) {
 
 Task.get_task_todo_by_employee_id = function(data,result){
     const query =`
-    SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.USER_NAME, task.STEP, task.DEPARTMENT_NAME, task.STATUS, 
-    CASE
-	    WHEN task.STEP = 1 THEN "Register"
-  	    WHEN task.STEP = 2 THEN "Confirmation"
-        WHEN task.STEP = 3 THEN "Implementation"
-        WHEN task.STEP = 4 THEN "Test"
-        WHEN task.STEP = 5 THEN "Approval"
-        WHEN task.STEP = 6 THEN "Finish"
-    END AS PHASE, 
-    CASE
-    	WHEN task.STEP = 1 AND (task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID OR task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-  	    WHEN task.STEP = 2 AND (task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID OR task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-        WHEN task.STEP = 3 AND (task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID OR task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-        WHEN task.STEP = 4 AND (task.APPROVAL_ID = G.EMPLOYEE_ID OR task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-        WHEN task.STEP = 5 AND (task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-        WHEN task.STEP = 6 THEN NULL
-    END AS TODO
-    FROM (
-        SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.USER_NAME
-	    FROM (
-		    SELECT A.TASK_ID, A.JOB, A.TITLE, B.CATEGORY_NAME, A.END_DATE, A.STEP,
-		    CASE
-			    WHEN A.STEP = 1 THEN A.REGISTER_USER_ID
-    		    WHEN A.STEP = 2 THEN A.CONFIRMATION_ID
-        	    WHEN A.STEP = 3 THEN A.IMPLEMENTATION_ID
-    		    WHEN A.STEP = 4 THEN A.TEST_ID
-    		    WHEN A.STEP = 5 THEN A.APPROVAL_ID
-    		    WHEN A.STEP = 6 THEN A.FINISH_ID
-   			    ELSE NULL
-		    END AS PHASE
-		    FROM task A, category_task B
-		    WHERE A.CATEGORY_TASK_ID = B.CATEGORY_TASK_ID 
-        ) AS C, staff D, task E
-	WHERE C.PHASE = D.EMPLOYEE_ID 
-    ) AS F LEFT JOIN task ON F.TASK_ID = task.TASK_ID, staff G
-    WHERE G.EMPLOYEE_ID = ?
+    SELECT *
+    FROM(
+            SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.USER_NAME, task.STEP, task.DEPARTMENT_NAME, task.STATUS, 
+        CASE
+            WHEN task.STEP = 1 THEN "Register"
+              WHEN task.STEP = 2 THEN "Confirmation"
+            WHEN task.STEP = 3 THEN "Implementation"
+            WHEN task.STEP = 4 THEN "Test"
+            WHEN task.STEP = 5 THEN "Approval"
+            WHEN task.STEP = 6 THEN "Finish"
+        END AS PHASE, 
+        CASE
+            WHEN task.STEP = 1 AND (task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID OR task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+              WHEN task.STEP = 2 AND (task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID OR task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+            WHEN task.STEP = 3 AND (task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID OR task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+            WHEN task.STEP = 4 AND (task.APPROVAL_ID = G.EMPLOYEE_ID OR task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+            WHEN task.STEP = 5 AND (task.FINISH_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+            WHEN task.STEP = 6 THEN NULL
+        END AS TODO
+        FROM (
+            SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.USER_NAME
+            FROM (
+                SELECT A.TASK_ID, A.JOB, A.TITLE, B.CATEGORY_NAME, A.END_DATE, A.STEP,
+                CASE
+                    WHEN A.STEP = 1 THEN A.REGISTER_USER_ID
+                    WHEN A.STEP = 2 THEN A.CONFIRMATION_ID
+                    WHEN A.STEP = 3 THEN A.IMPLEMENTATION_ID
+                    WHEN A.STEP = 4 THEN A.TEST_ID
+                    WHEN A.STEP = 5 THEN A.APPROVAL_ID
+                    WHEN A.STEP = 6 THEN A.FINISH_ID
+                       ELSE NULL
+                END AS PHASE
+                FROM task A, category_task B
+                WHERE A.CATEGORY_TASK_ID = B.CATEGORY_TASK_ID 
+            ) AS C, staff D, task E
+        WHERE C.PHASE = D.EMPLOYEE_ID 
+        ) AS F LEFT JOIN task ON F.TASK_ID = task.TASK_ID, staff G
+        WHERE G.EMPLOYEE_ID = ?
+    ) AS T1
+    WHERE TODO = ?
     `;
-    db.query(query, data.employee_id, function(err, task) {
+    db.query(query, [data.employee_id,data.employee_id], function(err, task) {
         if (err) {
             result("Get failed");
         }
@@ -451,44 +455,48 @@ Task.get_task_doing_by_employee_id = function(data,result){
 
 Task.get_task_done_by_employee_id = function(data,result){
     const query = `
-    SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.USER_NAME, task.STEP, task.STATUS,
-    CASE
-	    WHEN task.STEP = 1 THEN "Register"
-  	    WHEN task.STEP = 2 THEN "Confirmation"
-        WHEN task.STEP = 3 THEN "Implementation"
-        WHEN task.STEP = 4 THEN "Test"
-        WHEN task.STEP = 5 THEN "Approval"
-        WHEN task.STEP = 6 THEN "Finish"
-    END AS PHASE,
-    CASE 
-    	WHEN task.STEP = 1 THEN NULL
-  	    WHEN task.STEP = 2 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-        WHEN task.STEP = 3 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-        WHEN task.STEP = 4 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-        WHEN task.STEP = 5 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-        WHEN task.STEP = 6 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
-    END AS DONE
+    SELECT *
     FROM (
-        SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.USER_NAME
-	    FROM (
-		    SELECT A.TASK_ID, A.JOB, A.TITLE, B.CATEGORY_NAME, A.END_DATE, A.STEP,
-		    CASE
-			    WHEN A.STEP = 1 THEN A.REGISTER_USER_ID
-    		    WHEN A.STEP = 2 THEN A.CONFIRMATION_ID
-        	    WHEN A.STEP = 3 THEN A.IMPLEMENTATION_ID
-    		    WHEN A.STEP = 4 THEN A.TEST_ID
-    		    WHEN A.STEP = 5 THEN A.APPROVAL_ID
-    		    WHEN A.STEP = 6 THEN A.FINISH_ID
-   			    ELSE NULL
-		    END AS PHASE
-		    FROM task A, category_task B
-		    WHERE A.CATEGORY_TASK_ID = B.CATEGORY_TASK_ID 
-        ) AS C, staff D, task E
-	WHERE C.PHASE = D.EMPLOYEE_ID 
-    ) AS F LEFT JOIN task ON F.TASK_ID = task.TASK_ID, staff G
-    WHERE G.EMPLOYEE_ID = ?
+            SELECT DISTINCT F.TASK_ID, F.JOB, F.TITLE, F.CATEGORY_NAME, F.END_DATE, F.EMPLOYEE_ID, F.IMAGE, F.USER_NAME, task.STEP, task.STATUS,
+        CASE
+            WHEN task.STEP = 1 THEN "Register"
+              WHEN task.STEP = 2 THEN "Confirmation"
+            WHEN task.STEP = 3 THEN "Implementation"
+            WHEN task.STEP = 4 THEN "Test"
+            WHEN task.STEP = 5 THEN "Approval"
+            WHEN task.STEP = 6 THEN "Finish"
+        END AS PHASE,
+        CASE 
+            WHEN task.STEP = 1 THEN NULL
+              WHEN task.STEP = 2 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+            WHEN task.STEP = 3 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+            WHEN task.STEP = 4 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+            WHEN task.STEP = 5 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+            WHEN task.STEP = 6 AND (task.REGISTER_USER_ID = G.EMPLOYEE_ID OR task.CONFIRMATION_ID = G.EMPLOYEE_ID OR task.IMPLEMENTATION_ID = G.EMPLOYEE_ID OR task.TEST_ID = G.EMPLOYEE_ID OR task.APPROVAL_ID = G.EMPLOYEE_ID) THEN G.EMPLOYEE_ID
+        END AS DONE
+        FROM (
+            SELECT C.TASK_ID, C.JOB, C.TITLE, C.CATEGORY_NAME, C.END_DATE,C.PHASE, D.EMPLOYEE_ID, D.IMAGE, D.USER_NAME
+            FROM (
+                SELECT A.TASK_ID, A.JOB, A.TITLE, B.CATEGORY_NAME, A.END_DATE, A.STEP,
+                CASE
+                    WHEN A.STEP = 1 THEN A.REGISTER_USER_ID
+                    WHEN A.STEP = 2 THEN A.CONFIRMATION_ID
+                    WHEN A.STEP = 3 THEN A.IMPLEMENTATION_ID
+                    WHEN A.STEP = 4 THEN A.TEST_ID
+                    WHEN A.STEP = 5 THEN A.APPROVAL_ID
+                    WHEN A.STEP = 6 THEN A.FINISH_ID
+                       ELSE NULL
+                END AS PHASE
+                FROM task A, category_task B
+                WHERE A.CATEGORY_TASK_ID = B.CATEGORY_TASK_ID 
+            ) AS C, staff D, task E
+        WHERE C.PHASE = D.EMPLOYEE_ID 
+        ) AS F LEFT JOIN task ON F.TASK_ID = task.TASK_ID, staff G
+        WHERE G.EMPLOYEE_ID = ?
+    ) AS T1
+    WHERE DONE = ?
     `;
-     db.query(query, data.employee_id, function(err, task) {
+     db.query(query, [data.employee_id,data.employee_id], function(err, task) {
         if (err) {
             result("Get failed");
         }
