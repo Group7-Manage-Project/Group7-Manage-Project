@@ -71,6 +71,10 @@ class DetailTask extends Component {
         this.props.FetchDetailTask(task_id)
         this.props.FetListComment({task_id:task_id})
         // localStorage.setItem("task",JSON.stringify({"result":{"TASK_ID":27,"JOB":"Training","STATUS":"IN-PROGRESS","CATEGORY":"find","TITLE":"Training SQL","PROGRESS":70,"EFFORT":150,"IMPORTANT":"Very Low","DESCRIPTION":"Training SQL","FILE":"http://localhost:9999/get-file/1641290687684--review .docx","ASSIGNEE_ID":10,"REGISTER_USER_ID":7,"CONFIRMATION_ID":9,"IMPLEMENTATION_ID":8,"TEST_ID":10,"APPROVAL_ID":10,"FINISH_ID":10,"START_DATE":"04/01/2022","END_DATE":"11/01/2022","STEP":5,"CATEGORY_TASK_ID":5,"DEPARTMENT_NAME":"Department of E-Commerce","IMAGE_REGISTER":"http://localhost:9999/get-image/1640599576538--Phut.jpg","FULL_NAME_REGISTER":"Vũ Nhật Minh Trường","IMAGE_ASSIGNEE":"http://localhost:9999/get-image/1640601729704--hoang2.JPG","FULL_NAME_ASSIGNEE":"Nguyễn Trần Hoàng","IMAGE_CONFIRMATION":"http://localhost:9999/get-image/1640600070519--Phut.jpg","FULL_NAME_CONFIRMATION":"Vũ Nhật Minh Trường","IMAGE_IMPLEMENTATION":"http://localhost:9999/get-image/1640599915070--Phut.jpg","FULL_NAME_IMPLEMENTATION":"Vũ Nhật Minh Trường","IMAGE_TEST":"http://localhost:9999/get-image/1640601729704--hoang2.JPG","FULL_NAME_TEST":"Nguyễn Trần Hoàng","IMAGE_APPROVAL":"http://localhost:9999/get-image/1640601729704--hoang2.JPG","FULL_NAME_APPROVAL":"Nguyễn Trần Hoàng","IMAGE_FINISH":"http://localhost:9999/get-image/1640601729704--hoang2.JPG","FULL_NAME_FINISH":"Nguyễn Trần Hoàng","CATEGORY_NAME":"find","CREATE_COMMENT_DATE":"05/01/2022"}}))
+        this.setState({
+            comment_task:{...this.state.comment_task, task_id: task_id}
+        })
+    
     }
 
     componentDidMount(){
@@ -143,7 +147,7 @@ class DetailTask extends Component {
             }
             if(detailTask.result){
                 this.setState({
-                    comment_task:{...this.state.comment_task, task_id: detailTask.result.TASK_ID },
+                    comment_task:{...this.state.comment_task, task_id: this.props.match.params.task_id },
                     // nameFile:detailTask.result.FILE.split("http://localhost:9999/get-file/")[1]
             })
             }
@@ -211,6 +215,7 @@ class DetailTask extends Component {
         console.log('data',Array.from(data))
         this.props.PostComment(data)
         setTimeout(()=>{
+            // localStorage.removeItem("task")
             const task_id = this.props.match.params.task_id
             this.props.FetListComment({task_id:task_id})
             if(this.state.nameFileComment !== "Attachment"){
@@ -283,6 +288,7 @@ class DetailTask extends Component {
                         task:{...this.state.task, description: detailTask.result.DESCRIPTION},
                     })
                 }
+                // localStorage.removeItem("task")
                 window.close();
     
             },200)
