@@ -78,7 +78,7 @@ class Navbar extends Component {
                             <i className="fa fa-bell"></i>
                         </div>
                         <Link to="/admin/profile" className="navbar-right-item navbar-right-item-person-content">
-                            <img src={user.IMAGE} alt="" width={30} height={30} style={{borderRadius:"50%" , cursor:"pointer"}} onClick={this.hanleStylePersonOnClick}/>
+                            <img src={user.IMAGE}  alt="" width={30} height={30} style={{borderRadius:"50%" , cursor:"pointer"}} onClick={this.hanleStylePersonOnClick}/>
                             {/* <div className="navbar-right-item-person" style={{display:this.state.stylePerson}}>
                                 <div className="navbar-right-item-person-title">
                                     <div className="d-flex flex-row bd-highlight" style={{paddingTop:"10px"}}>
