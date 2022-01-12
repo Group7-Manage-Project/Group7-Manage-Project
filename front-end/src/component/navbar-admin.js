@@ -17,6 +17,7 @@ class Navbar extends Component {
         localStorage.removeItem("user");
     }
 
+
     componentWillMount(){
         const {path}= this.props;
         if(path && path === "/admin/dashboard") {
@@ -59,6 +60,10 @@ class Navbar extends Component {
      
 
     render() {
+        let user = {}
+        if(localStorage.getItem("user")){
+            user = JSON.parse(localStorage.getItem("user"))[0]
+        }
         return (
             <div className="navbar">
                 <div className="navbar-content">
@@ -73,7 +78,7 @@ class Navbar extends Component {
                             <i className="fa fa-bell"></i>
                         </div>
                         <Link to="/admin/profile" className="navbar-right-item navbar-right-item-person-content">
-                            <img src={person} alt="" width={30} height={30} style={{borderRadius:"50%" , cursor:"pointer"}} onClick={this.hanleStylePersonOnClick}/>
+                            <img src={user.IMAGE} alt="" width={30} height={30} style={{borderRadius:"50%" , cursor:"pointer"}} onClick={this.hanleStylePersonOnClick}/>
                             {/* <div className="navbar-right-item-person" style={{display:this.state.stylePerson}}>
                                 <div className="navbar-right-item-person-title">
                                     <div className="d-flex flex-row bd-highlight" style={{paddingTop:"10px"}}>
