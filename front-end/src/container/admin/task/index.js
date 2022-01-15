@@ -306,6 +306,9 @@ class Task extends Component {
         if(localStorage.getItem("user")){          
             this.props.PostDepartment(this.state.department)
         }
+        setTimeout(()=>{
+            this.props.FetListCategoryTask()
+        },100)
         
     }
 
