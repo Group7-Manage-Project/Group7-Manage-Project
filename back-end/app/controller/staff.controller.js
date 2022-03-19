@@ -54,7 +54,7 @@ exports.details_employee = function(req,res){
     if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
         var token = req.headers.authorization.split(' ')[1];
         jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
-            if (err){
+            if (err || decode !== 'Admin'){
                 return res.status(403).send({message:'Unauthorized'})
             }
             else{
@@ -78,8 +78,9 @@ exports.details_employee = function(req,res){
 exports.insert_employee = function(req,res){
     if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
         var token = req.headers.authorization.split(' ')[1];
+        var decode = jwt.verify(token, 'team7project@uef.edu.vn').staff[0].ROLL;
         jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
-            if (err){
+            if (err || decode !== 'Admin'){
                 return res.status(403).send({message:'Unauthorized'})
             }
             else{
@@ -106,8 +107,9 @@ exports.insert_employee = function(req,res){
 exports.update_employee = function(req,res){
     if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
         var token = req.headers.authorization.split(' ')[1];
+        var decode = jwt.verify(token, 'team7project@uef.edu.vn').staff[0].ROLL;
         jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
-            if (err){
+            if (err || decode !== 'Admin'){
                 return res.status(403).send({message:'Unauthorized'})
             }
             else{
@@ -133,8 +135,9 @@ exports.update_employee = function(req,res){
 exports.delete_employee = function(req,res){
     if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
         var token = req.headers.authorization.split(' ')[1];
+        var decode = jwt.verify(token, 'team7project@uef.edu.vn').staff[0].ROLL;
         jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
-            if (err){
+            if (err || decode !== 'Admin'){
                 return res.status(403).send({message:'Unauthorized'})
             }
             else{
@@ -158,8 +161,9 @@ exports.delete_employee = function(req,res){
 exports.delete_employee_flg = function(req,res){
     if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLocaleLowerCase() === 'bearer'){
         var token = req.headers.authorization.split(' ')[1];
+        var decode = jwt.verify(token, 'team7project@uef.edu.vn').staff[0].ROLL;
         jwt.verify(token,'team7project@uef.edu.vn',function(err,data){
-            if (err){
+            if (err || decode !== 'Admin'){
                 return res.status(403).send({message:'Unauthorized'})
             }
             else{
