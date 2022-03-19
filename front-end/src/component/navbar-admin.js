@@ -58,7 +58,6 @@ class Navbar extends Component {
         }        
     }
      
-
     render() {
         let user = {}
         if(localStorage.getItem("user")){
