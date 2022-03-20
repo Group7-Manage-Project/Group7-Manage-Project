@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 15, 2022 lúc 06:18 PM
+-- Thời gian đã tạo: Th3 20, 2022 lúc 12:52 PM
 -- Phiên bản máy phục vụ: 10.4.20-MariaDB
 -- Phiên bản PHP: 7.4.21
 
@@ -46,13 +46,7 @@ INSERT INTO `category_task` (`CATEGORY_TASK_ID`, `CATEGORY_NAME`, `CREATE_DATE`,
 (4, 'code', '2021-01-02', 'Math', '2021-01-05', 'Witch', 1, 'N'),
 (5, 'find', '2021-01-01', 'John', '2021-01-02', 'Marco', 2, 'flag'),
 (6, 'read', NULL, 'Math', NULL, 'Witch', 1, NULL),
-(11, 'Digital Marketing', '2022-01-07', 'John Switch', '2022-01-07', 'John Switch', 13, 'N'),
-(12, 'Administration', '2022-01-10', 'Nguyễn Trần Hoàng', '2022-01-10', 'Nguyễn Trần Hoàng', 18, 'N'),
-(14, 'Public Financial Management.', '2022-01-12', 'John Switch', '2022-01-12', 'John Switch', 19, 'N'),
-(15, 'Public Relations', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch', 24, 'N'),
-(16, 'Business Administration', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch', 20, 'N'),
-(17, 'International bussiness', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch', 21, 'N'),
-(18, 'Commercial business', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch', 22, 'N');
+(11, 'Digital Marketing', '2022-01-07', 'John Switch', '2022-01-07', 'John Switch', 13, 'N');
 
 -- --------------------------------------------------------
 
@@ -69,103 +63,6 @@ CREATE TABLE `comment_task` (
   `TASK_ID` int(11) DEFAULT NULL,
   `FILE` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `comment_task`
---
-
-INSERT INTO `comment_task` (`COMMENT_TASK_ID`, `USER_COMMENT_ID`, `PHASE_NAME`, `COMMENT`, `CREATE_COMMENT_DATE`, `TASK_ID`, `FILE`) VALUES
-(1, 1, 'phase ...', 'abcdefg', '2021-12-05 00:00:00', 1, NULL),
-(2, 2, 'phase 2', 'hijklmn', '2021-12-05 00:00:00', 2, NULL),
-(13, 1, 'Comment', 'HI sir', '2022-01-02 00:00:00', 22, ''),
-(14, 1, 'Comment', 'HI sir', '2022-01-02 00:00:00', 22, '1641114880984--group7_sql (3).sql'),
-(15, 1, 'Comment', 'hi sir', '2022-01-02 00:00:00', 22, ''),
-(16, 1, 'Comment', 'hi sir', '2022-01-02 00:00:00', 22, ''),
-(17, 1, 'Comment', 'hi sir', '2022-01-02 00:00:00', 22, '1641125440408--group7_sql (3).sql'),
-(18, 1, 'Comment', 'hello sir, i am doing process develop software', '2022-01-03 00:00:00', 22, ''),
-(19, 1, 'Comment', 'hello sir', '2022-01-03 00:00:00', 22, ''),
-(20, 1, 'Comment', 'hi sir', '2022-01-03 00:00:00', 22, ''),
-(21, 1, 'Comment', 'hello sir', '2022-01-03 00:00:00', 22, ''),
-(22, 1, 'Comment', 'i update report ', '2022-01-03 00:00:00', 22, '1641179752694--group7_sql (3).sql'),
-(23, 1, 'Comment', 'hello sir, i update report', '2022-01-03 00:00:00', 22, '1641179790067--group7_sql (3).sql'),
-(24, 1, 'Comment', 'i update report, one more time', '2022-01-03 00:00:00', 22, '1641179815853--review .docx'),
-(25, 1, 'Comment', 'i update file sql', '2022-01-03 00:00:00', 22, '1641179867634--group7_sql (3).sql'),
-(26, 1, 'Register', 'Submit Task', '2022-01-03 00:00:00', 22, '1641201809936--Nội dung SHL Khóa 2018-2019-2020 HK1B NH 2021-2022.pdf'),
-(27, 1, 'Register', 'Hello everyone.\nI finished tasked. Please check to help me again. ', '2022-01-03 00:00:00', 22, '1641204580064--Assignment 3.pdf'),
-(28, 1, 'Register', 'Hello everyone. I finished tasked. Please check to help me again.', '2022-01-03 00:00:00', 22, '1641204837106--05-TB-ĐT - Ve viec ký xac nhan thong tin in bang TN va nop HSBS của SV ĐH chinh quy khoa 2018.pdf'),
-(29, 1, 'Register', 'Hello sir. I finished the task. Please check to help me again', '2022-01-03 00:00:00', 22, ''),
-(30, 1, 'Register', 'Hello sir. I finished the task. Please check to help me again', '2022-01-03 00:00:00', 22, ''),
-(31, 1, 'Register', 'Hello sir. I finished the task. Please check to help me again', '2022-01-03 00:00:00', 22, ''),
-(32, 1, 'Register', 'Hello sir. I finished the task. Please check to help me again', '2022-01-03 00:00:00', 22, ''),
-(33, 1, 'Register', 'Hello sir. I finished the task. Please check to help me again', '2022-01-03 00:00:00', 22, ''),
-(34, 1, 'Register', 'Hello sir. I finished the task. Please check to help me again', '2022-01-03 00:00:00', 22, ''),
-(35, 1, 'Register', 'Dear Sir. I finished task. Please check to help me again', '2022-01-04 00:00:00', 17, ''),
-(36, 1, 'Register', 'Dear Sir. I finished task. Please check to help me again', '2022-01-04 00:00:00', 17, ''),
-(37, 1, 'Register', '\nDear Sir. I finished task. Please check to help me again', '2022-01-04 00:00:00', 17, ''),
-(38, 1, 'Implementation', 'Dear Sir. I finished task. Please check to help me again', '2022-01-04 00:00:00', 17, '1641286818667--Assignment 3.pdf'),
-(39, 1, '', 'Dear Sir. I finished task. Please check to help me again', '2022-01-04 00:00:00', 17, '1641287002665--DesignPatternPseudocode.pdf'),
-(40, 1, 'Approval', 'Dear Sir. I finished task. Please check to help me again', '2022-01-04 00:00:00', 17, ''),
-(41, 1, 'Register', 'Hir sir, I finshed the task. Please check to help me again', '2022-01-04 00:00:00', 26, '1641290154221--DesignPatternPseudocode.pdf'),
-(42, 1, 'Confirmation', 'Hir sir, I finshed the task. Please check to help me again', '2022-01-04 00:00:00', 26, '1641290380714--group7_sql (2).sql'),
-(43, 1, 'Register', 'Dear SIr. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 26, '1641290603156--review .docx'),
-(44, 1, 'Register', 'Dear sir. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 27, '1641290687682--review .docx'),
-(45, 1, 'Confirmation', 'Dear SIr. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 27, ''),
-(46, 1, 'Confirmation', 'Dear SIr. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 26, ''),
-(47, 1, 'Implementation', 'Dear SIr. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 26, ''),
-(48, 1, 'Implementation', 'Dear SIr. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 26, ''),
-(49, 1, 'Comment', 'Dear SIr. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 27, ''),
-(50, 1, 'Implementation', 'Dear SIr. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 27, ''),
-(51, 1, '', 'Dear SIr. I finished the task. Please check to help me again', '2022-01-04 00:00:00', 27, ''),
-(52, 1, 'Register', '', '2022-01-10 00:00:00', 27, ''),
-(53, 1, 'Register', '', '2022-01-10 00:00:00', 27, ''),
-(54, 1, 'Register', '', '2022-01-10 00:00:00', 27, ''),
-(55, 1, 'Register', 'ffdfdsfds', '2022-01-10 00:00:00', 27, ''),
-(56, 1, 'Register', 'fffffff', '2022-01-10 00:00:00', 27, '1641830627036--list-task-file-excel.xlsx'),
-(57, 13, 'Implementation', 'csaasxasxsaxsaxsxsxasxasx', '2022-01-10 00:00:00', 27, '1641830800238--list-task-file-excel.xlsx'),
-(58, 13, 'Implementation', 'xã', '2022-01-10 00:00:00', 27, ''),
-(59, 13, 'Comment', 'hajimaru', '2022-01-10 00:00:00', 27, ''),
-(60, 13, 'Comment', 'Hajimarru', '2022-01-10 00:00:00', 27, '1641830884095--list-task-file-excel.xlsx'),
-(61, 13, 'Comment', 'Hajimarru', '2022-01-10 00:00:00', 27, '1641830900217--list-task-file-excel.xlsx'),
-(62, 13, 'Register', '', '2022-01-10 00:00:00', 27, '1641830919049--list-task-file-excel.xlsx'),
-(63, 13, 'Comment', 'fsfdsfdsf', '2022-01-10 00:00:00', 27, ''),
-(64, 14, 'Register', '', '2022-01-11 00:00:00', 27, ''),
-(65, 14, 'Implementation', '', '2022-01-11 00:00:00', 27, ''),
-(66, 13, 'Comment', 'ffff', '2022-01-11 00:00:00', 27, ''),
-(67, 13, 'Comment', 'hhhhhh', '2022-01-11 00:00:00', 27, ''),
-(68, 13, 'Comment', 'gggggggg', '2022-01-11 00:00:00', 27, ''),
-(69, 13, 'Comment', 'uuu', '2022-01-11 00:00:00', 27, ''),
-(70, 13, 'Comment', 'absdksd', '2022-01-11 00:00:00', 27, ''),
-(71, 13, 'Comment', 'tttt', '2022-01-11 00:00:00', 27, ''),
-(72, 13, 'Register', 'abcd', '2022-01-11 00:00:00', 27, ''),
-(73, 13, 'Register', 'fkjsfkds', '2022-01-11 00:00:00', 27, ''),
-(75, 13, 'Comment', 'ssss', '2022-01-12 00:00:00', 1, ''),
-(76, 13, 'Comment', 'elwin', '2022-01-12 00:00:00', 1, ''),
-(77, 13, 'Register', 'ddddd', '2022-01-12 00:00:00', 1, ''),
-(78, 13, 'Register', 'ddđ', '2022-01-12 00:00:00', 30, ''),
-(79, 13, 'Confirmation', 'dddd', '2022-01-12 00:00:00', 30, ''),
-(80, 13, 'Register', 'asss', '2022-01-12 00:00:00', 30, ''),
-(81, 13, 'Comment', 'as', '2022-01-12 00:00:00', 29, ''),
-(82, 13, 'Register', 'lkjhg', '2022-01-12 00:00:00', 29, ''),
-(83, 13, 'Comment', 'aaaa', '2022-01-12 00:00:00', 30, ''),
-(84, 13, 'Comment', 'elwin2', '2022-01-12 00:00:00', 1, ''),
-(85, 13, 'Comment', 'elwin study\n', '2022-01-12 00:00:00', 1, ''),
-(86, 13, 'Comment', 'qưerty', '2022-01-12 00:00:00', 30, ''),
-(88, 1, 'Comment', 'dear sirr', '2022-01-12 00:00:00', 30, ''),
-(89, 1, 'Comment', 'dear sir', '2022-01-12 00:00:00', 30, ''),
-(91, 1, 'Comment', '28', '2022-01-12 00:00:00', 30, ''),
-(92, 1, 'Comment', '30', '2022-01-12 00:00:00', 30, ''),
-(93, 1, 'Comment', '28', '2022-01-12 00:00:00', 30, ''),
-(94, 1, 'Comment', '30', '2022-01-12 00:00:00', 30, ''),
-(96, 1, 'Comment', '30', '2022-01-12 00:00:00', 30, ''),
-(99, 1, 'Comment', '24', '2022-01-12 00:00:00', 30, ''),
-(100, 1, 'Confirmation', 'aaaa', '2022-01-12 00:00:00', 30, '1641961818219--documentation.docx'),
-(101, 1, 'Confirmation', 'dear sir', '2022-01-12 00:00:00', 30, '1641962025456--documentation.docx'),
-(102, 1, 'Confirmation', 'dear sirr', '2022-01-12 00:00:00', 29, ''),
-(103, 1, 'Comment', 'Dear Mr Vũ Nhật Minh Trường. Please confirm help me.', '2022-01-12 00:00:00', 28, ''),
-(104, 1, 'Register', 'Dear Trường: Keep going', '2022-01-12 00:00:00', 28, ''),
-(105, 1, 'Confirmation', 'Dear sir, i update guide line', '2022-01-12 00:00:00', 28, '1641978749332--documentation.docx'),
-(106, 1, 'Comment', 'Hello sirr', '2022-01-16 00:00:00', 4, ''),
-(107, 1, 'Register', 'I finished the task. Pleased check to help me again', '2022-01-16 00:00:00', 4, '');
 
 -- --------------------------------------------------------
 
@@ -191,16 +88,7 @@ INSERT INTO `departments` (`DEPARTMENT_ID`, `DEPARTMENT_NAME`, `DESCRIPTION`, `C
 (1, 'Faculty of Information Technology', NULL, NULL, NULL, NULL, NULL),
 (2, 'Department of E-Commerce', NULL, NULL, NULL, NULL, NULL),
 (3, 'Department management', NULL, NULL, NULL, NULL, NULL),
-(13, 'Marketing', 'Marketing', '2022-01-07', 'John Switch', '2022-01-07', 'John Switch'),
-(17, '13noi chuoiMarketing', '', '2022-01-07', 'John Switch', '2022-01-07', 'John Switch'),
-(18, 'Faculty of International Business Administration', 'International Business Administration', '2022-01-10', 'Nguyễn Trần Hoàng', '2022-01-10', 'Nguyễn Trần Hoàng'),
-(19, 'Finance', 'Finance is a broad term that describes activities associated with banking, leverage or debt, credit, capital markets, money, and investments. Basically, finance represents money management and the process of acquiring needed funds. Finance also encompasses the oversight, creation, and study of money, banking, credit, investments, assets, and liabilities that make up financial systems.', '2022-01-12', 'John Switch', '2022-01-12', 'John Switch'),
-(20, 'Business Administration', 'Business Administration', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch'),
-(21, 'International bussiness', 'International bussiness', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch'),
-(22, 'Commercial business', 'Commercial business', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch'),
-(23, 'Logistics and supply chain management', 'Logistics and supply chain management', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch'),
-(24, 'Public Relations', 'Public Relations', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch'),
-(25, 'Public Relations', 'Public Relations', '2022-01-16', 'John Switch', '2022-01-16', 'John Switch');
+(13, 'Marketing', 'Marketing', '2022-01-07', 'John Switch', '2022-01-07', 'John Switch');
 
 -- --------------------------------------------------------
 
@@ -316,26 +204,7 @@ INSERT INTO `task` (`TASK_ID`, `JOB`, `STATUS`, `CATEGORY`, `TITLE`, `PROGRESS`,
 (5, 'Bug Fixing', 'IN-PROGRESS', 'code', 'Fix Bug UI', 10, 30, 'Very Important', 'Fix Bug UI', '1640865635072--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, '1noi chuoiFaculty of Information Technology'),
 (6, 'Bug Fixing', 'IN-PROGRESS', '', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, ''),
 (7, 'Bug Fixing', 'IN-PROGRESS', '', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, ''),
-(8, 'Bug Fixing', 'IN-PROGRESS', '', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '1640865776812--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, ''),
-(9, 'Bug Fixing', 'IN-PROGRESS', 'read', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '1640865854333--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, '1noi chuoiFaculty of Information Technology'),
-(10, 'Bug Fixing', 'IN-PROGRESS', 'read', 'Review Code', 10, 30, 'Very Important', 'Review Code UI', '1640866333858--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '2022-01-03', 1, NULL, 'Faculty of Information Technology'),
-(11, 'Documentation', 'IN-PROGRESS', 'code', 'Write Document', 10, 30, 'Normal', 'Write Document for client', '1640866693871--review .docx', 7, 7, 8, 10, 10, 10, 7, '2021-12-30', '2022-01-07', 1, NULL, 'Faculty of Information Technology'),
-(17, 'Bug Fixing', 'IN-PROGRESS', 'code', 'Fix Bug UI', 75, 180, 'Important', 'Fix Bug UI', '1640868327893--review .docx', 13, 8, 9, 9, 10, 10, 13, '2021-12-30', '2021-12-31', 6, 4, 'Faculty of Information Technology'),
-(18, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, NULL, NULL, NULL),
-(19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, NULL, NULL, NULL),
-(20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, NULL, NULL, NULL),
-(21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, NULL, NULL, NULL),
-(22, NULL, 'IN-PROGRESS', NULL, NULL, NULL, 60, NULL, NULL, '1640868327893--review .docx', 8, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', NULL, 2, NULL, 'Faculty of Information Technology'),
-(23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-31', NULL, NULL, NULL, NULL),
-(24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-31', NULL, NULL, NULL, NULL),
-(25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-31', NULL, NULL, NULL, NULL),
-(26, 'Documentation', 'IN-PROGRESS', 'find', 'Find document', 55, 120, 'Normal', 'Find document for project', '1641290603163--review .docx', 7, 7, 8, 10, 7, 9, 13, '2022-01-04', '2022-01-11', 4, 5, 'Department of E-Commerce'),
-(27, 'Training', 'IN-PROGRESS', 'find', 'Training SQL', 25, 60, 'Very Low', 'Training SQL', '1641830919054--list-task-file-excel.xlsx', 9, 7, 9, 8, 10, 10, 10, '2022-01-04', '2022-01-11', 2, 5, 'Department of E-Commerce'),
-(28, 'Develope', 'IN-PROGRESS', 'Digital Marketing', 'Sale product', 40, 90, 'Very Important', 'Meet clinets', '1641978749341--documentation.docx', 1, 10, 9, 9, 9, 8, 10, '2022-01-07', '2022-01-14', 3, 11, 'Marketing'),
-(29, 'Research', 'IN-PROGRESS', 'code', 'Search in website', 40, 90, 'Very Important', 'Code search', '', 7, 7, 8, 9, 10, 11, 13, '2022-01-10', '2022-01-20', 3, 4, 'Faculty of Information Technology'),
-(30, 'Bug Fixing', 'IN-PROGRESS', 'Administration', 'Administration', 40, 90, 'Very Important', 'Administration vs A..', '1641962025463--documentation.docx', 7, 1, 2, 7, 10, 13, 8, '2022-01-10', '2022-01-29', 3, 12, 'Faculty of International Business Administration'),
-(31, 'Bug Fixing', 'In Processing', 'Public Financial Management.', 'Fix Ui sceen Task', 10, 30, 'Very Important', 'Fix Ui sceen Task. My boss need fix it', '1641983011549--documentation.docx', 15, 15, 13, 8, 7, 10, 15, '2022-01-12', '2022-01-19', 1, 14, 'Finance'),
-(32, 'Documentation', 'In Processing', 'Public Relations', 'Write document', 10, 30, 'Normal', 'Write document', '1642267052555--documentation.docx', 1, 1, 7, 11, 14, 15, 8, '2022-01-16', '2022-01-23', 1, 15, 'Public Relations');
+(8, 'Bug Fixing', 'IN-PROGRESS', '', 'Fix bug UI', 10, 30, 'Very Important', 'Fix bug UI', '1640865776812--review .docx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-30', '0000-00-00', 1, NULL, '');
 
 --
 -- Chỉ mục cho các bảng đã đổ

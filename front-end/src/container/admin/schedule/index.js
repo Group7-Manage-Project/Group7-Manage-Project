@@ -79,7 +79,7 @@ class Schedule extends Component {
         return (
             <div>
                 
-                <ScheduleComponent  currentView="Month" height='88vh'  eventSettings={{ dataSource: listSchedule.result,
+                <ScheduleComponent  currentView="Month" height='82vh'  eventSettings={{ dataSource: listSchedule.result,
                     fields: {
                         id: 'Id',
                         subject: { name: 'Subject' },

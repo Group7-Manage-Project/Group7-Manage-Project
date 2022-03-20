@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import cardPersonBg from "./img/background.jpg"
+import cardPersonBg from "./img/background-removebg-preview.png"
 import personCard from "./img/logo.jpg"
 import BottmBarTask from "./bottom-bar-task"
 import {ToastContainer, toast, Zoom} from "react-toastify"
@@ -317,7 +317,7 @@ class Employees extends Component {
             <div style={{height: '100%'}}>
                 <div className="employees-content row" >
                     <div className="employees-left col-lg-8">
-                        <div className="employees-admin" style={{backgroundColor:"#FFFFFF", borderRadius:"10px"}}>
+                        <div className="employees-admin" style={{ borderRadius:"10px"}}>
                             {/* <h3 style={{paddingTop:"40px"}}>List user Admin</h3> */}
                             <div className="d-flex flex-row bd-highlight mb-3 employees-admin-action">
                                 <div className="p-2 bd-highlight">
@@ -332,7 +332,7 @@ class Employees extends Component {
                                 <div className="p-2 bd-highlight employees-admin-action-i" onClick={this.deleteEmployeeBtn}><i className="fa fa-trash"></i></div>                             */}
                             </div>
 
-                            <table className="table" style={{border:"1px solid #DADEE0",height:"93%"}}>
+                            <table className="table" style={{height:"86%"}}>
                                 <thead>
                                     <tr>                                
                                     <th scope="col">Username</th>
@@ -424,9 +424,10 @@ class Employees extends Component {
                             <button className="btn btn-outline-warning" type="submit" style={{width:"100%", marginTop:"10px", marginBottom:"20px", display:this.state.updateBtn}}><i className="fa fa-edit"></i> Update Employee</button>
                             <button className="btn btn-outline-danger" type="submit" style={{width:"100%", marginTop:"10px", marginBottom:"20px", display:this.state.deleteBtn}} onClick={this.deleteEmployeeOnClick}><i className="fa fa-trash"></i> Delete Employee</button>
                         </div>
-                    </form>                                
+                    </form>
+                    <BottmBarTask  listEmployees = {listEmployees}  newFormOnClick={this.newFormOnClick} editFormOnClick={this.editFormOnClick}/>                                
                 </div>
-                <BottmBarTask  listEmployees = {listEmployees}  newFormOnClick={this.newFormOnClick} editFormOnClick={this.editFormOnClick}/>
+                
                 <ToastContainer draggable={false} transition={Zoom} autoClose={6000} />
             </div>
         );

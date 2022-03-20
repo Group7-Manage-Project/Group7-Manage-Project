@@ -263,6 +263,18 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
     height:87%;
 }
 
+.admin-layout-right-container .employees-content table thead th{
+    color: #eef1f1;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.admin-layout-right-container .employees-content table tbody td{
+    color: #8c8c8c;
+    font-size: 14px;
+    font-weight: 400;
+}
+
 .admin-layout-right-container .employees-content .employees-left{
     height:100%;
 }
@@ -446,7 +458,7 @@ body h1,h2,h3,h4,h5,h6,p,span,a{
 } */
 
 .admin-layout-right-container .employees-right{
-    background-color:#FFFFFF;
+    /* background-color:#FFFFFF; */
     padding-left: 0px !important;
     padding-right: 0px !important;
     border: 1px solid rgba(0,0,0,.125);

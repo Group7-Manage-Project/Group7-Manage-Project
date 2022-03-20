@@ -305,7 +305,7 @@ class DetailTask extends Component {
         if(detailTask.result && detailTask !== undefined && listComment.result && listComment.result.length > 0) {
             return listComment.result.map(item =>{
                 return (
-                    <div className="d-flex flex-row bd-highlight" style={{marginTop:"20px"}} key ={item.COMMENT_TASK_ID}>
+                    <div className="d-flex flex-row bd-highlight comment-detail-task" style={{marginTop:"20px"}} key ={item.COMMENT_TASK_ID}>
                         <div className="p-2 bd-highlight"><img src={item.IMAGE} alt="" style={{width:"60px", height:"60px", borderRadius:"50%"}} /></div>
                         <div className="p-2 bd-highlight">
                             <span style={{marginBottom:"0px"}}>{item.FULL_NAME}</span> <span>&emsp;{item.CREATE_COMMENT_DATE}</span>
@@ -334,11 +334,11 @@ class DetailTask extends Component {
                         <div className="detail-task-left col-lg-9" style={{position:"relative", paddingLeft:"0px"}}>
                             <div className="detail-task-left-top d-flex flex-row bd-highlight " style={{width:"100%"}}>
                                 <div className="bd-highlight detail-task-left-top-item">
-                                    <p style={{marginBottom:"0px", fontSize:"14px", color:"#313131"}}>CATEGORY</p>
+                                    <p style={{marginBottom:"0px", fontSize:"14px", color:"#FFF"}}>CATEGORY</p>
                                     <p style={{marginLeft:"20px", marginBottom:"0px" , fontSize:"12px", color:"#a4a4a4"}}><i className="fa fa-play"></i> {detailTask.result.CATEGORY}</p>
                                 </div>
                                 <div className="bd-highlight detail-task-left-top-item">
-                                    <p style={{marginBottom:"0px", fontSize:"14px", color:"#313131"}}>ITERATION</p>
+                                    <p style={{marginBottom:"0px", fontSize:"14px", color:"#FFF"}}>ITERATION</p>
                                     <p style={{marginLeft:"20px", marginBottom:"0px",  fontSize:"12px", color:"#a4a4a4"}}><i className="fab fa-joomla"></i> {detailTask.result.JOB}</p>
                                 </div>
                             </div>
@@ -360,13 +360,13 @@ class DetailTask extends Component {
                                 <div className="detail-task-left-body-center-bottom row" style={{paddingLeft:"10px", paddingRight:"0px"}}>
                                     <div className="detail-task-detail-task-left-body-center-bottom-left col-lg-4" >
                                         <div >
-                                            <div className="task-modal-body-right-item d-flex " style={{backgroundColor:"#0097CC", width:"100%", fontWeight:"700", color:"#FFFFFF"}}>                                               
+                                            <div className="task-modal-body-right-item d-flex " style={{backgroundImage:"linear-gradient(to right, #383747, #191921)", width:"100%", fontWeight:"700", color:"#FFFFFF", borderRadius:"20px", marginLeft:"6px"}}>                                               
                                                 <div className="w-45 bd-highlight" style={{textAlign:"center", width:"49%", padding:"8px 0px"}}>Phase</div>
                                                 <div className="task-model-line w-10" style = {{height:"40px", width:"1px",padding:"1px" , border:"2px solid #DDDDDD", backgroundColor:"#DDDDDD"}}></div>
                                                 <div className="w-45" style={{textAlign:"center",  width:"49%", padding:"8px 0px", fontWeight:"700", color:"#FFFFFF"}}>PIC</div>
                                             </div>
                                         </div>
-                                        <div className="phase_item" style={{height:"75vh",overflow: "auto", paddingbottom: "120px"}}>
+                                        <div className="phase_item" style={{height:"75vh",overflowY: "auto", paddingbottom: "120px"}}>
                                             <div className="detail-task-left-body-center-bottom-item d-flex" style={{ width:"100%", position:"relative" }}>                                               
                                                 <div className="w-45 bd-highlight" style={{textAlign:"center",  width:"52%", paddingLeft:"10px"}}>
                                                     <i className="fa fa-pencil-alt" style={{color:"#0097cc", marginTop:"10px", fontSize:"25px"}}></i>
@@ -492,26 +492,26 @@ class DetailTask extends Component {
                                     <div className="detail-task-detail-task-left-body-center-bottom-right col-lg-8" style={{position:"relative"}}>
                                         <div className="d-flex flex-row bd-highlight  text-center" style={{width:"100%"}}>
                                             <div className=" bd-highlight detail-task-detail-task-left-body-center-bottom-right-item" style={{width:"25%"}}>
-                                                <p style={{marginBottom:"0px", color:"#fff", backgroundColor:"#0097CC", fontSize:"16px", padding:"8px 0px"}}>Type</p>
+                                                <p style={{marginBottom:"0px", color:"#fff", backgroundImage:"linear-gradient(to right, #383747, #191921)", fontSize:"16px", padding:"8px 0px"}}>Type</p>
                                                 <div style={{padding:"20px"}}>
                                                     <p style={{marginBottom:"0px", borderRadius:"25px", backgroundColor:"rgb(231, 76, 60)", padding:"5px", color:"#fff"}} >{detailTask.result.JOB}</p>
                                                 </div>
                                             </div>
                                             <div className="bd-highlight detail-task-detail-task-left-body-center-bottom-right-item" style={{width:"50%"}}>
-                                                <p style={{marginBottom:"0px", color:"#fff", backgroundColor:"#0097CC", fontSize:"16px", padding:"8px 0px"}}>Title</p>                                            
+                                                <p style={{marginBottom:"0px", color:"#fff", backgroundImage:"linear-gradient(to right, #383747, #191921)", fontSize:"16px", padding:"8px 0px"}}>Title</p>                                            
                                                 <div style={{padding:"20px"}}>
                                                     <p style={{marginBottom:"0px" ,color:"#666666"}}>{detailTask.result.TITLE}</p>
                                                 </div>
                                             </div>
                                             <div className="bd-highlight detail-task-detail-task-left-body-center-bottom-right-item" style={{width:"25%"}}>
-                                                <p style={{marginBottom:"0px", color:"#fff", backgroundColor:"#0097CC", fontSize:"16px", padding:"8px 0px"}}>Important</p>
+                                                <p style={{marginBottom:"0px", color:"#fff", backgroundImage:"linear-gradient(to right, #383747, #191921)", fontSize:"16px", padding:"8px 0px"}}>Important</p>
                                                 <div style={{padding:"20px"}}>
-                                                    <p style={{marginBottom:"0px",color:"#666666",backgroundColor:"#ebebeb", borderRadius:"25px", padding:"5px"}}>{detailTask.result.IMPORTANT} <i className="fa fa-long-arrow-alt-up"></i></p>
+                                                    <p style={{marginBottom:"0px",color:"#666666", borderRadius:"25px", padding:"5px"}}>{detailTask.result.IMPORTANT} <i className="fa fa-long-arrow-alt-up"></i></p>
                                                 </div>                                            
                                             </div>
                                         </div>
                                         <div className="task-modal-body-item detail-task-detail-task-left-body-center-bottom-right-item-textarea" style={{width:"100%", position:"relative"}}>
-                                                <textarea name="description" disabled={this.state.disableTextComment} onChange={this.handleOnChange} value={this.state.task.description}  id="description" placeholder={detailTask.result.DESCRIPTION}  style={{width:"100%",border:"2px solid  #DDDDDD"}} rows="20" cols="200" />
+                                                <textarea name="description" disabled={this.state.disableTextComment} onChange={this.handleOnChange} value={this.state.task.description}  id="description" placeholder={detailTask.result.DESCRIPTION}  style={{width:"100%",border:"2px solid  #DDDDDD", backgroundColor:"transparent"}} rows="20" cols="200" />
                                         </div>
                                         <label className="task-modal-body-item" style={{width:"100%", position:"relative", border:"2px solid  #DDDDDD", height:"100px", backgroundColor:"#F2F2F2"}}>
                                                 <i className="fa fa-paperclip" style={{fontSize:"20px", marginLeft:"10px", marginTop:"10px", color:"#0097cc"}}></i> <i> <a href={detailTask.result.FILE} target="_blank" >{this.state.nameFile !== "Attachment" ? this.state.nameFile  : <i>{detailTask.result.FILE.split("http://localhost:9999/get-file/")[1]}</i> }</a> </i>
@@ -527,13 +527,13 @@ class DetailTask extends Component {
                                 {this.renderHTML()}
                             </div>
                             <div className="task-modal-body-item-comment" style={{width:"100%", position:"relative"}}>
-                                <textarea name="comment" value={this.state.comment_task.comment} placeholder="Write comment" onChange={this.handleOnChange} style={{width:"100%",border:"2px solid  #DDDDDD",padding:"0px 0"}} rows="5" cols="100" />
+                                <textarea name="comment" value={this.state.comment_task.comment} placeholder="Write comment" onChange={this.handleOnChange} style={{width:"100%",border:"2px solid  #DDDDDD",padding:"0px 0", backgroundColor:"transparent"}} rows="5" cols="100" />
                             </div>
                             <div className="d-flex bd-highlight" style={{position:"relative"}}>
                                 <div className=" w-100 bd-highlight">
                                     <label className="task-modal-body-item" style={{width:"100%", position:"relative", border:"2px solid  #DDDDDD", height:"80px", backgroundColor:"#F2F2F2"}}>
                                         <i className="fa fa-paperclip" style={{fontSize:"20px", marginLeft:"10px", marginTop:"10px", color:"#0097cc"}}></i> <i>{this.state.nameFileComment}</i>
-                                        <input type="file" name="file_commment" id="file" onChange={this.handleOnChange} placeholder="Write a title" style={{width:"100%", display:"none"}} />
+                                        <input type="file" name="file_commment" id="file" onChange={this.handleOnChange} placeholder="Write a title" style={{width:"100%", display:"none", backgroundColor:"transparent"}} />
                                         
                                     </label>
                                 </div>
