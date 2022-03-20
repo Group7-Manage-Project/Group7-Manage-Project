@@ -156,7 +156,7 @@ class Dashboard extends Component {
         }
         return(
             <div className="dashboard-content row">
-                <div className="dashboard-left col-md-4">
+                <div className="dashboard-left col-md-4 mr-1">
                     <div className="dashboard-container">
                         <div className="dashboard-title">               
                             <div className="d-flex">

@@ -5,12 +5,14 @@
 .task-content .task-left{
     overflow-y: auto;
     height: 85%;
-    border: 1px solid #DADEE0;
+    /* border: 1px solid #DADEE0; */
+    color: #DADEE0;
 }
 
 .task-content .task-left::-webkit-scrollbar{
     width: 16px;
     display:none;
+    
 }
 
 /* .admin-layout-right  .row{
@@ -30,14 +32,20 @@
 }
 
 .bottom-bar-task .btn-task-page{
-    background: #3f6aae;
-    color: #fff;
-    border: 1px solid #3f6aae;
-    margin-right: 10px ;
-    border-radius: 6px;
-    font-size: 13px;
+    font-size: 17px;
     padding: 0 10px;
     cursor: pointer;
+    padding: 1px 30px;
+
+    border-left: 3px solid #EEA4EF;
+    border-top: 3px solid #FEA48A;
+    border-right: 3px solid #EEA4EF;
+    border-bottom: 3px solid #FEA48A;
+    color: #DADEE0;
+    background-color: #3A3B4D;
+    border-radius: 30px;
+    margin-left: 20px;
+    
 }
 
 .bottom-bar-task .btn-task-page i{
@@ -49,11 +57,56 @@
     padding: 0px !important;
 }
 
+.task-admin-search-total label{
+    color: #DADEE0;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.btn-search-navbar{
+    font-size:18px;
+    font-weight:600;
+    padding: 1px 35px;
+    border-radius: 30px;
+    border-left: 3px solid #EEA4EF;
+    border-top: 3px solid #FEA48A;
+    border-right: 3px solid #EEA4EF;
+    border-bottom: 3px solid #FEA48A;
+    color: #DADEE0;
+    background-color: #3A3B4D;
+
+    /* display: inline-block; */
+
+    /* border-radius: 15px;
+	border: 3px solid transparent;
+	border-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+	border-image-slice: 1; */
+    
+}
+
+
+#table-list-task thead th{
+    color: #eef1f1;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/* #table-list-task thead th:hover{
+    background-color: transparent !important;
+} */
+
+#table-list-task tbody td{
+    color: #dadee0c7;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
 @media only screen and (max-height: 930px) {
     .task-content .task-left{
         overflow-y: auto;
         height: 83%;
-        border: 1px solid #DADEE0;
+        /* border: 1px solid #DADEE0; */
     }
 
     .task-admin{

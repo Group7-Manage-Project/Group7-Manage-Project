@@ -9,60 +9,60 @@ class BottmBarTask extends Component {
             page: 1,
         }
     }
-    componentWillMount(){
-        if(!localStorage.getItem("page")){
-            localStorage.setItem("page",JSON.stringify(this.state.page))
-        }
+    // componentWillMount(){
+    //     if(!localStorage.getItem("page")){
+    //         localStorage.setItem("page",JSON.stringify(this.state.page))
+    //     }
         
-    }
+    // }
 
-    firstPageClick = () =>{
-        const {listTask} = this.props
-        if(listTask.result && listTask.result.total_page  && this.state.page < listTask.result.total_page)
-        this.setState({
-            page : 1
-        })
-        setTimeout(()=>{
-            localStorage.setItem("page",JSON.stringify(this.state.page))
-            console.log("this.state.page + 1", this.state.page)
-        },100)
-    }
+    // firstPageClick = () =>{
+    //     const {listTask} = this.props
+    //     if(listTask.result && listTask.result.total_page  && this.state.page < listTask.result.total_page)
+    //     this.setState({
+    //         page : 1
+    //     })
+    //     setTimeout(()=>{
+    //         localStorage.setItem("page",JSON.stringify(this.state.page))
+    //         console.log("this.state.page + 1", this.state.page)
+    //     },100)
+    // }
 
-    finalPageClick = () =>{
-        const {listTask} = this.props
-        if(listTask.result && listTask.result.total_page  && this.state.page < listTask.result.total_page)
-        this.setState({
-            page : listTask.result.total_page
-        })
-        setTimeout(()=>{
-            localStorage.setItem("page",JSON.stringify(this.state.page))
-            console.log("this.state.page + 1", this.state.page)
-        },100) 
-    }
+    // finalPageClick = () =>{
+    //     const {listTask} = this.props
+    //     if(listTask.result && listTask.result.total_page  && this.state.page < listTask.result.total_page)
+    //     this.setState({
+    //         page : listTask.result.total_page
+    //     })
+    //     setTimeout(()=>{
+    //         localStorage.setItem("page",JSON.stringify(this.state.page))
+    //         console.log("this.state.page + 1", this.state.page)
+    //     },100) 
+    // }
 
-    nextPageOnClick = () =>{
-        const {listTask} = this.props
-        if(listTask.result && listTask.result.total_page  && this.state.page < listTask.result.total_page)
-        this.setState({
-            page : this.state.page + 1
-        })
-        setTimeout(()=>{
-            localStorage.setItem("page",JSON.stringify(this.state.page))
-            console.log("this.state.page + 1", this.state.page)
-        },100) 
-    }
+    // nextPageOnClick = () =>{
+    //     const {listTask} = this.props
+    //     if(listTask.result && listTask.result.total_page  && this.state.page < listTask.result.total_page)
+    //     this.setState({
+    //         page : this.state.page + 1
+    //     })
+    //     setTimeout(()=>{
+    //         localStorage.setItem("page",JSON.stringify(this.state.page))
+    //         console.log("this.state.page + 1", this.state.page)
+    //     },100) 
+    // }
 
-    prevPageOnClick = () =>{
-        if(this.state.page > 1){
-            this.setState({
-                page : this.state.page - 1
-            })
-        }
-        setTimeout(()=>{
-            localStorage.setItem("page",JSON.stringify(this.state.page))
-            console.log("this.state.page + 1", this.state.page)
-        },100) 
-    }
+    // prevPageOnClick = () =>{
+    //     if(this.state.page > 1){
+    //         this.setState({
+    //             page : this.state.page - 1
+    //         })
+    //     }
+    //     setTimeout(()=>{
+    //         localStorage.setItem("page",JSON.stringify(this.state.page))
+    //         console.log("this.state.page + 1", this.state.page)
+    //     },100) 
+    // }
 
     render() {
         const {listEmployees} = this.props
@@ -114,11 +114,13 @@ class BottmBarTask extends Component {
                     </div>
                     <div className="bd-highlight">
                         <div className="category-action d-flex">
-                                <button className="btn-task-page" onClick={this.firstPageClick}><i className="fa fa-angle-double-left"></i></button>
-                                <button className="btn-task-page" onClick={this.prevPageOnClick}> <i className="fa fa-angle-left"></i> </button>
+                                {/* <button className="btn-task-page" onClick={this.firstPageClick}><i className="fa fa-angle-double-left"></i></button> */}
+                                {/* <button className="btn-task-page" onClick={this.prevPageOnClick}> <i className="fa fa-angle-left"></i> </button> */}
+
                                 {/* <span>&ensp;  {this.state.page} / </span> {listEmployees.result && listEmployees.result.total_page ? (<span> {listEmployees.result.total_page} </span>): null } &ensp; */}
-                                <button className="btn-task-page" onClick={this.nextPageOnClick}> <i className="fa fa-angle-right"></i> </button>
-                                <button className="btn-task-page" onClick={this.finalPageClick}><i className="fa fa-angle-double-right"></i></button>                          
+                                
+                                {/* <button className="btn-task-page" onClick={this.nextPageOnClick}> <i className="fa fa-angle-right"></i> </button> */}
+                                {/* <button className="btn-task-page" onClick={this.finalPageClick}><i className="fa fa-angle-double-right"></i></button>                           */}
                         </div>
                     </div>
                     <div className="bd-highlight">

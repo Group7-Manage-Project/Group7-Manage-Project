@@ -104,14 +104,17 @@ class HomePage extends Component {
                                                 <div className="form-group">
                                                     <label htmlFor="basic-url" className="form-label">User Name:</label>
                                                     <div className="input-group mb-3">
-                                                        <input type="text" className="form-control" name="user_name" id="user_name"  onChange={this.handleOnchange} aria-describedby="basic-addon3"   required autoFocus/>
+                                                        <i style={{color: '#fff',marginRight:'15px',marginTop:'5px', fontSize:'30px'}} className="fa fa-user"></i> <input type="text" className="form-control" name="user_name" id="user_name"  onChange={this.handleOnchange} aria-describedby="basic-addon3"   required autoFocus/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label htmlFor="password">Password:
                                                         <Link to="" style={{marginLeft:"120px"}}>Forgot Password?</Link>
                                                     </label>
-                                                    <input id="password" type="password" className="form-control" name="password" onChange={this.handleOnchange} required data-eye style={{marginTop:"5px"}} />
+                                                    <div className="input-group mb-3">
+                                                        <i style={{color: '#fff',marginRight:'15px',marginTop:'5px', fontSize:'30px'}}  className="fa fa-key"></i> <input id="password" type="password" className="form-control" name="password" onChange={this.handleOnchange} required data-eye style={{marginTop:"5px"}} />
+                                                    </div>
+                                                        
                                                     <div className="invalid-feedback">
                                                         Password is required
                                                     </div>

@@ -620,7 +620,7 @@ class Task extends Component {
                             </label>
                         </div>
                         <div className="bd-highlight">
-                            <button type="submit" className="bd-highlight" onClick={this.handleSearchFetchListTaskOnClick} style={{backgroundColor:"#3f6aae", color:"#fff", padding:"2px 20px", fontSize:"14px",borderRadius:"6px" ,cursor:"pointer"}}>Search</button>
+                            <button type="submit" className="bd-highlight btn-search-navbar" onClick={this.handleSearchFetchListTaskOnClick}>Search</button>
                         </div>
                     </div>
                 </form>
@@ -628,16 +628,17 @@ class Task extends Component {
                     <div className="task-left col-lg-2">
                         {this.renderListTaskTreeHTML()}
                     </div>
-                    <div className="col-lg-10 task-right task-admin" style={{backgroundColor:"#FFFFFF", borderRadius:"10px",padding:"0 20px", height:"80vh",overflow:"auto"}}>
+                    <div className="col-lg-10 task-right task-admin" style={{backgroundColor:"transparent", borderRadius:"10px",padding:"0 20px", height:"80vh",overflow:"auto"}}>
                             <div className="d-flex flex-row bd-highlight mb-3 task-admin-action">
                                 <div className="bd-highlight">
                                     <label className="task-admin-search" style={{marginBottom:"20px" }}>                               
                                         <input type="text" name="filter_array" placeholder="Search"  onChange={this.handleOnFilterArray} /><i className="fa fa-search"></i>
                                     </label>
-                                </div>                          
+                                </div> 
+                                <BottmBarTask listTask={listTask}/>                         
                             </div>
 
-                            <table className="table" id="table-list-task" style={{border:"1px solid #DADEE0",height:"85%"}}>
+                            <table className="table" id="table-list-task" style={{height:"85%"}}>
                                 <thead>
                                     <tr>                                
                                     <th scope="col">#</th>
@@ -657,10 +658,11 @@ class Task extends Component {
                                     {this.renderHTMLTask()}
                                 </tbody>
                             </table>
+                            
                     </div>
 
                     {/* Bottom Bar Task */}
-                    <BottmBarTask listTask={listTask}/>
+                    
                     
                     {/* Task Model Admin */}
                     <div className="task-admin-modal">

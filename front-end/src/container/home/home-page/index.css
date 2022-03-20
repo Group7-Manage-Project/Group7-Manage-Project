@@ -6,14 +6,38 @@ body.my-login-page {
 	background-color: #f7f9fb;
 	font-size: 14px;
 } */
+
+.my-login-page .card{
+	border-color: transparent;
+	background-color: #ffffff09;
+	border-radius: 20px;
+	color:#fff;
+	box-shadow:inset -1px 1px 9px 6px #ffffff7a;
+	border-radius:15px;
+	border: 3px solid transparent;
+	border-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+	border-image-slice: 1;
+
+
+
+}
+
+
+
+
 .my-login-page .btn-primary {
     color: #fff !important;
-    background-color: #044775 !important;
+    background-color: #04487518 !important;
     border-color: #044775 !important;
     width: 100%;
+	border-radius:10px;
 }
+.my-login-page .btn-primary:hover{
+	background-color: #044875 !important;
+}
+
 .my-login-page a {
-    color: #044775 !important;
+    color: #888 !important;
     text-decoration: none;
     background-color: transparent;
 }
@@ -33,16 +57,13 @@ body.my-login-page {
 }
 
 .my-login-page .card-wrapper {
-	width: 400px;
+	width: 450px;
 }
 
-.my-login-page .card {
-	border-color: transparent;
-	box-shadow: 0 4px 8px rgba(0,0,0,.05);
-}
+
 
 .my-login-page .card.fat {
-	padding: 10px;
+	padding: 30px;
 }
 
 .my-login-page .card .card-title {
